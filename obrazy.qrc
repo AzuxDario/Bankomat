@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/bankomat">
+        <file alias="tło">Obrazy/tło.png</file>
+        <file alias="ikona">Obrazy/Ikona.png</file>
+        <file alias="ikona128x128">Obrazy/Ikona128x128.png</file>
+    </qresource>
+</RCC>
