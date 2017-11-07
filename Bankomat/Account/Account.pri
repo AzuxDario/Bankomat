@@ -1,8 +1,8 @@
 INCLUDEPATH += Account
 DEPENDPATH += Account
 SOURCES += \
-    $$PWD/ckarta.cpp \
-    $$PWD/ckonto.cpp
+    $$PWD/ckonto.cpp \
+    $$PWD/Card.cpp
 HEADERS += \
-    $$PWD/ckarta.h \
-    $$PWD/ckonto.h
+    $$PWD/ckonto.h \
+    $$PWD/Card.h

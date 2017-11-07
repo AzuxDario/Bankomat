@@ -67,7 +67,7 @@ QString CRdzen::zwrocNumerKonta()
     }
     else
     {
-        return karta->zwrocNumerKonta();
+        return karta->getAccountNumber();
     }
 }
 
@@ -249,19 +249,19 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
     //Zatwierdzenie podczas wpisywania PINu
     case podajPin:
         czyZmienionoStanBankomatu = true;
-        if(karta->sprawdzPin(pole.toInt()))//Pin prawidłowy
+        if(karta->checkPin(pole.toInt()))//Pin prawidłowy
         {
             //Poprawnie wprowadzono PIN i uzyskano dostęp do konta
             pole = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
-            konto = new CKonto(karta->zwrocNumerKonta());
+            konto = new CKonto(karta->getAccountNumber());
             return stanBankomatu = wybierzOperacje;
         }
         else
         {
             pole = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
-            if(karta->zwrocCzyKartaZablokowana())//Czy konto zablokowane
+            if(karta->getIsCardBlocked())//Czy konto zablokowane
             {
-                karta->zapiszKarte();
+                karta->saveCardFile();
                 delete karta;
                 karta = nullptr;
                 return stanBankomatu = kartaZablokowana;
@@ -282,8 +282,8 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
         if(pole.length() == 4)
         {
             czyZmienionoStanBankomatu = true;
-            karta->ustawPin(pole.toInt());
-            karta->zapiszKarte();
+            karta->setPin(pole.toInt());
+            karta->saveCardFile();
             pole = "";
             return stanBankomatu = zmienionoPin;
         }
@@ -433,23 +433,23 @@ CRdzen::StanBankomatu CRdzen::uzytoKarte(QString lokalizacja)
     if(stanBankomatu == wlozKarte)
     {
         czyZmienionoStanBankomatu = true;
-        karta = new CKarta();
-        CKarta::StanKarty stanKarty = karta->odczytajKarte(lokalizacja);
+        karta = new Card();
+        Card::CardState stanKarty = karta->readCardFile(lokalizacja);
         switch(stanKarty)
         {
-        case CKarta::kartaOdczytana:
-            if(karta->zwrocCzyKartaZablokowana() == true)
+        case Card::readCard:
+            if(karta->getIsCardBlocked() == true)
             {
                 return stanBankomatu = kartaZablokowana;
             }
             return stanBankomatu = podajPin;
             break;
-        case CKarta::kartaUszkodzona:
+        case Card::brokenCard:
             delete karta;
             karta = nullptr;
             return stanBankomatu = niepoprawnyPlikKarty;
             break;
-        case CKarta::brakKarty:
+        case Card::noCard:
             czyZmienionoStanBankomatu = false;
             return stanBankomatu = wlozKarte;
             break;

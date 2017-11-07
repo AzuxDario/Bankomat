@@ -3,7 +3,7 @@
 
 #include "widgetokno.h"
 #include "ckonto.h"
-#include "ckarta.h"
+#include "Card.h"
 #include <QDate>
 #include <QTime>
 #include <QFileDialog>
@@ -53,7 +53,7 @@ private:
     QSpinBox *podajPin;
     QDoubleSpinBox *podajStanKonta;
 
-    CKarta *karta;
+    Card *karta;
     CKonto *konto;
 
 private slots:

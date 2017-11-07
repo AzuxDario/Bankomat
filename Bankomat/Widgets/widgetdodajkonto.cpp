@@ -144,13 +144,13 @@ bool WidgetDodajKonto::utworzKonto(QString nazwaPliku)
     konto->ustawStanKonta(podajStanKonta->value());
     zwracanaWartosc = konto->zapiszKonto();
     delete konto;
-    karta = new CKarta();
-    karta->ustawNumerKarty(numerKarty);
-    karta->ustawCzyKartaZablokowana(false);
-    karta->ustawNumerKonta(numerKonta);
-    karta->ustawPin(podajPin->value());
-    karta->ustawLokalizacjaKarty(nazwaPliku);
-    zwracanaWartosc = karta->zapiszKarte();
+    karta = new Card();
+    karta->setCardNumber(numerKarty);
+    karta->setIsCardBlocked(false);
+    karta->setAccountNumber(numerKonta);
+    karta->setPin(podajPin->value());
+    karta->setCardFilePath(nazwaPliku);
+    zwracanaWartosc = karta->saveCardFile();
     delete karta;
     return zwracanaWartosc;
 }
