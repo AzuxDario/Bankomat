@@ -76,7 +76,7 @@ double CRdzen::zwrocStanKonta()
 {
     if(konto != nullptr)
     {
-        return konto->zwrocStanKonta();
+        return konto->getBalance();
     }
     else
     {
@@ -253,7 +253,7 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
         {
             //Poprawnie wprowadzono PIN i uzyskano dostęp do konta
             pole = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
-            konto = new CKonto(karta->getAccountNumber());
+            konto = new Account(karta->getAccountNumber());
             return stanBankomatu = wybierzOperacje;
         }
         else

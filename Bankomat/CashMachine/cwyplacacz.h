@@ -2,7 +2,7 @@
 #define CWYPLACACZ_H
 
 #include "ckasetapieniedzy.h"
-#include "ckonto.h"
+#include "Account.h"
 
 class CWyplacacz
 {
@@ -19,7 +19,7 @@ public:
     QVector<int> zwrocOstatniaWyplate();
 
     bool czyWystarczyGotowki(); //Sprawdza czy w bankomacie jest wystarczająca ilośc gotówki
-    WynikWyplaty dokonajWyplaty(CKonto *konto, int kwota); //Inicjuje wypłątę z konta sprawdzając czy stan konta jest wystarczający
+    WynikWyplaty dokonajWyplaty(Account *konto, int kwota); //Inicjuje wypłątę z konta sprawdzając czy stan konta jest wystarczający
 private:
     void wyplacPieniadze(int kwota); //Wyznacza jakimi nominałami wyznaczyć pieniądze z konta
 

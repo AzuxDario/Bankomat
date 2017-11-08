@@ -6,27 +6,27 @@
 #include <QTextStream>
 #include <QString>
 
-class CKonto
+class Account
 {
 private:
-    QString imie;
-    QString nazwisko;
-    QString numerKonta;
-    double stanKonta;
+    QString name;
+    QString surname;
+    QString accountNumber;
+    double balance;
 public:
-    CKonto();
-    CKonto(QString numerKonta);
+    Account();
+    Account(QString accountNumber);
 
     //----Gettery----//
-    QString zwrocImie();
-    QString zwrocNazwisko();
-    QString zwrocNumerKonta();
-    double zwrocStanKonta();
+    QString getName();
+    QString getSurname();
+    QString getAccountNumber();
+    double getBalance();
 
     //----Settery----//
-    void ustawImie(QString noweImie);
-    void ustawNazwisko(QString noweNazwisko);
-    void ustawNumerKonta(QString nowyNumerKonta);
+    void setName(QString value);
+    void setSurname(QString value);
+    void setAccountNumber(QString value);
     void ustawStanKonta(double nowyStanKonta);
 
     void odejmijZeStanuKonta(double kwota); //Pobiera kwotę z konta

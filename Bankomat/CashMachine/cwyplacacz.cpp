@@ -35,12 +35,12 @@ bool CWyplacacz::czyWystarczyGotowki()
 }
 
 //----Inicjuje wypłątę z konta sprawdzając czy stan konta jest wystarczający----//
-CWyplacacz::WynikWyplaty CWyplacacz::dokonajWyplaty(CKonto *konto, int kwota)
+CWyplacacz::WynikWyplaty CWyplacacz::dokonajWyplaty(Account *konto, int kwota)
 {
-    if(konto->zwrocStanKonta() >= kwota)
+    if(konto->getBalance() >= kwota)
     {
         wyplacPieniadze(kwota);
-        konto->odejmijZeStanuKonta(kwota);
+        konto->withdraw(kwota);
         return CWyplacacz::wyplaconoPieniadze;
     }
     else

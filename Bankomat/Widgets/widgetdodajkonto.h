@@ -2,7 +2,7 @@
 #define WIDGETDODAJKONTO_H
 
 #include "widgetokno.h"
-#include "ckonto.h"
+#include "Account.h"
 #include "Card.h"
 #include <QDate>
 #include <QTime>
@@ -54,7 +54,7 @@ private:
     QDoubleSpinBox *podajStanKonta;
 
     Card *karta;
-    CKonto *konto;
+    Account *konto;
 
 private slots:
     void zamknijOknoOk(); //Zamyka okno zachowując zmiany

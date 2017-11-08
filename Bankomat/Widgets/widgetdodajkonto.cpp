@@ -137,12 +137,12 @@ bool WidgetDodajKonto::utworzKonto(QString nazwaPliku)
     bool zwracanaWartosc = true;
     QString numerKonta = "223434678" + QDate::currentDate().toString("yyyyMMdd") + QTime::currentTime().toString("HHmmsszzz");
     QString numerKarty = "22" + QDate::currentDate().toString("yyyyMMdd") + QTime::currentTime().toString("HHmmss");
-    konto = new CKonto();
-    konto->ustawImie(podajImie->text());
-    konto->ustawNazwisko(podajNazwisko->text());
-    konto->ustawNumerKonta(numerKonta);
-    konto->ustawStanKonta(podajStanKonta->value());
-    zwracanaWartosc = konto->zapiszKonto();
+    konto = new Account();
+    konto->setName(podajImie->text());
+    konto->setSurname(podajNazwisko->text());
+    konto->setAccountNumber(numerKonta);
+    konto->setBalance(podajStanKonta->value());
+    zwracanaWartosc = konto->writeAccount();
     delete konto;
     karta = new Card();
     karta->setCardNumber(numerKarty);

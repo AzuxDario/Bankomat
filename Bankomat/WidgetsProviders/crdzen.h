@@ -2,7 +2,7 @@
 #define CRDZEN_H
 
 #include "Card.h"
-#include "ckonto.h"
+#include "Account.h"
 #include "cwyplacacz.h"
 #include "ckasetapieniedzy.h"
 #include "widgetoprogramie.h"
@@ -24,7 +24,7 @@ private:
     StanBankomatu stanBankomatu; //Przechowuje obecny stan bankomatu
     QString pole; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
     Card *karta;
-    CKonto *konto;
+    Account *konto;
     CWyplacacz *wyplacacz; //Obiekt zajmujący się wypłacaniem pieniędzy
     CKasetaPieniedzy *kaseta;
     bool czyZmienionoStanBankomatu; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
