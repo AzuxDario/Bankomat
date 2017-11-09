@@ -1,6 +1,6 @@
 #include "cwyplacacz.h"
 
-CWyplacacz::CWyplacacz(CKasetaPieniedzy *kaseta)
+CWyplacacz::CWyplacacz(MoneyBox *kaseta)
 {
     this->kaseta = kaseta;
     poziomyNominalow[0] = 800;
@@ -23,7 +23,7 @@ QVector<int> CWyplacacz::zwrocOstatniaWyplate()
 //----Sprawdza czy w bankomacie jest wystarczająca ilośc gotówki----//
 bool CWyplacacz::czyWystarczyGotowki()
 {
-    QVector<int> gotowka = kaseta->zwrocIloscNominalow();
+    QVector<int> gotowka = kaseta->getNumberOfDenominations();
     for(int i = 0; i < gotowka.count(); i++)
     {
         if(gotowka[i] < 10)
@@ -53,8 +53,8 @@ CWyplacacz::WynikWyplaty CWyplacacz::dokonajWyplaty(Account *konto, int kwota)
 void CWyplacacz::wyplacPieniadze(int kwota)
 {
     int pozostalaKwota = kwota;
-    QVector<int> iloscPieniedzy = kaseta->zwrocIloscNominalow(); //Pobieramy ilosc banknotow z kasety
-    QVector<int> wartoscPieniedzy = kaseta->zwrocWartoscNominalow(); //Pobieramy wartosc nominalow z kasety
+    QVector<int> iloscPieniedzy = kaseta->getNumberOfDenominations(); //Pobieramy ilosc banknotow z kasety
+    QVector<int> wartoscPieniedzy = kaseta->getValueOfDenominations(); //Pobieramy wartosc nominalow z kasety
     QVector<int> banknotyDoWyplacenia = {0,0,0,0,0,0,0,0}; //Wynikowy wektor banknotow do wyplacenia
     for(int j = 0; j < 10; j++)
     {
@@ -64,7 +64,7 @@ void CWyplacacz::wyplacPieniadze(int kwota)
             {
                 if(pozostalaKwota == 0) //Jeżeli pozostała do wypłacenia kwota jest równa zero to zakończ pętle
                 {
-                    kaseta->ustawIloscNominalow(iloscPieniedzy); //Zwracamy kasecie pozostala ilosc nominalow po wyplacie
+                    kaseta->setNumberOfDenominations(iloscPieniedzy); //Zwracamy kasecie pozostala ilosc nominalow po wyplacie
                     ostatniaWyplata.clear();
                     ostatniaWyplata = banknotyDoWyplacenia; //Przypisujemy wynik
                     return;

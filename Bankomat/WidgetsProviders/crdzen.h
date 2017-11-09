@@ -4,7 +4,7 @@
 #include "Card.h"
 #include "Account.h"
 #include "cwyplacacz.h"
-#include "ckasetapieniedzy.h"
+#include "MoneyBox.h"
 #include "widgetoprogramie.h"
 #include "widgetdodajkonto.h"
 #include "widgetdodajpieniadze.h"
@@ -26,7 +26,7 @@ private:
     Card *karta;
     Account *konto;
     CWyplacacz *wyplacacz; //Obiekt zajmujący się wypłacaniem pieniędzy
-    CKasetaPieniedzy *kaseta;
+    MoneyBox *kaseta;
     bool czyZmienionoStanBankomatu; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 
     //----Zmienne wskazujące na okna----//

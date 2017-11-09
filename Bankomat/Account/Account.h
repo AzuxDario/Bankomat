@@ -27,12 +27,12 @@ public:
     void setName(QString value);
     void setSurname(QString value);
     void setAccountNumber(QString value);
-    void ustawStanKonta(double nowyStanKonta);
+    void setBalance(double value);
 
-    void odejmijZeStanuKonta(double kwota); //Pobiera kwotę z konta
+    void withdraw(double amount); //Pobiera kwotę z konta
 
-    bool odczytajKonto(); //Odczytuje plik konta z dysku
-    bool zapiszKonto(); //Zapisuje plik konta na dysku
+    bool readAccount(); //Odczytuje plik konta z dysku
+    bool writeAccount(); //Zapisuje plik konta na dysku
 };
 
 #endif // CKONTO_H

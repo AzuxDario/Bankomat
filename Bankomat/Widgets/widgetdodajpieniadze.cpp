@@ -1,7 +1,7 @@
 #include "widgetdodajpieniadze.h"
 #include "ui_widgetdodajpieniadze.h"
 
-WidgetDodajPieniadze::WidgetDodajPieniadze(CKasetaPieniedzy *kaseta, WidgetOkno *parent) :
+WidgetDodajPieniadze::WidgetDodajPieniadze(MoneyBox *kaseta, WidgetOkno *parent) :
     WidgetOkno(parent),
     ui(new Ui::WidgetDodajPieniadze)
 {
@@ -190,7 +190,7 @@ void WidgetDodajPieniadze::zamknijOknoOk()
 {
     QVector<int> pieniadze;
     pieniadze << pole200->value() << pole100->value() << pole50->value() << pole20->value() << pole10->value() << pole5->value() << pole2->value() << pole1->value();
-    kaseta->dodajGotowki(pieniadze);
+    kaseta->addMoney(pieniadze);
     zerujPola();
     this->close();
 }
@@ -225,7 +225,7 @@ void WidgetDodajPieniadze::zerujPola()
 //----Wpisuje w pola obecna ilosc pieniedzy----//
 void WidgetDodajPieniadze::ustawObecnaIloscPieniedzy()
 {
-    QVector<int> pieniadze = kaseta->zwrocIloscNominalow();
+    QVector<int> pieniadze = kaseta->getNumberOfDenominations();
     obecnePole200->setText(QString::number(pieniadze.at(0)));
     obecnePole100->setText(QString::number(pieniadze.at(1)));
     obecnePole50 ->setText(QString::number(pieniadze.at(2)));
@@ -239,7 +239,7 @@ void WidgetDodajPieniadze::ustawObecnaIloscPieniedzy()
 //----Pilnuje aby nie można było włożyć więcej niż 1000 sztuk danego nominału----//
 void WidgetDodajPieniadze::ustawMaksymalnaIloscDokladanychPieniedzy()
 {
-    QVector<int> pieniadze = kaseta->zwrocIloscNominalow();
+    QVector<int> pieniadze = kaseta->getNumberOfDenominations();
     pole200->setMaximum(1000 - pieniadze.at(0));
     pole100->setMaximum(1000 - pieniadze.at(1));
     pole50->setMaximum(1000 - pieniadze.at(2));

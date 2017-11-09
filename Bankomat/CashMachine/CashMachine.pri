@@ -1,8 +1,8 @@
 INCLUDEPATH += CashMachine
 DEPENDPATH += CashMachine
 SOURCES += \
-    $$PWD/ckasetapieniedzy.cpp \
-    $$PWD/cwyplacacz.cpp
+    $$PWD/cwyplacacz.cpp \
+    $$PWD/MoneyBox.cpp
 HEADERS += \
-    $$PWD/ckasetapieniedzy.h \
-    $$PWD/cwyplacacz.h
+    $$PWD/cwyplacacz.h \
+    $$PWD/MoneyBox.h

@@ -1,19 +1,19 @@
 #ifndef CWYPLACACZ_H
 #define CWYPLACACZ_H
 
-#include "ckasetapieniedzy.h"
+#include "MoneyBox.h"
 #include "Account.h"
 
 class CWyplacacz
 {
 private:
-    CKasetaPieniedzy *kaseta;
+    MoneyBox *kaseta;
     QVector<int> ostatniaWyplata;
     int poziomyNominalow[10];
 public:
     enum WynikWyplaty {brakSrodkow, wyplaconoPieniadze};
 public:
-    CWyplacacz(CKasetaPieniedzy *kaseta);
+    CWyplacacz(MoneyBox *kaseta);
 
     //----Gettery----//
     QVector<int> zwrocOstatniaWyplate();

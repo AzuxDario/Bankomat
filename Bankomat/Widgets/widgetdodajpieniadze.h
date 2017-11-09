@@ -9,7 +9,7 @@
 #include <QVector>
 #include <QGroupBox>
 #include <QGridLayout>
-#include "ckasetapieniedzy.h"
+#include "MoneyBox.h"
 
 namespace Ui {
 class WidgetDodajPieniadze;
@@ -20,7 +20,7 @@ class WidgetDodajPieniadze : public WidgetOkno
     Q_OBJECT
 
 public:
-    explicit WidgetDodajPieniadze(CKasetaPieniedzy *kaseta, WidgetOkno *parent = 0);
+    explicit WidgetDodajPieniadze(MoneyBox *kaseta, WidgetOkno *parent = 0);
     ~WidgetDodajPieniadze();
 
 private:
@@ -79,7 +79,7 @@ private:
     QLabel *tekst1;
 
     //----Kaseta pieniędzy----//
-    CKasetaPieniedzy *kaseta;
+    MoneyBox *kaseta;
 
 private slots:
     void zamknijOknoOk(); //Zamyka okno zachowując zmiany

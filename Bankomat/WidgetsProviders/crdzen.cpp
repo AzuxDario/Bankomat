@@ -9,7 +9,7 @@ CRdzen::CRdzen(QObject *parent) : QObject(parent)
     oknoDodajPieniadze = nullptr;
     karta = nullptr;
     konto = nullptr;
-    kaseta = new CKasetaPieniedzy();
+    kaseta = new MoneyBox();
     wyplacacz = new CWyplacacz(kaseta);
     if(wyplacacz->czyWystarczyGotowki() == true)
     {
