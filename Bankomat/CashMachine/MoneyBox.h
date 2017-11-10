@@ -1,5 +1,5 @@
-#ifndef CKASETAPIENIEDZY_H
-#define CKASETAPIENIEDZY_H
+#ifndef MONEYBOX_H
+#define MONEYBOX_H
 
 #include <QString>
 #include <QVector>
@@ -27,4 +27,4 @@ public:
     void writeMoneyBox(); //Zapisuje informację o ilości pieniędzy na dysk
 };
 
-#endif // CKASETAPIENIEDZY_H
+#endif // MONEYBOX_H

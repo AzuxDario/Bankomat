@@ -1,5 +1,5 @@
-#ifndef CKONTO_H
-#define CKONTO_H
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
 
 #include <QFile>
 #include <QDir>
@@ -35,4 +35,4 @@ public:
     bool writeAccount(); //Zapisuje plik konta na dysku
 };
 
-#endif // CKONTO_H
+#endif // ACCOUNT_H

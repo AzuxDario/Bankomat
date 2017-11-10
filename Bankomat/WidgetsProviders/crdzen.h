@@ -3,7 +3,7 @@
 
 #include "Card.h"
 #include "Account.h"
-#include "cwyplacacz.h"
+#include "MoneyDispenser..h"
 #include "MoneyBox.h"
 #include "widgetoprogramie.h"
 #include "widgetdodajkonto.h"
@@ -25,7 +25,7 @@ private:
     QString pole; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
     Card *karta;
     Account *konto;
-    CWyplacacz *wyplacacz; //Obiekt zajmujący się wypłacaniem pieniędzy
+    MoneyDispenser *wyplacacz; //Obiekt zajmujący się wypłacaniem pieniędzy
     MoneyBox *kaseta;
     bool czyZmienionoStanBankomatu; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 

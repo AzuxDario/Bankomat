@@ -10,8 +10,8 @@ CRdzen::CRdzen(QObject *parent) : QObject(parent)
     karta = nullptr;
     konto = nullptr;
     kaseta = new MoneyBox();
-    wyplacacz = new CWyplacacz(kaseta);
-    if(wyplacacz->czyWystarczyGotowki() == true)
+    wyplacacz = new MoneyDispenser(kaseta);
+    if(wyplacacz->isEnoughCash() == true)
     {
         stanBankomatu = wlozKarte;
     }
@@ -305,7 +305,7 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
         //Sprawdź czy można wypłacić
         int kwota = pole.toInt();
         pole = "";
-        if(wyplacacz->dokonajWyplaty(konto, kwota) == CWyplacacz::wyplaconoPieniadze)
+        if(wyplacacz->payment(konto, kwota) == MoneyDispenser::PaidMoney)
         {         
             return stanBankomatu = wybierzGotowke;
         }
@@ -482,7 +482,7 @@ CRdzen::StanBankomatu CRdzen::odebranoPieniadze()
 //----Zwraca wektor z ilością wypłaconych pieniędzy gdzie na indeksie 0 jest 200zł----//
 QVector<int> CRdzen::odbierzPieniadze()
 {
-    return wyplacacz->zwrocOstatniaWyplate();
+    return wyplacacz->getLastPayment();
 }
 
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//
@@ -490,7 +490,7 @@ void CRdzen::resetujKliknieto()
 {
     if(stanBankomatu == brakSrodkowWBankomacie)
     {
-        if(wyplacacz->czyWystarczyGotowki() == true)
+        if(wyplacacz->isEnoughCash() == true)
         {
             czyZmienionoStanBankomatu = true;
             stanBankomatu = wlozKarte;

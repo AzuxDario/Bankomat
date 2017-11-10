@@ -1,5 +1,5 @@
-#ifndef CKARTA_H
-#define CKARTA_H
+#ifndef CARD_H
+#define CARD_H
 
 #include <QObject>
 #include <QFileDialog>
@@ -44,4 +44,4 @@ private:
 
 };
 
-#endif // CKARTA_H
+#endif // CARD_H
