@@ -21,7 +21,7 @@ public:
     bool isEnoughCash(); //Sprawdza czy w bankomacie jest wystarczająca ilośc gotówki
     PaymentResult payment(Account *account, int amount); //Inicjuje wypłątę z konta sprawdzając czy stan konta jest wystarczający
 private:
-    void wyplacPieniadze(int kwota); //Wyznacza jakimi nominałami wyznaczyć pieniądze z konta
+    void withdrawMoney(int amount); //Wyznacza jakimi nominałami wyznaczyć pieniądze z konta
 
 };
 
