@@ -2,7 +2,7 @@
 #define WIDGET_H
 
 #include "crdzen.h"
-#include "cprzycisk.h"
+#include "DropButton.h"
 #include <QWidget>
 #include <QTableWidget>
 #include <QPushButton>
@@ -80,7 +80,7 @@ public:
     QPushButton *przyciskCofnij;
 
     //----Przyciski od karty i pieniędzy----//
-    CPrzycisk *przyciskUzytoKarte;
+    DropButton *przyciskUzytoKarte;
     QPushButton *przyciskPieniadze;
 
     //----Tablica gdzie będzie wyświetlana wypłata----//

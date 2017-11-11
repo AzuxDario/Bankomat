@@ -1,6 +1,6 @@
 INCLUDEPATH += Controls
 DEPENDPATH += Controls
 SOURCES += \
-    $$PWD/cprzycisk.cpp
+    $$PWD/DropButton.cpp
 HEADERS += \
-    $$PWD/cprzycisk.h
+    $$PWD/DropButton.h

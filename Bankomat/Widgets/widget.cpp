@@ -148,7 +148,7 @@ Widget::Widget(QWidget *parent) :
     przyciskCofnij->setStyleSheet("font-size:40px;");
 
     //----Przyciski do obsługi karty oraz odbioru pieniędzy----//
-    przyciskUzytoKarte = new CPrzycisk("Karta",this);
+    przyciskUzytoKarte = new DropButton("Karta",this);
     przyciskUzytoKarte->setGeometry(700,541,200,124);
     przyciskUzytoKarte->setStyleSheet("font-size:40px;");
     przyciskPieniadze = new QPushButton("Odbierz\npieniądze",this);
@@ -607,7 +607,7 @@ void Widget::upuszczonoKarteKliknieto()
     {
         if(rdzen->zwrocStanBankomatu() == CRdzen::wlozKarte)
         {
-            rdzen->uzytoKarte(przyciskUzytoKarte->zwrocLokalizacje());
+            rdzen->uzytoKarte(przyciskUzytoKarte->getDirectory());
             wyswietlEkran(rdzen->zwrocStanBankomatu());
         }
     }
