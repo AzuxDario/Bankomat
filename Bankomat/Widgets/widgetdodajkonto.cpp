@@ -1,8 +1,8 @@
 #include "widgetdodajkonto.h"
 #include "ui_widgetdodajkonto.h"
 
-WidgetDodajKonto::WidgetDodajKonto(WidgetOkno *parent) :
-    WidgetOkno(parent),
+WidgetDodajKonto::WidgetDodajKonto(WidgetWindow *parent) :
+    WidgetWindow(parent),
     ui(new Ui::WidgetDodajKonto)
 {
     ui->setupUi(this);
@@ -59,7 +59,7 @@ WidgetDodajKonto::WidgetDodajKonto(WidgetOkno *parent) :
     connect(przyciskOk,SIGNAL(clicked(bool)),this,SLOT(zamknijOknoOk()));
     connect(przyciskAnuluj,SIGNAL(clicked(bool)),this,SLOT(zamknijOknoAnuluj()));
 
-    this->pokazSie();
+    this->showWindow();
 }
 
 WidgetDodajKonto::~WidgetDodajKonto()

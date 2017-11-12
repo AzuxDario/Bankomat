@@ -112,7 +112,7 @@ void CRdzen::wyswietlOProgramie()
     }
     else
     {
-        oknoOProgramie->pokazSie();
+        oknoOProgramie->showWindow();
     }
 }
 
@@ -125,7 +125,7 @@ void CRdzen::wyswietlDodajKonto()
     }
     else
     {
-        oknoDodajKonto->pokazSie();
+        oknoDodajKonto->showWindow();
     }
 }
 
@@ -138,7 +138,7 @@ void CRdzen::wyswietlDodajPieniadze()
     }
     else
     {
-        oknoDodajPieniadze->pokazSie();
+        oknoDodajPieniadze->showWindow();
     }
 }
 

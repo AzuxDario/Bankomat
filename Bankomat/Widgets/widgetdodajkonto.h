@@ -1,7 +1,7 @@
 #ifndef WIDGETDODAJKONTO_H
 #define WIDGETDODAJKONTO_H
 
-#include "widgetokno.h"
+#include "WidgetWindow.h"
 #include "Account.h"
 #include "Card.h"
 #include <QDate>
@@ -20,12 +20,12 @@ namespace Ui {
 class WidgetDodajKonto;
 }
 
-class WidgetDodajKonto : public WidgetOkno
+class WidgetDodajKonto : public WidgetWindow
 {
     Q_OBJECT
 
 public:
-    explicit WidgetDodajKonto(WidgetOkno *parent = 0);
+    explicit WidgetDodajKonto(WidgetWindow *parent = 0);
     ~WidgetDodajKonto();
 
 private:

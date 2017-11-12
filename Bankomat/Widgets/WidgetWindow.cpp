@@ -1,16 +1,16 @@
-#include "widgetokno.h"
+#include "WidgetWindow.h"
 
-WidgetOkno::WidgetOkno(QWidget *parent) : QWidget(parent)
+WidgetWindow::WidgetWindow(QWidget *parent) : QWidget(parent)
 {
 
 }
 
-void WidgetOkno::zamknijOkno()
+void WidgetWindow::closeWindow()
 {
     this->close();
 }
 
-void WidgetOkno::pokazSie()
+void WidgetWindow::showWindow()
 {
     if(this->isVisible()) //Jeżeli okno jest widoczne
     {

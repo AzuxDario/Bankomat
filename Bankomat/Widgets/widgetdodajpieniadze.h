@@ -1,7 +1,7 @@
 #ifndef WIDGETDODAJPIENIADZE_H
 #define WIDGETDODAJPIENIADZE_H
 
-#include "widgetokno.h"
+#include "WidgetWindow.h"
 #include <QSpinBox>
 #include <QLabel>
 #include <QLineEdit>
@@ -15,12 +15,12 @@ namespace Ui {
 class WidgetDodajPieniadze;
 }
 
-class WidgetDodajPieniadze : public WidgetOkno
+class WidgetDodajPieniadze : public WidgetWindow
 {
     Q_OBJECT
 
 public:
-    explicit WidgetDodajPieniadze(MoneyBox *kaseta, WidgetOkno *parent = 0);
+    explicit WidgetDodajPieniadze(MoneyBox *kaseta, WidgetWindow *parent = 0);
     ~WidgetDodajPieniadze();
 
 private:
@@ -89,7 +89,7 @@ private slots:
     void ustawObecnaIloscPieniedzy(); //Wpisuje w pola obecna ilosc pieniedzy
     void ustawMaksymalnaIloscDokladanychPieniedzy(); //Pilnuje aby nie można było włożyć więcej niż 1000 sztuk danego nominału
 public slots:
-    void pokazSie();
+    void showWindow();
 };
 
 #endif // WIDGETDODAJPIENIADZE_H

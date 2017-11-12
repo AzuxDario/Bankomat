@@ -1,7 +1,7 @@
 #ifndef WIDGETOPROGRAMIE_H
 #define WIDGETOPROGRAMIE_H
 
-#include "widgetokno.h"
+#include "WidgetWindow.h"
 #include <QLabel>
 #include <QPushButton>
 
@@ -9,12 +9,12 @@ namespace Ui {
     class WidgetOProgramie;
 }
 
-class WidgetOProgramie : public WidgetOkno
+class WidgetOProgramie : public WidgetWindow
 {
     Q_OBJECT
 
 public:
-    explicit WidgetOProgramie(WidgetOkno *parent = 0);
+    explicit WidgetOProgramie(WidgetWindow *parent = 0);
     ~WidgetOProgramie();
 
 private:

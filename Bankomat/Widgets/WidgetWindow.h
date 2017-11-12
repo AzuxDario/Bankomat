@@ -5,19 +5,19 @@
 #include <QDesktopWidget>
 #include <QApplication>
 
-class WidgetOkno : public QWidget
+class WidgetWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WidgetOkno(QWidget *parent = 0);
+    explicit WidgetWindow(QWidget *parent = 0);
 
 signals:
 
 private slots:
-    void zamknijOkno(); //Zamyka okno
+    void closeWindow(); //Zamyka okno
 
 public slots:
-    void pokazSie(); //Pokazuje już utworzone okno
+    void showWindow(); //Pokazuje już utworzone okno
 };
 
 #endif // WIDGETOKNO_H

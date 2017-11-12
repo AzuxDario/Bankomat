@@ -1,8 +1,8 @@
 #include "widgetoprogramie.h"
 #include "ui_widgetoprogramie.h"
 
-WidgetOProgramie::WidgetOProgramie(WidgetOkno *parent) :
-    WidgetOkno(parent),
+WidgetOProgramie::WidgetOProgramie(WidgetWindow *parent) :
+    WidgetWindow(parent),
     ui(new Ui::WidgetOProgramie)
 {
     ui->setupUi(this);
@@ -29,9 +29,9 @@ WidgetOProgramie::WidgetOProgramie(WidgetOkno *parent) :
     poleObrazek->setPixmap(QPixmap(":/bankomat/ikona128x128"));
 
     //----Przypisanie przycisków do slotów----//
-    connect(przyciskOk,SIGNAL(clicked()),this,SLOT(zamknijOkno()));
+    connect(przyciskOk,SIGNAL(clicked()),this,SLOT(closeWindow()));
 
-    this->pokazSie();
+    this->showWindow();
 }
 
 WidgetOProgramie::~WidgetOProgramie()

@@ -1,8 +1,8 @@
 #include "widgetdodajpieniadze.h"
 #include "ui_widgetdodajpieniadze.h"
 
-WidgetDodajPieniadze::WidgetDodajPieniadze(MoneyBox *kaseta, WidgetOkno *parent) :
-    WidgetOkno(parent),
+WidgetDodajPieniadze::WidgetDodajPieniadze(MoneyBox *kaseta, WidgetWindow *parent) :
+    WidgetWindow(parent),
     ui(new Ui::WidgetDodajPieniadze)
 {
     ui->setupUi(this);
@@ -124,7 +124,7 @@ WidgetDodajPieniadze::WidgetDodajPieniadze(MoneyBox *kaseta, WidgetOkno *parent)
     connect(przyciskOk,SIGNAL(clicked(bool)),this,SLOT(zamknijOknoOk()));
     connect(przyciskAnuluj,SIGNAL(clicked(bool)),this,SLOT(zamknijOknoAnuluj()));
 
-    this->pokazSie();
+    this->showWindow();
 }
 
 WidgetDodajPieniadze::~WidgetDodajPieniadze()
@@ -250,7 +250,7 @@ void WidgetDodajPieniadze::ustawMaksymalnaIloscDokladanychPieniedzy()
     pole1->setMaximum(1000 - pieniadze.at(7));
 }
 
-void WidgetDodajPieniadze::pokazSie()
+void WidgetDodajPieniadze::showWindow()
 {
     if(this->isVisible()) //Jeżeli okno jest widoczne
     {
