@@ -108,7 +108,7 @@ void CRdzen::wyswietlOProgramie()
 {
     if(oknoOProgramie == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoOProgramie = new WidgetOProgramie();
+        oknoOProgramie = new WidgetAbout();
     }
     else
     {

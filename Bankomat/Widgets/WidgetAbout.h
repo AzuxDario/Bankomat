@@ -1,5 +1,5 @@
-#ifndef WIDGETOPROGRAMIE_H
-#define WIDGETOPROGRAMIE_H
+#ifndef WIDGETABOUT_H
+#define WIDGETABOUT_H
 
 #include "WidgetWindow.h"
 #include <QLabel>
@@ -9,28 +9,28 @@ namespace Ui {
     class WidgetOProgramie;
 }
 
-class WidgetOProgramie : public WidgetWindow
+class WidgetAbout : public WidgetWindow
 {
     Q_OBJECT
 
 public:
-    explicit WidgetOProgramie(WidgetWindow *parent = 0);
-    ~WidgetOProgramie();
+    explicit WidgetAbout(WidgetWindow *parent = 0);
+    ~WidgetAbout();
 
 private:
     Ui::WidgetOProgramie *ui;
 
     //----Przyciski----//
-    QPushButton *przyciskOk;
+    QPushButton *buttonOk;
 
     //----Pola tekstowe----//
-    QLabel *poleText;
+    QLabel *labelText;
 
     //----Obrazek----//
-    QLabel *poleObrazek
+    QLabel *labelImage
     ;
     //----Zmienne przechuwyjące ciągi znaków----//
-    QString trescOkienkaInformacyjengo;
+    QString about;
 };
 
-#endif // WIDGETOPROGRAMIE_H
+#endif // WIDGETABOUT_H

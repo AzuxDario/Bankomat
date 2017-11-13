@@ -5,7 +5,7 @@
 #include "Account.h"
 #include "MoneyDispenser..h"
 #include "MoneyBox.h"
-#include "widgetoprogramie.h"
+#include "WidgetAbout.h"
 #include "widgetdodajkonto.h"
 #include "widgetdodajpieniadze.h"
 #include <QObject>
@@ -30,7 +30,7 @@ private:
     bool czyZmienionoStanBankomatu; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 
     //----Zmienne wskazujące na okna----//
-    WidgetOProgramie *oknoOProgramie;
+    WidgetAbout *oknoOProgramie;
     WidgetDodajKonto *oknoDodajKonto;
     WidgetDodajPieniadze *oknoDodajPieniadze;
 
