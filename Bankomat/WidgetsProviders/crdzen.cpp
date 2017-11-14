@@ -121,7 +121,7 @@ void CRdzen::wyswietlDodajKonto()
 {
     if(oknoDodajKonto == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoDodajKonto = new WidgetDodajKonto();
+        oknoDodajKonto = new WidgetAddAccount();
     }
     else
     {

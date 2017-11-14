@@ -210,7 +210,7 @@ Widget::Widget(QWidget *parent) :
 
     //--------Przyciski do obsługi karty oraz odbioru pieniędzy--------//
     connect(przyciskUzytoKarte,SIGNAL(clicked(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
-    connect(przyciskUzytoKarte,SIGNAL(upuszczono()),this,SLOT(upuszczonoKarteKliknieto()));
+    connect(przyciskUzytoKarte,SIGNAL(dropped()),this,SLOT(upuszczonoKarteKliknieto()));
     connect(przyciskPieniadze,SIGNAL(clicked(bool)),this,SLOT(przyciskPieniadzeKliknieto()));
 }
 

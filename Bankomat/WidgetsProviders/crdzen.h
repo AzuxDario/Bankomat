@@ -6,7 +6,7 @@
 #include "MoneyDispenser..h"
 #include "MoneyBox.h"
 #include "WidgetAbout.h"
-#include "widgetdodajkonto.h"
+#include "WidgetAddAccount.h"
 #include "widgetdodajpieniadze.h"
 #include <QObject>
 #include <QTimer>
@@ -31,7 +31,7 @@ private:
 
     //----Zmienne wskazujące na okna----//
     WidgetAbout *oknoOProgramie;
-    WidgetDodajKonto *oknoDodajKonto;
+    WidgetAddAccount *oknoDodajKonto;
     WidgetDodajPieniadze *oknoDodajPieniadze;
 
 signals:
