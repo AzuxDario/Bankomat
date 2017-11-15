@@ -7,7 +7,7 @@
 #include "MoneyBox.h"
 #include "WidgetAbout.h"
 #include "WidgetAddAccount.h"
-#include "widgetdodajpieniadze.h"
+#include "WidgetAddMoney.h"
 #include <QObject>
 #include <QTimer>
 #include <QString>
@@ -32,7 +32,7 @@ private:
     //----Zmienne wskazujące na okna----//
     WidgetAbout *oknoOProgramie;
     WidgetAddAccount *oknoDodajKonto;
-    WidgetDodajPieniadze *oknoDodajPieniadze;
+    WidgetAddMoney *oknoDodajPieniadze;
 
 signals:
 

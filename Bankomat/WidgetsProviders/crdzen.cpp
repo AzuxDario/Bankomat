@@ -134,7 +134,7 @@ void CRdzen::wyswietlDodajPieniadze()
 {
     if(oknoDodajPieniadze == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoDodajPieniadze = new WidgetDodajPieniadze(kaseta);
+        oknoDodajPieniadze = new WidgetAddMoney(kaseta);
     }
     else
     {
