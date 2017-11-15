@@ -82,12 +82,12 @@ private:
     MoneyBox *kaseta;
 
 private slots:
-    void zamknijOknoOk(); //Zamyka okno zachowując zmiany
-    void zamknijOknoAnuluj(); //Zamyka okno nie zachowując zmian
+    void closeWindowOk(); //Zamyka okno zachowując zmiany
+    void closeWindowCancel(); //Zamyka okno nie zachowując zmian
     void closeEvent(QCloseEvent *); //Zamyka okno nie zachowując zmian
-    void zerujPola(); //Zeruje wartości w polach
-    void ustawObecnaIloscPieniedzy(); //Wpisuje w pola obecna ilosc pieniedzy
-    void ustawMaksymalnaIloscDokladanychPieniedzy(); //Pilnuje aby nie można było włożyć więcej niż 1000 sztuk danego nominału
+    void clearFields(); //Zeruje wartości w polach
+    void setPresentMoney(); //Wpisuje w pola obecna ilosc pieniedzy
+    void setMaxLimitOfAddMoney(); //Pilnuje aby nie można było włożyć więcej niż 1000 sztuk danego nominału
 public slots:
     void showWindow();
 };
