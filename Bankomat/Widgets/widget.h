@@ -24,15 +24,15 @@ public:
     ~Widget();
 
 private:
-    bool czekaj; //Wartość true oznacza aby nie reagować na kliknięcia przycisków bankomatu. Służy do tworzenia ekranów ładowania
-    bool czyKartaZaladowana;
-    bool czyKontoZaladowane;
+    bool wait; //Wartość true oznacza aby nie reagować na kliknięcia przycisków bankomatu. Służy do tworzenia ekranów ładowania
+    bool isCardLoaded;
+    bool isAccountLoaded;
 
 public:
     Ui::Widget *ui;
 
     //----Zmienne od paska menu----//
-    QMenuBar *pasekMenu;
+    QMenuBar *menuBar;
     QMenu *pasekBankomat;
     QMenu *pasekKonta;
     QMenu *pasekPomoc;

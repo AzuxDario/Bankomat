@@ -1,5 +1,5 @@
-#ifndef WIDGETOKNO_H
-#define WIDGETOKNO_H
+#ifndef WIDGETWIDNOW_H
+#define WIDGETWIDNOW_H
 
 #include <QWidget>
 #include <QDesktopWidget>
@@ -20,4 +20,4 @@ public slots:
     void showWindow(); //Pokazuje już utworzone okno
 };
 
-#endif // WIDGETOKNO_H
+#endif // WIDGETWIDNOW_H

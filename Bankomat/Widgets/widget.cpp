@@ -8,20 +8,20 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    czekaj = false;
-    czyKartaZaladowana = false;
-    czyKontoZaladowane = false;
+    wait = false;
+    isCardLoaded = false;
+    isAccountLoaded = false;
 
     //----Tworzenie paska menu----//
-    pasekMenu = new QMenuBar(this);
-    pasekMenu->setGeometry(0,0,1200,21);
+    menuBar = new QMenuBar(this);
+    menuBar->setGeometry(0,0,1200,21);
     pasekBankomat = new QMenu(this);
     pasekKonta = new QMenu(this);
     pasekPomoc = new QMenu(this);
 
-    pasekBankomat = pasekMenu->addMenu(tr("&Bankomat"));
-    pasekKonta = pasekMenu->addMenu(tr("&Konta"));
-    pasekPomoc = pasekMenu->addMenu(tr("&Pomoc"));
+    pasekBankomat = menuBar->addMenu(tr("&Bankomat"));
+    pasekKonta = menuBar->addMenu(tr("&Konta"));
+    pasekPomoc = menuBar->addMenu(tr("&Pomoc"));
 
     //----Tworzenie akcji do paska menu----//
     akcjaUzytoKarte = new QAction("K&arta");
@@ -228,7 +228,7 @@ Widget::~Widget()
     delete pasekBankomat;
     delete pasekKonta;
     delete pasekPomoc;
-    delete pasekMenu;
+    delete menuBar;
 
     //----Okno do wyświetlania----//
     delete okno;
@@ -310,18 +310,18 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             break;
         case CRdzen::niepoprawnyPlikKarty:
             deaktywujPrzyciskiKarty();
-            czekaj = true;
+            wait = true;
             ustawTekst("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-            QTimer::singleShot(3000,([&](){ustawTekst("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); czekaj = false;}));
+            QTimer::singleShot(3000,([&](){ustawTekst("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::podajPin:
             deaktywujPrzyciskiKarty();
-            if(czyKartaZaladowana == false)
+            if(isCardLoaded == false)
             {
-                czyKartaZaladowana = true;
-                czekaj = true;
+                isCardLoaded = true;
+                wait = true;
                 ustawTekst("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-                QTimer::singleShot(3000,([&](){ustawTekst("Podaj PIN","","","","","Zatwierdź","","",""); czekaj = false;}));
+                QTimer::singleShot(3000,([&](){ustawTekst("Podaj PIN","","","","","Zatwierdź","","",""); wait = false;}));
             }
             else
             {
@@ -330,25 +330,25 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             break;
         case CRdzen::niepoprawnyPin:
             pole->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
-            czekaj = true;
+            wait = true;
             ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&](){ustawTekst("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); czekaj = false;}));
+            QTimer::singleShot(1500,([&](){ustawTekst("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::kartaZablokowana:
             deaktywujPrzyciskiKarty();
             pole->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
-            czekaj = true;
+            wait = true;
             ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&]() {ustawTekst("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); czekaj = false;}));
+            QTimer::singleShot(1500,([&]() {ustawTekst("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::wybierzOperacje:
-            if(czyKontoZaladowane == false)
+            if(isAccountLoaded == false)
             {
-                czyKontoZaladowane = true;
+                isAccountLoaded = true;
                 pole->setText(""); //Usunięcie wprowadzonego PINu z pola
-                czekaj = true;
+                wait = true;
                 ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-                QTimer::singleShot(1500,([&]() {ustawTekst("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); czekaj = false;}));
+                QTimer::singleShot(1500,([&]() {ustawTekst("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); wait = false;}));
             }
             else
             {
@@ -389,8 +389,8 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             ustawTekst("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
             break;
         case CRdzen::wyjmijKarte:
-            czyKartaZaladowana = false;
-            czyKontoZaladowane = false;
+            isCardLoaded = false;
+            isAccountLoaded = false;
             pole->setText("");
             aktywujPrzyciskiKarty();
             ustawTekst("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
@@ -429,7 +429,7 @@ void Widget::wyczyscTabliceWyplaty()
 //--------Funkcje obsługi kliknięć przycisków funkcyjnych bankomatu--------//
 void Widget::przyciskAKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskAKliknieto());
     }
@@ -437,7 +437,7 @@ void Widget::przyciskAKliknieto()
 
 void Widget::przyciskBKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskBKliknieto());
     }
@@ -445,7 +445,7 @@ void Widget::przyciskBKliknieto()
 
 void Widget::przyciskCKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskCKliknieto());
     }
@@ -453,7 +453,7 @@ void Widget::przyciskCKliknieto()
 
 void Widget::przyciskDKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskDKliknieto());
     }
@@ -461,7 +461,7 @@ void Widget::przyciskDKliknieto()
 
 void Widget::przyciskEKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskEKliknieto());
     }
@@ -469,7 +469,7 @@ void Widget::przyciskEKliknieto()
 
 void Widget::przyciskFKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskFKliknieto());
     }
@@ -477,7 +477,7 @@ void Widget::przyciskFKliknieto()
 
 void Widget::przyciskGKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskGKliknieto());
     }
@@ -485,7 +485,7 @@ void Widget::przyciskGKliknieto()
 
 void Widget::przyciskHKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         wyswietlEkran(rdzen->przyciskHKliknieto());
     }
@@ -500,7 +500,7 @@ void Widget::przyciskNumerycznyKliknieto(int wartosc)
 
 void Widget::przycisk1Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(1);
     }
@@ -508,7 +508,7 @@ void Widget::przycisk1Kliknieto()
 
 void Widget::przycisk2Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(2);
     }
@@ -516,7 +516,7 @@ void Widget::przycisk2Kliknieto()
 
 void Widget::przycisk3Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(3);
     }
@@ -524,7 +524,7 @@ void Widget::przycisk3Kliknieto()
 
 void Widget::przycisk4Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(4);
     }
@@ -532,7 +532,7 @@ void Widget::przycisk4Kliknieto()
 
 void Widget::przycisk5Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(5);
     }
@@ -540,7 +540,7 @@ void Widget::przycisk5Kliknieto()
 
 void Widget::przycisk6Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(6);
     }
@@ -548,7 +548,7 @@ void Widget::przycisk6Kliknieto()
 
 void Widget::przycisk7Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(7);
     }
@@ -556,7 +556,7 @@ void Widget::przycisk7Kliknieto()
 
 void Widget::przycisk8Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(8);
     }
@@ -564,7 +564,7 @@ void Widget::przycisk8Kliknieto()
 
 void Widget::przycisk9Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(9);
     }
@@ -572,7 +572,7 @@ void Widget::przycisk9Kliknieto()
 
 void Widget::przycisk0Kliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         przyciskNumerycznyKliknieto(0);
     }
@@ -580,7 +580,7 @@ void Widget::przycisk0Kliknieto()
 
 void Widget::przyciskCofnijKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         rdzen->przyciskCofnijKliknieto();
         ustawPoleWartosci();
@@ -590,7 +590,7 @@ void Widget::przyciskCofnijKliknieto()
 //----Funkcja obsługi kliknięcia przycisku "Karta"----//
 void Widget::przyciskUzytoKarteKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         if((rdzen->zwrocStanBankomatu() == CRdzen::wlozKarte) || (rdzen->zwrocStanBankomatu() == CRdzen::wyjmijKarte))
         {
@@ -603,7 +603,7 @@ void Widget::przyciskUzytoKarteKliknieto()
 //----Funkcja obsługi upuszczenia na przycisk----//
 void Widget::upuszczonoKarteKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         if(rdzen->zwrocStanBankomatu() == CRdzen::wlozKarte)
         {
@@ -616,7 +616,7 @@ void Widget::upuszczonoKarteKliknieto()
 //----Funkcja obsługi kliknięcia przycisku "Odbierz pieniądze"----//
 void Widget::przyciskPieniadzeKliknieto()
 {
-    if(czekaj == false)
+    if(wait == false)
     {
         if(rdzen->zwrocStanBankomatu() == CRdzen::wybierzGotowke)
         {
