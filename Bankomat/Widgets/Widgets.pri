@@ -5,13 +5,13 @@ SOURCES += \
     $$PWD/WidgetAbout.cpp \
     $$PWD/WidgetAddAccount.cpp \
     $$PWD/WidgetAddMoney.cpp \
-    $$PWD/widget.StupidCaseInssensitiveOnWindowsGit.cpp
+    $$PWD/Widget.cpp
 HEADERS += \
     $$PWD/WidgetWindow.h \
     $$PWD/WidgetAbout.h \
     $$PWD/WidgetAddAccount.h \
     $$PWD/WidgetAddMoney.h \
-    $$PWD/widget.StupidCaseInssensitiveOnWindowsGit.h
+    $$PWD/Widget.h
 FORMS += \
     $$PWD/widget.ui \
     $$PWD/widgetdodajkonto.ui \
