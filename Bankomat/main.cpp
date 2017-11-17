@@ -1,7 +1,7 @@
 //12.12.2016 - 12.01.2017
 //Program Bankomat będący zaliczeniem projektu na C++ na 3 semestrze infofrmatyki na Politechince Rzeszowskiej
 
-#include "Widget.h"
+#include "widget.StupidCaseInssensitiveOnWindowsGit.h"
 #include <QApplication>
 #include <QDesktopWidget>
 

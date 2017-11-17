@@ -1,4 +1,4 @@
-#include "Widget.h"
+#include "widget.StupidCaseInssensitiveOnWindowsGit.h"
 #include "ui_widget.h"
 
 
