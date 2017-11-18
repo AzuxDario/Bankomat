@@ -15,37 +15,37 @@ Widget::Widget(QWidget *parent) :
     //----Tworzenie paska menu----//
     menuBar = new QMenuBar(this);
     menuBar->setGeometry(0,0,1200,21);
-    pasekBankomat = new QMenu(this);
-    pasekKonta = new QMenu(this);
-    pasekPomoc = new QMenu(this);
+    menuCashMachine = new QMenu(this);
+    menuAccounts = new QMenu(this);
+    menuHelp = new QMenu(this);
 
-    pasekBankomat = menuBar->addMenu(tr("&Bankomat"));
-    pasekKonta = menuBar->addMenu(tr("&Konta"));
-    pasekPomoc = menuBar->addMenu(tr("&Pomoc"));
+    menuCashMachine = menuBar->addMenu(tr("&Bankomat"));
+    menuAccounts = menuBar->addMenu(tr("&Konta"));
+    menuHelp = menuBar->addMenu(tr("&Pomoc"));
 
     //----Tworzenie akcji do paska menu----//
-    akcjaUzytoKarte = new QAction("K&arta");
-    akcjaUzytoKarte->setShortcut(QKeySequence(tr("Ctrl+A")));
-    akcjaResetuj = new QAction("&Resetuj",this);
-    akcjaResetuj->setShortcut(QKeySequence(tr("Ctrl+R")));
-    akcjaWyjscie = new QAction("Wyjści&e",this);
-    akcjaWyjscie->setShortcut(QKeySequence(tr("Ctrl+W")));
-    akcjaZalozKonto = new QAction("&Załóż konto",this);
-    akcjaZalozKonto->setShortcut(QKeySequence(tr("Ctrl+Z")));
-    akcjaDodajPieniadze = new QAction("&Dodaj pieniądze");
-    akcjaDodajPieniadze->setShortcut(QKeySequence(tr("Ctrl+D")));
-    akcjaInformacje = new QAction("&Informacje",this);
-    akcjaInformacje->setShortcut(QKeySequence(tr("Ctrl+I")));
+    actionCardUsed = new QAction("K&arta");
+    actionCardUsed->setShortcut(QKeySequence(tr("Ctrl+A")));
+    actionReset = new QAction("&Resetuj",this);
+    actionReset->setShortcut(QKeySequence(tr("Ctrl+R")));
+    actionExit = new QAction("Wyjści&e",this);
+    actionExit->setShortcut(QKeySequence(tr("Ctrl+W")));
+    actionCreateAccount = new QAction("&Załóż konto",this);
+    actionCreateAccount->setShortcut(QKeySequence(tr("Ctrl+Z")));
+    actionAddMoney = new QAction("&Dodaj pieniądze");
+    actionAddMoney->setShortcut(QKeySequence(tr("Ctrl+D")));
+    actionInformation = new QAction("&Informacje",this);
+    actionInformation->setShortcut(QKeySequence(tr("Ctrl+I")));
 
     //----Przypisywnaia akcji do paska menu----//
-    pasekBankomat->addAction(akcjaUzytoKarte);
-    pasekBankomat->addAction(akcjaResetuj);
-    pasekBankomat->addSeparator();
-    pasekBankomat->addAction(akcjaWyjscie);
-    pasekKonta->addAction(akcjaZalozKonto);
-    pasekKonta->addSeparator();
-    pasekKonta->addAction(akcjaDodajPieniadze);
-    pasekPomoc->addAction(akcjaInformacje);
+    menuCashMachine->addAction(actionCardUsed);
+    menuCashMachine->addAction(actionReset);
+    menuCashMachine->addSeparator();
+    menuCashMachine->addAction(actionExit);
+    menuAccounts->addAction(actionCreateAccount);
+    menuAccounts->addSeparator();
+    menuAccounts->addAction(actionAddMoney);
+    menuHelp->addAction(actionInformation);
 
     //----Tworzenie okna gdzie będzie wyświetlane tło----//
     okno = new QLabel(this);
@@ -178,7 +178,7 @@ Widget::Widget(QWidget *parent) :
 
     //----Przypisanie przycisków do slotów----//
     //--------Menu--------//
-    connect(akcjaWyjscie,SIGNAL(triggered(bool)),qApp,SLOT(quit()));
+    connect(actionExit,SIGNAL(triggered(bool)),qApp,SLOT(quit()));
     connect(przyciskA,SIGNAL(clicked(bool)),this,SLOT(przyciskAKliknieto()));
     connect(przyciskB,SIGNAL(clicked(bool)),this,SLOT(przyciskBKliknieto()));
     connect(przyciskC,SIGNAL(clicked(bool)),this,SLOT(przyciskCKliknieto()));
@@ -202,11 +202,11 @@ Widget::Widget(QWidget *parent) :
     connect(przyciskCofnij,SIGNAL(clicked(bool)),this,SLOT(przyciskCofnijKliknieto()));
 
     //--------Akcje--------//
-    connect(akcjaUzytoKarte,SIGNAL(triggered(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
-    connect(akcjaResetuj,SIGNAL(triggered(bool)),this,SLOT(resetujKliknieto()));
-    connect(akcjaZalozKonto,SIGNAL(triggered(bool)),this,SLOT(wyswietlDodajKonto()));
-    connect(akcjaDodajPieniadze,SIGNAL(triggered(bool)),this,SLOT(wyswieltDodajPieniadze()));
-    connect(akcjaInformacje,SIGNAL(triggered(bool)),this,SLOT(wyswietlOProgramie()));
+    connect(actionCardUsed,SIGNAL(triggered(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
+    connect(actionReset,SIGNAL(triggered(bool)),this,SLOT(resetujKliknieto()));
+    connect(actionCreateAccount,SIGNAL(triggered(bool)),this,SLOT(wyswietlDodajKonto()));
+    connect(actionAddMoney,SIGNAL(triggered(bool)),this,SLOT(wyswieltDodajPieniadze()));
+    connect(actionInformation,SIGNAL(triggered(bool)),this,SLOT(wyswietlOProgramie()));
 
     //--------Przyciski do obsługi karty oraz odbioru pieniędzy--------//
     connect(przyciskUzytoKarte,SIGNAL(clicked(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
@@ -219,15 +219,15 @@ Widget::~Widget()
     delete rdzen;
 
     //----Zmienne od paska menu----//
-    delete akcjaUzytoKarte;
-    delete akcjaResetuj;
-    delete akcjaWyjscie;
-    delete akcjaZalozKonto;
-    delete akcjaDodajPieniadze;
-    delete akcjaInformacje;
-    delete pasekBankomat;
-    delete pasekKonta;
-    delete pasekPomoc;
+    delete actionCardUsed;
+    delete actionReset;
+    delete actionExit;
+    delete actionCreateAccount;
+    delete actionAddMoney;
+    delete actionInformation;
+    delete menuCashMachine;
+    delete menuAccounts;
+    delete menuHelp;
     delete menuBar;
 
     //----Okno do wyświetlania----//
@@ -655,13 +655,13 @@ void Widget::ustawPoleWartosci()
 void Widget::aktywujPrzyciskiKarty()
 {
     przyciskUzytoKarte->setEnabled(true);
-    akcjaUzytoKarte->setEnabled(true);
+    actionCardUsed->setEnabled(true);
 }
 
 void Widget::deaktywujPrzyciskiKarty()
 {
     przyciskUzytoKarte->setDisabled(true);
-    akcjaUzytoKarte->setDisabled(true);
+    actionCardUsed->setDisabled(true);
 }
 
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//

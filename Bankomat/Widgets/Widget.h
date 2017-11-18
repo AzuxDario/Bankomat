@@ -33,15 +33,15 @@ public:
 
     //----Zmienne od paska menu----//
     QMenuBar *menuBar;
-    QMenu *pasekBankomat;
-    QMenu *pasekKonta;
-    QMenu *pasekPomoc;
-    QAction *akcjaUzytoKarte;
-    QAction *akcjaResetuj;
-    QAction *akcjaWyjscie;
-    QAction *akcjaZalozKonto;
-    QAction *akcjaDodajPieniadze;
-    QAction *akcjaInformacje;
+    QMenu *menuCashMachine;
+    QMenu *menuAccounts;
+    QMenu *menuHelp;
+    QAction *actionCardUsed;
+    QAction *actionReset;
+    QAction *actionExit;
+    QAction *actionCreateAccount;
+    QAction *actionAddMoney;
+    QAction *actionInformation;
 
     //----Okno do wyświetlania----//
     QLabel *okno;
