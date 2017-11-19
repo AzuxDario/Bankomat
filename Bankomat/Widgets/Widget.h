@@ -44,27 +44,27 @@ public:
     QAction *actionInformation;
 
     //----Okno do wyświetlania----//
-    QLabel *okno;
-    QLabel *pole;
-    QLabel *tytul;
-    QLabel *podpisA;
-    QLabel *podpisB;
-    QLabel *podpisC;
-    QLabel *podpisD;
-    QLabel *podpisE;
-    QLabel *podpisF;
-    QLabel *podpisG;
-    QLabel *podpisH;
+    QLabel *window;
+    QLabel *field;
+    QLabel *title;
+    QLabel *optionA;
+    QLabel *optionB;
+    QLabel *optionC;
+    QLabel *optionD;
+    QLabel *optionE;
+    QLabel *optionF;
+    QLabel *optionG;
+    QLabel *optionH;
 
     //----Przyciski do obsługi----//
-    QPushButton *przyciskA;
-    QPushButton *przyciskB;
-    QPushButton *przyciskC;
-    QPushButton *przyciskD;
-    QPushButton *przyciskE;
-    QPushButton *przyciskF;
-    QPushButton *przyciskG;
-    QPushButton *przyciskH;
+    QPushButton *buttonA;
+    QPushButton *buttonB;
+    QPushButton *buttonC;
+    QPushButton *buttonD;
+    QPushButton *buttonE;
+    QPushButton *buttonF;
+    QPushButton *buttonG;
+    QPushButton *buttonH;
 
     //----Przyciski klawiatury----//
     QPushButton *przycisk1;
@@ -130,7 +130,7 @@ public slots:
     void resetujKliknieto(); //Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy
 
 private slots:
-    void ustawTekst(QString tytul, QString opcjaA, QString opcjaB, QString opcjaC, QString opcjaD, QString opcjaE, QString opcjaF, QString opcjaG, QString opcjaH); //Ustawia etykiety tekstowe ekranu
+    void ustawTekst(QString title, QString opcjaA, QString opcjaB, QString opcjaC, QString opcjaD, QString opcjaE, QString opcjaF, QString opcjaG, QString opcjaH); //Ustawia etykiety tekstowe ekranu
     void closeEvent(QCloseEvent *); //Zamyka program po zamknięciu głównego okna
 
 

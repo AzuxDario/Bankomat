@@ -48,69 +48,69 @@ Widget::Widget(QWidget *parent) :
     menuHelp->addAction(actionInformation);
 
     //----Tworzenie okna gdzie będzie wyświetlane tło----//
-    okno = new QLabel(this);
-    okno->setGeometry(100,31,800,500);
-    okno->setPixmap(QPixmap(":/bankomat/tło"));
+    window = new QLabel(this);
+    window->setGeometry(100,31,800,500);
+    window->setPixmap(QPixmap(":/bankomat/tło"));
 
     //----Tworzenie pola do wyświetlania pinu oraz kwoty do wypłaty----//
-    pole = new QLabel(this);
-    pole->setGeometry(200,200,600,35);
-    pole->setStyleSheet("color:white;font-size:40px;");
-    pole->setAlignment(Qt::AlignCenter);
+    field = new QLabel(this);
+    field->setGeometry(200,200,600,35);
+    field->setStyleSheet("color:white;font-size:40px;");
+    field->setAlignment(Qt::AlignCenter);
 
     //----Tworzenie pól tekstowych na ekranie----//
-    tytul = new QLabel(this);
-    tytul->setGeometry(120,51,760,200);
-    tytul->setStyleSheet("color:white;font-size:40px;");
-    tytul->setWordWrap(true);
-    tytul->setAlignment(Qt::AlignTop);
+    title = new QLabel(this);
+    title->setGeometry(120,51,760,200);
+    title->setStyleSheet("color:white;font-size:40px;");
+    title->setWordWrap(true);
+    title->setAlignment(Qt::AlignTop);
 
-    podpisA = new QLabel(this);
-    podpisA->setGeometry(120,211,380,60);
-    podpisA->setStyleSheet("color:white;font-size:40px;");
-    podpisB = new QLabel(this);
-    podpisB->setGeometry(120,291,380,60);
-    podpisB->setStyleSheet("color:white;font-size:40px;");
-    podpisC = new QLabel(this);
-    podpisC->setGeometry(120,371,380,60);
-    podpisC->setStyleSheet("color:white;font-size:40px;");
-    podpisD = new QLabel(this);
-    podpisD->setGeometry(120,451,380,60);
-    podpisD->setStyleSheet("color:white;font-size:40px;");
-    podpisE = new QLabel(this);
-    podpisE->setGeometry(500,211,380,60);
-    podpisE->setStyleSheet("color:white;font-size:40px;");
-    podpisE->setAlignment(Qt::AlignRight);
-    podpisF = new QLabel(this);
-    podpisF->setGeometry(500,291,380,60);
-    podpisF->setStyleSheet("color:white;font-size:40px;");
-    podpisF->setAlignment(Qt::AlignRight);
-    podpisG = new QLabel(this);
-    podpisG->setGeometry(500,371,380,60);
-    podpisG->setStyleSheet("color:white;font-size:40px;");
-    podpisG->setAlignment(Qt::AlignRight);
-    podpisH = new QLabel(this);
-    podpisH->setGeometry(500,451,380,60);
-    podpisH->setStyleSheet("color:white;font-size:40px;");
-    podpisH->setAlignment(Qt::AlignRight);
+    optionA = new QLabel(this);
+    optionA->setGeometry(120,211,380,60);
+    optionA->setStyleSheet("color:white;font-size:40px;");
+    optionB = new QLabel(this);
+    optionB->setGeometry(120,291,380,60);
+    optionB->setStyleSheet("color:white;font-size:40px;");
+    optionC = new QLabel(this);
+    optionC->setGeometry(120,371,380,60);
+    optionC->setStyleSheet("color:white;font-size:40px;");
+    optionD = new QLabel(this);
+    optionD->setGeometry(120,451,380,60);
+    optionD->setStyleSheet("color:white;font-size:40px;");
+    optionE = new QLabel(this);
+    optionE->setGeometry(500,211,380,60);
+    optionE->setStyleSheet("color:white;font-size:40px;");
+    optionE->setAlignment(Qt::AlignRight);
+    optionF = new QLabel(this);
+    optionF->setGeometry(500,291,380,60);
+    optionF->setStyleSheet("color:white;font-size:40px;");
+    optionF->setAlignment(Qt::AlignRight);
+    optionG = new QLabel(this);
+    optionG->setGeometry(500,371,380,60);
+    optionG->setStyleSheet("color:white;font-size:40px;");
+    optionG->setAlignment(Qt::AlignRight);
+    optionH = new QLabel(this);
+    optionH->setGeometry(500,451,380,60);
+    optionH->setStyleSheet("color:white;font-size:40px;");
+    optionH->setAlignment(Qt::AlignRight);
 
     //----Przyciski do obsługi----//
-    przyciskA = new QPushButton(this);
-    przyciskA->setGeometry(10,211,80,60);
-    przyciskB = new QPushButton(this);
-    przyciskB->setGeometry(10,291,80,60);
-    przyciskC = new QPushButton(this);
-    przyciskC->setGeometry(10,371,80,60);
-    przyciskD = new QPushButton(this);
-    przyciskD->setGeometry(10,451,80,60);
-    przyciskE = new QPushButton(this);
-    przyciskE->setGeometry(910,211,80,60);
-    przyciskF = new QPushButton(this);
-    przyciskF->setGeometry(910,291,80,60);
-    przyciskG = new QPushButton(this);
-    przyciskG->setGeometry(910,371,80,60);
-    przyciskH = new QPushButton(this);
-    przyciskH->setGeometry(910,451,80,60);
+    buttonA = new QPushButton(this);
+    buttonA->setGeometry(10,211,80,60);
+    buttonB = new QPushButton(this);
+    buttonB->setGeometry(10,291,80,60);
+    buttonC = new QPushButton(this);
+    buttonC->setGeometry(10,371,80,60);
+    buttonD = new QPushButton(this);
+    buttonD->setGeometry(10,451,80,60);
+    buttonE = new QPushButton(this);
+    buttonE->setGeometry(910,211,80,60);
+    buttonF = new QPushButton(this);
+    buttonF->setGeometry(910,291,80,60);
+    buttonG = new QPushButton(this);
+    buttonG->setGeometry(910,371,80,60);
+    buttonH = new QPushButton(this);
+    buttonH->setGeometry(910,451,80,60);
 
     //----Przyciski klawiatury----//
     przycisk1 = new QPushButton("1",this);
@@ -179,14 +179,14 @@ Widget::Widget(QWidget *parent) :
     //----Przypisanie przycisków do slotów----//
     //--------Menu--------//
     connect(actionExit,SIGNAL(triggered(bool)),qApp,SLOT(quit()));
-    connect(przyciskA,SIGNAL(clicked(bool)),this,SLOT(przyciskAKliknieto()));
-    connect(przyciskB,SIGNAL(clicked(bool)),this,SLOT(przyciskBKliknieto()));
-    connect(przyciskC,SIGNAL(clicked(bool)),this,SLOT(przyciskCKliknieto()));
-    connect(przyciskD,SIGNAL(clicked(bool)),this,SLOT(przyciskDKliknieto()));
-    connect(przyciskE,SIGNAL(clicked(bool)),this,SLOT(przyciskEKliknieto()));
-    connect(przyciskF,SIGNAL(clicked(bool)),this,SLOT(przyciskFKliknieto()));
-    connect(przyciskG,SIGNAL(clicked(bool)),this,SLOT(przyciskGKliknieto()));
-    connect(przyciskH,SIGNAL(clicked(bool)),this,SLOT(przyciskHKliknieto()));
+    connect(buttonA,SIGNAL(clicked(bool)),this,SLOT(przyciskAKliknieto()));
+    connect(buttonB,SIGNAL(clicked(bool)),this,SLOT(przyciskBKliknieto()));
+    connect(buttonC,SIGNAL(clicked(bool)),this,SLOT(przyciskCKliknieto()));
+    connect(buttonD,SIGNAL(clicked(bool)),this,SLOT(przyciskDKliknieto()));
+    connect(buttonE,SIGNAL(clicked(bool)),this,SLOT(przyciskEKliknieto()));
+    connect(buttonF,SIGNAL(clicked(bool)),this,SLOT(przyciskFKliknieto()));
+    connect(buttonG,SIGNAL(clicked(bool)),this,SLOT(przyciskGKliknieto()));
+    connect(buttonH,SIGNAL(clicked(bool)),this,SLOT(przyciskHKliknieto()));
 
     //--------Przyciski klawiatury--------//
     connect(przycisk1,SIGNAL(clicked(bool)),this,SLOT(przycisk1Kliknieto()));
@@ -231,27 +231,27 @@ Widget::~Widget()
     delete menuBar;
 
     //----Okno do wyświetlania----//
-    delete okno;
-    delete pole;
-    delete tytul;
-    delete podpisA;
-    delete podpisB;
-    delete podpisC;
-    delete podpisD;
-    delete podpisE;
-    delete podpisF;
-    delete podpisG;
-    delete podpisH;
+    delete window;
+    delete field;
+    delete title;
+    delete optionA;
+    delete optionB;
+    delete optionC;
+    delete optionD;
+    delete optionE;
+    delete optionF;
+    delete optionG;
+    delete optionH;
 
     //----Przyciski do obsługi----//
-    delete przyciskA;
-    delete przyciskB;
-    delete przyciskC;
-    delete przyciskD;
-    delete przyciskE;
-    delete przyciskF;
-    delete przyciskG;
-    delete przyciskH;
+    delete buttonA;
+    delete buttonB;
+    delete buttonC;
+    delete buttonD;
+    delete buttonE;
+    delete buttonF;
+    delete buttonG;
+    delete buttonH;
 
     //----Przyciski klawiatury----//
     delete przycisk1;
@@ -329,14 +329,14 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             }
             break;
         case CRdzen::niepoprawnyPin:
-            pole->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
+            field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
             ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
             QTimer::singleShot(1500,([&](){ustawTekst("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::kartaZablokowana:
             deaktywujPrzyciskiKarty();
-            pole->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
+            field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
             ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
             QTimer::singleShot(1500,([&]() {ustawTekst("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
@@ -345,14 +345,14 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             if(isAccountLoaded == false)
             {
                 isAccountLoaded = true;
-                pole->setText(""); //Usunięcie wprowadzonego PINu z pola
+                field->setText(""); //Usunięcie wprowadzonego PINu z pola
                 wait = true;
                 ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
                 QTimer::singleShot(1500,([&]() {ustawTekst("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); wait = false;}));
             }
             else
             {
-                pole->setText(""); //Usunięcie wprowadzonego PINu z pola
+                field->setText(""); //Usunięcie wprowadzonego PINu z pola
                 ustawTekst("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN","");
             }
             break;
@@ -360,38 +360,38 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             ustawTekst("Podaj nowy czterocyfrowy PIN.","Cofnij","","","","Zatwierdź","","","");
             break;
         case CRdzen::zmienionoPin:
-            pole->setText("");
+            field->setText("");
             ustawTekst("PIN został zmieniony.","Cofnij","","","","","","","");
             break;
         case CRdzen::pokazNumerKonta:
-            pole->setText(rdzen->zwrocNumerKonta());
+            field->setText(rdzen->zwrocNumerKonta());
             ustawTekst("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
             break;
         case CRdzen::wyswietlSaldo:
-            pole->setText(QString::number(rdzen->zwrocStanKonta(),'f',2) + " zł");
+            field->setText(QString::number(rdzen->zwrocStanKonta(),'f',2) + " zł");
             ustawTekst("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
             break;
         case CRdzen::wyplacGotowke:
-            pole->setText("");
+            field->setText("");
             ustawTekst("Proszę wpisać żądaną ilość gotówki do wypłaty. Maksymalnie 3000 zł.","Cofnij","","","","Wypłać","","","");
             break;
         case CRdzen::wybierzGotowke:
         {
             przyciskPieniadze->setEnabled(true);
-            pole->setText(""); //Usunięcie wprowadzonego PINu z pola
+            field->setText(""); //Usunięcie wprowadzonego PINu z pola
             ustawTekst("Proszę odebrać pieniądze..","","","","","","","","");
             QVector<int> wyplata = rdzen->odbierzPieniadze();
             wyswietlWyplate(wyplata);;
             break;
         }
         case CRdzen::brakGotowki:
-            pole->setText(""); //Usunięcie wprowadzonego PINu z pola
+            field->setText(""); //Usunięcie wprowadzonego PINu z pola
             ustawTekst("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
             break;
         case CRdzen::wyjmijKarte:
             isCardLoaded = false;
             isAccountLoaded = false;
-            pole->setText("");
+            field->setText("");
             aktywujPrzyciskiKarty();
             ustawTekst("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
             break;
@@ -635,16 +635,16 @@ void Widget::ustawPoleWartosci()
     {
     case CRdzen::podajPin:
     case CRdzen::zmienPin:
-        pole->setText(rdzen->zwrocPoleZagwiazdkowane());
+        field->setText(rdzen->zwrocPoleZagwiazdkowane());
         break;
     case CRdzen::wyplacGotowke:
         if(rdzen->zwrocPole() != "")
         {
-            pole->setText(rdzen->zwrocPole() + " zł");
+            field->setText(rdzen->zwrocPole() + " zł");
         }
         else
         {
-            pole->setText("");
+            field->setText("");
         }
         break;
     default:
@@ -674,15 +674,15 @@ void Widget::resetujKliknieto()
 //----Ustawia etykiety tekstowe ekranu----//
 void Widget::ustawTekst(QString tytul, QString opcjaA, QString opcjaB, QString opcjaC, QString opcjaD, QString opcjaE, QString opcjaF, QString opcjaG, QString opcjaH)
 {
-    this->tytul->setText(tytul);
-    podpisA->setText(opcjaA);
-    podpisB->setText(opcjaB);
-    podpisC->setText(opcjaC);
-    podpisD->setText(opcjaD);
-    podpisE->setText(opcjaE);
-    podpisF->setText(opcjaF);
-    podpisG->setText(opcjaG);
-    podpisH->setText(opcjaH);
+    this->title->setText(tytul);
+    optionA->setText(opcjaA);
+    optionB->setText(opcjaB);
+    optionC->setText(opcjaC);
+    optionD->setText(opcjaD);
+    optionE->setText(opcjaE);
+    optionF->setText(opcjaF);
+    optionG->setText(opcjaG);
+    optionH->setText(opcjaH);
 }
 
 //--------Zamyka program po zamknięciu głównego okna--------//
