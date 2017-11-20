@@ -113,48 +113,48 @@ Widget::Widget(QWidget *parent) :
     buttonH->setGeometry(910,451,80,60);
 
     //----Przyciski klawiatury----//
-    przycisk1 = new QPushButton("1",this);
-    przycisk1->setGeometry(404,541,57,57);
-    przycisk1->setStyleSheet("font-size:40px;");
-    przycisk2 = new QPushButton("2",this);
-    przycisk2->setGeometry(471,541,57,57);
-    przycisk2->setStyleSheet("font-size:40px;");
-    przycisk3 = new QPushButton("3",this);
-    przycisk3->setGeometry(538,541,57,57);
-    przycisk3->setStyleSheet("font-size:40px;");
-    przycisk4 = new QPushButton("4",this);
-    przycisk4->setGeometry(404,608,57,57);
-    przycisk4->setStyleSheet("font-size:40px;");
-    przycisk5 = new QPushButton("5",this);
-    przycisk5->setGeometry(471,608,57,57);
-    przycisk5->setStyleSheet("font-size:40px;");
-    przycisk6 = new QPushButton("6",this);
-    przycisk6->setGeometry(538,608,57,57);
-    przycisk6->setStyleSheet("font-size:40px;");
-    przycisk7 = new QPushButton("7",this);
-    przycisk7->setGeometry(404,675,57,57);
-    przycisk7->setStyleSheet("font-size:40px;");
-    przycisk8 = new QPushButton("8",this);
-    przycisk8->setGeometry(471,675,57,57);
-    przycisk8->setStyleSheet("font-size:40px;");
-    przycisk9 = new QPushButton("9",this);
-    przycisk9->setGeometry(538,675,57,57);
-    przycisk9->setStyleSheet("font-size:40px;");
-    przycisk0 = new QPushButton("0",this);
-    przycisk0->setGeometry(471,742,57,57);
-    przycisk0->setStyleSheet("font-size:40px;");
-    przyciskCofnij = new QPushButton("←",this);
-    przyciskCofnij->setGeometry(538,742,57,57);
-    przyciskCofnij->setStyleSheet("font-size:40px;");
+    button1 = new QPushButton("1",this);
+    button1->setGeometry(404,541,57,57);
+    button1->setStyleSheet("font-size:40px;");
+    button2 = new QPushButton("2",this);
+    button2->setGeometry(471,541,57,57);
+    button2->setStyleSheet("font-size:40px;");
+    button3 = new QPushButton("3",this);
+    button3->setGeometry(538,541,57,57);
+    button3->setStyleSheet("font-size:40px;");
+    button4 = new QPushButton("4",this);
+    button4->setGeometry(404,608,57,57);
+    button4->setStyleSheet("font-size:40px;");
+    button5 = new QPushButton("5",this);
+    button5->setGeometry(471,608,57,57);
+    button5->setStyleSheet("font-size:40px;");
+    button6 = new QPushButton("6",this);
+    button6->setGeometry(538,608,57,57);
+    button6->setStyleSheet("font-size:40px;");
+    button7 = new QPushButton("7",this);
+    button7->setGeometry(404,675,57,57);
+    button7->setStyleSheet("font-size:40px;");
+    button8 = new QPushButton("8",this);
+    button8->setGeometry(471,675,57,57);
+    button8->setStyleSheet("font-size:40px;");
+    button9 = new QPushButton("9",this);
+    button9->setGeometry(538,675,57,57);
+    button9->setStyleSheet("font-size:40px;");
+    button0 = new QPushButton("0",this);
+    button0->setGeometry(471,742,57,57);
+    button0->setStyleSheet("font-size:40px;");
+    buttonReturn = new QPushButton("←",this);
+    buttonReturn->setGeometry(538,742,57,57);
+    buttonReturn->setStyleSheet("font-size:40px;");
 
     //----Przyciski do obsługi karty oraz odbioru pieniędzy----//
-    przyciskUzytoKarte = new DropButton("Karta",this);
-    przyciskUzytoKarte->setGeometry(700,541,200,124);
-    przyciskUzytoKarte->setStyleSheet("font-size:40px;");
-    przyciskPieniadze = new QPushButton("Odbierz\npieniądze",this);
-    przyciskPieniadze->setGeometry(700,675,200,124);
-    przyciskPieniadze->setStyleSheet("font-size:40px;");
-    przyciskPieniadze->setDisabled(true);
+    cardUsedButton = new DropButton("Karta",this);
+    cardUsedButton->setGeometry(700,541,200,124);
+    cardUsedButton->setStyleSheet("font-size:40px;");
+    moneyButton = new QPushButton("Odbierz\npieniądze",this);
+    moneyButton->setGeometry(700,675,200,124);
+    moneyButton->setStyleSheet("font-size:40px;");
+    moneyButton->setDisabled(true);
 
     //----Tworzenie tablicy gdzie będą pokazywane wypłacone nominały----//
     tablicaWyplaty = new QTableWidget(this);
@@ -189,17 +189,17 @@ Widget::Widget(QWidget *parent) :
     connect(buttonH,SIGNAL(clicked(bool)),this,SLOT(przyciskHKliknieto()));
 
     //--------Przyciski klawiatury--------//
-    connect(przycisk1,SIGNAL(clicked(bool)),this,SLOT(przycisk1Kliknieto()));
-    connect(przycisk2,SIGNAL(clicked(bool)),this,SLOT(przycisk2Kliknieto()));
-    connect(przycisk3,SIGNAL(clicked(bool)),this,SLOT(przycisk3Kliknieto()));
-    connect(przycisk4,SIGNAL(clicked(bool)),this,SLOT(przycisk4Kliknieto()));
-    connect(przycisk5,SIGNAL(clicked(bool)),this,SLOT(przycisk5Kliknieto()));
-    connect(przycisk6,SIGNAL(clicked(bool)),this,SLOT(przycisk6Kliknieto()));
-    connect(przycisk7,SIGNAL(clicked(bool)),this,SLOT(przycisk7Kliknieto()));
-    connect(przycisk8,SIGNAL(clicked(bool)),this,SLOT(przycisk8Kliknieto()));
-    connect(przycisk9,SIGNAL(clicked(bool)),this,SLOT(przycisk9Kliknieto()));
-    connect(przycisk0,SIGNAL(clicked(bool)),this,SLOT(przycisk0Kliknieto()));
-    connect(przyciskCofnij,SIGNAL(clicked(bool)),this,SLOT(przyciskCofnijKliknieto()));
+    connect(button1,SIGNAL(clicked(bool)),this,SLOT(przycisk1Kliknieto()));
+    connect(button2,SIGNAL(clicked(bool)),this,SLOT(przycisk2Kliknieto()));
+    connect(button3,SIGNAL(clicked(bool)),this,SLOT(przycisk3Kliknieto()));
+    connect(button4,SIGNAL(clicked(bool)),this,SLOT(przycisk4Kliknieto()));
+    connect(button5,SIGNAL(clicked(bool)),this,SLOT(przycisk5Kliknieto()));
+    connect(button6,SIGNAL(clicked(bool)),this,SLOT(przycisk6Kliknieto()));
+    connect(button7,SIGNAL(clicked(bool)),this,SLOT(przycisk7Kliknieto()));
+    connect(button8,SIGNAL(clicked(bool)),this,SLOT(przycisk8Kliknieto()));
+    connect(button9,SIGNAL(clicked(bool)),this,SLOT(przycisk9Kliknieto()));
+    connect(button0,SIGNAL(clicked(bool)),this,SLOT(przycisk0Kliknieto()));
+    connect(buttonReturn,SIGNAL(clicked(bool)),this,SLOT(przyciskCofnijKliknieto()));
 
     //--------Akcje--------//
     connect(actionCardUsed,SIGNAL(triggered(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
@@ -209,9 +209,9 @@ Widget::Widget(QWidget *parent) :
     connect(actionInformation,SIGNAL(triggered(bool)),this,SLOT(wyswietlOProgramie()));
 
     //--------Przyciski do obsługi karty oraz odbioru pieniędzy--------//
-    connect(przyciskUzytoKarte,SIGNAL(clicked(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
-    connect(przyciskUzytoKarte,SIGNAL(dropped()),this,SLOT(upuszczonoKarteKliknieto()));
-    connect(przyciskPieniadze,SIGNAL(clicked(bool)),this,SLOT(przyciskPieniadzeKliknieto()));
+    connect(cardUsedButton,SIGNAL(clicked(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
+    connect(cardUsedButton,SIGNAL(dropped()),this,SLOT(upuszczonoKarteKliknieto()));
+    connect(moneyButton,SIGNAL(clicked(bool)),this,SLOT(przyciskPieniadzeKliknieto()));
 }
 
 Widget::~Widget()
@@ -254,21 +254,21 @@ Widget::~Widget()
     delete buttonH;
 
     //----Przyciski klawiatury----//
-    delete przycisk1;
-    delete przycisk2;
-    delete przycisk3;
-    delete przycisk4;
-    delete przycisk5;
-    delete przycisk6;
-    delete przycisk7;
-    delete przycisk8;
-    delete przycisk9;
-    delete przycisk0;
-    delete przyciskCofnij;
+    delete button1;
+    delete button2;
+    delete button3;
+    delete button4;
+    delete button5;
+    delete button6;
+    delete button7;
+    delete button8;
+    delete button9;
+    delete button0;
+    delete buttonReturn;
 
     //----Przyciski od karty i pieniędzy----//
-    delete przyciskUzytoKarte;
-    delete przyciskPieniadze;
+    delete cardUsedButton;
+    delete moneyButton;
 
     //----Tablica gdzie będzie wyświetlana wypłata----//
     delete tablicaWyplaty;
@@ -377,7 +377,7 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             break;
         case CRdzen::wybierzGotowke:
         {
-            przyciskPieniadze->setEnabled(true);
+            moneyButton->setEnabled(true);
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
             ustawTekst("Proszę odebrać pieniądze..","","","","","","","","");
             QVector<int> wyplata = rdzen->odbierzPieniadze();
@@ -607,7 +607,7 @@ void Widget::upuszczonoKarteKliknieto()
     {
         if(rdzen->zwrocStanBankomatu() == CRdzen::wlozKarte)
         {
-            rdzen->uzytoKarte(przyciskUzytoKarte->getDirectory());
+            rdzen->uzytoKarte(cardUsedButton->getDirectory());
             wyswietlEkran(rdzen->zwrocStanBankomatu());
         }
     }
@@ -622,7 +622,7 @@ void Widget::przyciskPieniadzeKliknieto()
         {
             rdzen->odebranoPieniadze();
             wyczyscTabliceWyplaty();
-            przyciskPieniadze->setDisabled(true);
+            moneyButton->setDisabled(true);
             wyswietlEkran(rdzen->zwrocStanBankomatu());
         }
     }
@@ -654,13 +654,13 @@ void Widget::ustawPoleWartosci()
 
 void Widget::aktywujPrzyciskiKarty()
 {
-    przyciskUzytoKarte->setEnabled(true);
+    cardUsedButton->setEnabled(true);
     actionCardUsed->setEnabled(true);
 }
 
 void Widget::deaktywujPrzyciskiKarty()
 {
-    przyciskUzytoKarte->setDisabled(true);
+    cardUsedButton->setDisabled(true);
     actionCardUsed->setDisabled(true);
 }
 

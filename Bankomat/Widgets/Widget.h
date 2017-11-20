@@ -67,21 +67,21 @@ public:
     QPushButton *buttonH;
 
     //----Przyciski klawiatury----//
-    QPushButton *przycisk1;
-    QPushButton *przycisk2;
-    QPushButton *przycisk3;
-    QPushButton *przycisk4;
-    QPushButton *przycisk5;
-    QPushButton *przycisk6;
-    QPushButton *przycisk7;
-    QPushButton *przycisk8;
-    QPushButton *przycisk9;
-    QPushButton *przycisk0;
-    QPushButton *przyciskCofnij;
+    QPushButton *button1;
+    QPushButton *button2;
+    QPushButton *button3;
+    QPushButton *button4;
+    QPushButton *button5;
+    QPushButton *button6;
+    QPushButton *button7;
+    QPushButton *button8;
+    QPushButton *button9;
+    QPushButton *button0;
+    QPushButton *buttonReturn;
 
     //----Przyciski od karty i pieniędzy----//
-    DropButton *przyciskUzytoKarte;
-    QPushButton *przyciskPieniadze;
+    DropButton *cardUsedButton;
+    QPushButton *moneyButton;
 
     //----Tablica gdzie będzie wyświetlana wypłata----//
     QTableWidget *tablicaWyplaty;
