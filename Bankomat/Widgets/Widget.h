@@ -84,28 +84,28 @@ public:
     QPushButton *moneyButton;
 
     //----Tablica gdzie będzie wyświetlana wypłata----//
-    QTableWidget *tablicaWyplaty;
+    QTableWidget *paymentTable;
 
     //----Rdzen----//
-    CRdzen *rdzen;
+    CRdzen *programCore;
 
 public slots:
-    void wyswietlOProgramie(); //Pokazuje okienko z informacjami o programie
-    void wyswietlDodajKonto(); //Wyświetla okienko gdzie można utworzyć konto do testów
-    void wyswieltDodajPieniadze(); //Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu    
-    void wyswietlEkran(CRdzen::StanBankomatu stan); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
-    void wyswietlWyplate(QVector<int> pieniadze); //Wyświetla wypłacone pieniądze w elemencie QTableWidget
-    void wyczyscTabliceWyplaty(); //Czyści tablice QTableWidget
+    void showWidgetAbout(); //Pokazuje okienko z informacjami o programie
+    void showWidgetAddAccount(); //Wyświetla okienko gdzie można utworzyć konto do testów
+    void showWidgetAddMoney(); //Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu
+    void showCurrentScreen(CRdzen::StanBankomatu stan); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
+    void showPayment(QVector<int> pieniadze); //Wyświetla wypłacone pieniądze w elemencie QTableWidget
+    void clearPaymentTable(); //Czyści tablice QTableWidget
 
     //----Funkcje obsługi kliknięć przycisków funkcyjnych bankomatu----//
-    void przyciskAKliknieto();
-    void przyciskBKliknieto();
-    void przyciskCKliknieto();
-    void przyciskDKliknieto();
-    void przyciskEKliknieto();
-    void przyciskFKliknieto();
-    void przyciskGKliknieto();
-    void przyciskHKliknieto();
+    void buttonAPressed();
+    void buttonBPressed();
+    void buttonCPressed();
+    void buttonDPressed();
+    void buttonEPressed();
+    void buttonFPressed();
+    void buttonGPressed();
+    void buttonHPressed();
 
     //----Przyciski obsługi kliknieć przycisków numerycznych bankomatu----//
     void przyciskNumerycznyKliknieto(int wartosc);

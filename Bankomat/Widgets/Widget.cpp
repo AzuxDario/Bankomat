@@ -157,36 +157,36 @@ Widget::Widget(QWidget *parent) :
     moneyButton->setDisabled(true);
 
     //----Tworzenie tablicy gdzie będą pokazywane wypłacone nominały----//
-    tablicaWyplaty = new QTableWidget(this);
-    tablicaWyplaty->setGeometry(100,541,140,265);
-    tablicaWyplaty->setColumnCount(1);
-    tablicaWyplaty->setRowCount(8);
-    tablicaWyplaty->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    paymentTable = new QTableWidget(this);
+    paymentTable->setGeometry(100,541,140,265);
+    paymentTable->setColumnCount(1);
+    paymentTable->setRowCount(8);
+    paymentTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     QStringList listaWierszy;
     listaWierszy << "200zł" << "100zł" << "50zł" << "20zł" << "10zł" << "5zł" << "2zł" << "1zł" ;
-    tablicaWyplaty->setVerticalHeaderLabels(listaWierszy);
+    paymentTable->setVerticalHeaderLabels(listaWierszy);
     QStringList listaKolumn;
     listaKolumn << "Ilość";
-    tablicaWyplaty->setHorizontalHeaderLabels(listaKolumn);
-    tablicaWyplaty->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    paymentTable->setHorizontalHeaderLabels(listaKolumn);
+    paymentTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     //----Tworzenie obiektu rdzenia aplikacji----//
-    rdzen = new CRdzen(this);
+    programCore = new CRdzen(this);
 
     //----Wyświetlenie obecnego ekranu dopasowanego do stanu bankomatu----//
-    wyswietlEkran(rdzen->zwrocStanBankomatu());
+    showCurrentScreen(programCore->zwrocStanBankomatu());
 
     //----Przypisanie przycisków do slotów----//
     //--------Menu--------//
     connect(actionExit,SIGNAL(triggered(bool)),qApp,SLOT(quit()));
-    connect(buttonA,SIGNAL(clicked(bool)),this,SLOT(przyciskAKliknieto()));
-    connect(buttonB,SIGNAL(clicked(bool)),this,SLOT(przyciskBKliknieto()));
-    connect(buttonC,SIGNAL(clicked(bool)),this,SLOT(przyciskCKliknieto()));
-    connect(buttonD,SIGNAL(clicked(bool)),this,SLOT(przyciskDKliknieto()));
-    connect(buttonE,SIGNAL(clicked(bool)),this,SLOT(przyciskEKliknieto()));
-    connect(buttonF,SIGNAL(clicked(bool)),this,SLOT(przyciskFKliknieto()));
-    connect(buttonG,SIGNAL(clicked(bool)),this,SLOT(przyciskGKliknieto()));
-    connect(buttonH,SIGNAL(clicked(bool)),this,SLOT(przyciskHKliknieto()));
+    connect(buttonA,SIGNAL(clicked(bool)),this,SLOT(buttonAPressed()));
+    connect(buttonB,SIGNAL(clicked(bool)),this,SLOT(buttonBPressed()));
+    connect(buttonC,SIGNAL(clicked(bool)),this,SLOT(buttonCPressed()));
+    connect(buttonD,SIGNAL(clicked(bool)),this,SLOT(buttonDPressed()));
+    connect(buttonE,SIGNAL(clicked(bool)),this,SLOT(buttonEPressed()));
+    connect(buttonF,SIGNAL(clicked(bool)),this,SLOT(buttonFPressed()));
+    connect(buttonG,SIGNAL(clicked(bool)),this,SLOT(buttonGPressed()));
+    connect(buttonH,SIGNAL(clicked(bool)),this,SLOT(buttonHPressed()));
 
     //--------Przyciski klawiatury--------//
     connect(button1,SIGNAL(clicked(bool)),this,SLOT(przycisk1Kliknieto()));
@@ -204,9 +204,9 @@ Widget::Widget(QWidget *parent) :
     //--------Akcje--------//
     connect(actionCardUsed,SIGNAL(triggered(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
     connect(actionReset,SIGNAL(triggered(bool)),this,SLOT(resetujKliknieto()));
-    connect(actionCreateAccount,SIGNAL(triggered(bool)),this,SLOT(wyswietlDodajKonto()));
-    connect(actionAddMoney,SIGNAL(triggered(bool)),this,SLOT(wyswieltDodajPieniadze()));
-    connect(actionInformation,SIGNAL(triggered(bool)),this,SLOT(wyswietlOProgramie()));
+    connect(actionCreateAccount,SIGNAL(triggered(bool)),this,SLOT(showWidgetAddAccount()));
+    connect(actionAddMoney,SIGNAL(triggered(bool)),this,SLOT(showWidgetAddMoney()));
+    connect(actionInformation,SIGNAL(triggered(bool)),this,SLOT(showWidgetAbout()));
 
     //--------Przyciski do obsługi karty oraz odbioru pieniędzy--------//
     connect(cardUsedButton,SIGNAL(clicked(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
@@ -216,7 +216,7 @@ Widget::Widget(QWidget *parent) :
 
 Widget::~Widget()
 {
-    delete rdzen;
+    delete programCore;
 
     //----Zmienne od paska menu----//
     delete actionCardUsed;
@@ -271,33 +271,33 @@ Widget::~Widget()
     delete moneyButton;
 
     //----Tablica gdzie będzie wyświetlana wypłata----//
-    delete tablicaWyplaty;
+    delete paymentTable;
 
     delete ui;
 }
 
 //----Pokazuje okienko z informacjami o programie----//
-void Widget::wyswietlOProgramie()
+void Widget::showWidgetAbout()
 {
-    rdzen->wyswietlOProgramie();
+    programCore->wyswietlOProgramie();
 }
 
 //----Wyświetla okienko gdzie można utworzyć konto do testów----//
-void Widget::wyswietlDodajKonto()
+void Widget::showWidgetAddAccount()
 {
-    rdzen->wyswietlDodajKonto();
+    programCore->wyswietlDodajKonto();
 }
 
 //----Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu----//
-void Widget::wyswieltDodajPieniadze()
+void Widget::showWidgetAddMoney()
 {
-    rdzen->wyswietlDodajPieniadze();
+    programCore->wyswietlDodajPieniadze();
 }
 
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
-void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
+void Widget::showCurrentScreen(CRdzen::StanBankomatu stan)
 {
-    if(rdzen->zwrocCzyZmienionoStanBankomatu() == true)
+    if(programCore->zwrocCzyZmienionoStanBankomatu() == true)
     {
         switch(stan)
         {
@@ -364,11 +364,11 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             ustawTekst("PIN został zmieniony.","Cofnij","","","","","","","");
             break;
         case CRdzen::pokazNumerKonta:
-            field->setText(rdzen->zwrocNumerKonta());
+            field->setText(programCore->zwrocNumerKonta());
             ustawTekst("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
             break;
         case CRdzen::wyswietlSaldo:
-            field->setText(QString::number(rdzen->zwrocStanKonta(),'f',2) + " zł");
+            field->setText(QString::number(programCore->zwrocStanKonta(),'f',2) + " zł");
             ustawTekst("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
             break;
         case CRdzen::wyplacGotowke:
@@ -380,8 +380,8 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
             moneyButton->setEnabled(true);
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
             ustawTekst("Proszę odebrać pieniądze..","","","","","","","","");
-            QVector<int> wyplata = rdzen->odbierzPieniadze();
-            wyswietlWyplate(wyplata);;
+            QVector<int> wyplata = programCore->odbierzPieniadze();
+            showPayment(wyplata);;
             break;
         }
         case CRdzen::brakGotowki:
@@ -402,99 +402,99 @@ void Widget::wyswietlEkran(CRdzen::StanBankomatu stan)
 }
 
 //----Wyświetla wypłacone pieniądze w elemencie QTableWidget----//
-void Widget::wyswietlWyplate(QVector<int> pieniadze)
+void Widget::showPayment(QVector<int> pieniadze)
 {
-    tablicaWyplaty->setItem(0,0,new QTableWidgetItem(QString::number(pieniadze[0])));
-    tablicaWyplaty->setItem(1,0,new QTableWidgetItem(QString::number(pieniadze[1])));
-    tablicaWyplaty->setItem(2,0,new QTableWidgetItem(QString::number(pieniadze[2])));
-    tablicaWyplaty->setItem(3,0,new QTableWidgetItem(QString::number(pieniadze[3])));
-    tablicaWyplaty->setItem(4,0,new QTableWidgetItem(QString::number(pieniadze[4])));
-    tablicaWyplaty->setItem(5,0,new QTableWidgetItem(QString::number(pieniadze[5])));
-    tablicaWyplaty->setItem(6,0,new QTableWidgetItem(QString::number(pieniadze[6])));
-    tablicaWyplaty->setItem(7,0,new QTableWidgetItem(QString::number(pieniadze[7])));
+    paymentTable->setItem(0,0,new QTableWidgetItem(QString::number(pieniadze[0])));
+    paymentTable->setItem(1,0,new QTableWidgetItem(QString::number(pieniadze[1])));
+    paymentTable->setItem(2,0,new QTableWidgetItem(QString::number(pieniadze[2])));
+    paymentTable->setItem(3,0,new QTableWidgetItem(QString::number(pieniadze[3])));
+    paymentTable->setItem(4,0,new QTableWidgetItem(QString::number(pieniadze[4])));
+    paymentTable->setItem(5,0,new QTableWidgetItem(QString::number(pieniadze[5])));
+    paymentTable->setItem(6,0,new QTableWidgetItem(QString::number(pieniadze[6])));
+    paymentTable->setItem(7,0,new QTableWidgetItem(QString::number(pieniadze[7])));
 }
 
 //----Czyści tablice QTableWidget----//
-void Widget::wyczyscTabliceWyplaty()
+void Widget::clearPaymentTable()
 {
-    tablicaWyplaty->clear();
+    paymentTable->clear();
     QStringList listaWierszy;
     listaWierszy << "200zł" << "100zł" << "50zł" << "20zł" << "10zł" << "5zł" << "2zł" << "1zł" ;
-    tablicaWyplaty->setVerticalHeaderLabels(listaWierszy);
+    paymentTable->setVerticalHeaderLabels(listaWierszy);
     QStringList listaKolumn;
     listaKolumn << "Ilość";
-    tablicaWyplaty->setHorizontalHeaderLabels(listaKolumn);
+    paymentTable->setHorizontalHeaderLabels(listaKolumn);
 }
 
 //--------Funkcje obsługi kliknięć przycisków funkcyjnych bankomatu--------//
-void Widget::przyciskAKliknieto()
+void Widget::buttonAPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskAKliknieto());
+        showCurrentScreen(programCore->przyciskAKliknieto());
     }
 }
 
-void Widget::przyciskBKliknieto()
+void Widget::buttonBPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskBKliknieto());
+        showCurrentScreen(programCore->przyciskBKliknieto());
     }
 }
 
-void Widget::przyciskCKliknieto()
+void Widget::buttonCPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskCKliknieto());
+        showCurrentScreen(programCore->przyciskCKliknieto());
     }
 }
 
-void Widget::przyciskDKliknieto()
+void Widget::buttonDPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskDKliknieto());
+        showCurrentScreen(programCore->przyciskDKliknieto());
     }
 }
 
-void Widget::przyciskEKliknieto()
+void Widget::buttonEPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskEKliknieto());
+        showCurrentScreen(programCore->przyciskEKliknieto());
     }
 }
 
-void Widget::przyciskFKliknieto()
+void Widget::buttonFPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskFKliknieto());
+        showCurrentScreen(programCore->przyciskFKliknieto());
     }
 }
 
-void Widget::przyciskGKliknieto()
+void Widget::buttonGPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskGKliknieto());
+        showCurrentScreen(programCore->przyciskGKliknieto());
     }
 }
 
-void Widget::przyciskHKliknieto()
+void Widget::buttonHPressed()
 {
     if(wait == false)
     {
-        wyswietlEkran(rdzen->przyciskHKliknieto());
+        showCurrentScreen(programCore->przyciskHKliknieto());
     }
 }
 
 //--------Przyciski obsługi kliknieć przycisków numerycznych bankomatu--------//
 void Widget::przyciskNumerycznyKliknieto(int wartosc)
 {
-    rdzen->przyciskKliknieto(wartosc);
+    programCore->przyciskKliknieto(wartosc);
     ustawPoleWartosci();
 }
 
@@ -582,7 +582,7 @@ void Widget::przyciskCofnijKliknieto()
 {
     if(wait == false)
     {
-        rdzen->przyciskCofnijKliknieto();
+        programCore->przyciskCofnijKliknieto();
         ustawPoleWartosci();
     }
 }
@@ -592,10 +592,10 @@ void Widget::przyciskUzytoKarteKliknieto()
 {
     if(wait == false)
     {
-        if((rdzen->zwrocStanBankomatu() == CRdzen::wlozKarte) || (rdzen->zwrocStanBankomatu() == CRdzen::wyjmijKarte))
+        if((programCore->zwrocStanBankomatu() == CRdzen::wlozKarte) || (programCore->zwrocStanBankomatu() == CRdzen::wyjmijKarte))
         {
-            rdzen->uzytoKarte();
-            wyswietlEkran(rdzen->zwrocStanBankomatu());
+            programCore->uzytoKarte();
+            showCurrentScreen(programCore->zwrocStanBankomatu());
         }
     }
 }
@@ -605,10 +605,10 @@ void Widget::upuszczonoKarteKliknieto()
 {
     if(wait == false)
     {
-        if(rdzen->zwrocStanBankomatu() == CRdzen::wlozKarte)
+        if(programCore->zwrocStanBankomatu() == CRdzen::wlozKarte)
         {
-            rdzen->uzytoKarte(cardUsedButton->getDirectory());
-            wyswietlEkran(rdzen->zwrocStanBankomatu());
+            programCore->uzytoKarte(cardUsedButton->getDirectory());
+            showCurrentScreen(programCore->zwrocStanBankomatu());
         }
     }
 }
@@ -618,12 +618,12 @@ void Widget::przyciskPieniadzeKliknieto()
 {
     if(wait == false)
     {
-        if(rdzen->zwrocStanBankomatu() == CRdzen::wybierzGotowke)
+        if(programCore->zwrocStanBankomatu() == CRdzen::wybierzGotowke)
         {
-            rdzen->odebranoPieniadze();
-            wyczyscTabliceWyplaty();
+            programCore->odebranoPieniadze();
+            clearPaymentTable();
             moneyButton->setDisabled(true);
-            wyswietlEkran(rdzen->zwrocStanBankomatu());
+            showCurrentScreen(programCore->zwrocStanBankomatu());
         }
     }
 }
@@ -631,16 +631,16 @@ void Widget::przyciskPieniadzeKliknieto()
 //----Ustawia wartość w polu na środku ekranu. Wyświetla pin lub kwotę----//
 void Widget::ustawPoleWartosci()
 {
-    switch(rdzen->zwrocStanBankomatu())
+    switch(programCore->zwrocStanBankomatu())
     {
     case CRdzen::podajPin:
     case CRdzen::zmienPin:
-        field->setText(rdzen->zwrocPoleZagwiazdkowane());
+        field->setText(programCore->zwrocPoleZagwiazdkowane());
         break;
     case CRdzen::wyplacGotowke:
-        if(rdzen->zwrocPole() != "")
+        if(programCore->zwrocPole() != "")
         {
-            field->setText(rdzen->zwrocPole() + " zł");
+            field->setText(programCore->zwrocPole() + " zł");
         }
         else
         {
@@ -667,8 +667,8 @@ void Widget::deaktywujPrzyciskiKarty()
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//
 void Widget::resetujKliknieto()
 {
-    rdzen->resetujKliknieto();
-    wyswietlEkran(rdzen->zwrocStanBankomatu());
+    programCore->resetujKliknieto();
+    showCurrentScreen(programCore->zwrocStanBankomatu());
 }
 
 //----Ustawia etykiety tekstowe ekranu----//
