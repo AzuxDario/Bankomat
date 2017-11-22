@@ -93,8 +93,8 @@ public slots:
     void showWidgetAbout(); //Pokazuje okienko z informacjami o programie
     void showWidgetAddAccount(); //Wyświetla okienko gdzie można utworzyć konto do testów
     void showWidgetAddMoney(); //Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu
-    void showCurrentScreen(CRdzen::StanBankomatu stan); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
-    void showPayment(QVector<int> pieniadze); //Wyświetla wypłacone pieniądze w elemencie QTableWidget
+    void showCurrentScreen(CRdzen::StanBankomatu state); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
+    void showPayment(QVector<int> money); //Wyświetla wypłacone pieniądze w elemencie QTableWidget
     void clearPaymentTable(); //Czyści tablice QTableWidget
 
     //----Funkcje obsługi kliknięć przycisków funkcyjnych bankomatu----//
@@ -108,18 +108,18 @@ public slots:
     void buttonHPressed();
 
     //----Przyciski obsługi kliknieć przycisków numerycznych bankomatu----//
-    void przyciskNumerycznyKliknieto(int wartosc);
-    void przycisk1Kliknieto();
-    void przycisk2Kliknieto();
-    void przycisk3Kliknieto();
-    void przycisk4Kliknieto();
-    void przycisk5Kliknieto();
-    void przycisk6Kliknieto();
-    void przycisk7Kliknieto();
-    void przycisk8Kliknieto();
-    void przycisk9Kliknieto();
-    void przycisk0Kliknieto();
-    void przyciskCofnijKliknieto();
+    void buttonNumberPressed(int value);
+    void button1Pressed();
+    void button2Pressed();
+    void button3Pressed();
+    void button4Pressed();
+    void button5Pressed();
+    void button6Pressed();
+    void button7Pressed();
+    void button8Pressed();
+    void button9Pressed();
+    void button0Pressed();
+    void buttonUndoPressed();
 
     void przyciskUzytoKarteKliknieto(); //Funkcja obsługi kliknięcia przycisku "Karta"
     void upuszczonoKarteKliknieto(); //Funkcja obsługi upuszczenia na przycisk

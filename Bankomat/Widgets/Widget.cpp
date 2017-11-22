@@ -189,17 +189,17 @@ Widget::Widget(QWidget *parent) :
     connect(buttonH,SIGNAL(clicked(bool)),this,SLOT(buttonHPressed()));
 
     //--------Przyciski klawiatury--------//
-    connect(button1,SIGNAL(clicked(bool)),this,SLOT(przycisk1Kliknieto()));
-    connect(button2,SIGNAL(clicked(bool)),this,SLOT(przycisk2Kliknieto()));
-    connect(button3,SIGNAL(clicked(bool)),this,SLOT(przycisk3Kliknieto()));
-    connect(button4,SIGNAL(clicked(bool)),this,SLOT(przycisk4Kliknieto()));
-    connect(button5,SIGNAL(clicked(bool)),this,SLOT(przycisk5Kliknieto()));
-    connect(button6,SIGNAL(clicked(bool)),this,SLOT(przycisk6Kliknieto()));
-    connect(button7,SIGNAL(clicked(bool)),this,SLOT(przycisk7Kliknieto()));
-    connect(button8,SIGNAL(clicked(bool)),this,SLOT(przycisk8Kliknieto()));
-    connect(button9,SIGNAL(clicked(bool)),this,SLOT(przycisk9Kliknieto()));
-    connect(button0,SIGNAL(clicked(bool)),this,SLOT(przycisk0Kliknieto()));
-    connect(buttonReturn,SIGNAL(clicked(bool)),this,SLOT(przyciskCofnijKliknieto()));
+    connect(button1,SIGNAL(clicked(bool)),this,SLOT(button1Pressed()));
+    connect(button2,SIGNAL(clicked(bool)),this,SLOT(button2Pressed()));
+    connect(button3,SIGNAL(clicked(bool)),this,SLOT(button3Pressed()));
+    connect(button4,SIGNAL(clicked(bool)),this,SLOT(button4Pressed()));
+    connect(button5,SIGNAL(clicked(bool)),this,SLOT(button5Pressed()));
+    connect(button6,SIGNAL(clicked(bool)),this,SLOT(button6Pressed()));
+    connect(button7,SIGNAL(clicked(bool)),this,SLOT(button7Pressed()));
+    connect(button8,SIGNAL(clicked(bool)),this,SLOT(button8Pressed()));
+    connect(button9,SIGNAL(clicked(bool)),this,SLOT(button9Pressed()));
+    connect(button0,SIGNAL(clicked(bool)),this,SLOT(button9Pressed()));
+    connect(buttonReturn,SIGNAL(clicked(bool)),this,SLOT(buttonUndoPressed()));
 
     //--------Akcje--------//
     connect(actionCardUsed,SIGNAL(triggered(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
@@ -295,11 +295,11 @@ void Widget::showWidgetAddMoney()
 }
 
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
-void Widget::showCurrentScreen(CRdzen::StanBankomatu stan)
+void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
 {
     if(programCore->zwrocCzyZmienionoStanBankomatu() == true)
     {
-        switch(stan)
+        switch(state)
         {
         case CRdzen::wlozKarte:
             aktywujPrzyciskiKarty();
@@ -402,16 +402,16 @@ void Widget::showCurrentScreen(CRdzen::StanBankomatu stan)
 }
 
 //----Wyświetla wypłacone pieniądze w elemencie QTableWidget----//
-void Widget::showPayment(QVector<int> pieniadze)
+void Widget::showPayment(QVector<int> money)
 {
-    paymentTable->setItem(0,0,new QTableWidgetItem(QString::number(pieniadze[0])));
-    paymentTable->setItem(1,0,new QTableWidgetItem(QString::number(pieniadze[1])));
-    paymentTable->setItem(2,0,new QTableWidgetItem(QString::number(pieniadze[2])));
-    paymentTable->setItem(3,0,new QTableWidgetItem(QString::number(pieniadze[3])));
-    paymentTable->setItem(4,0,new QTableWidgetItem(QString::number(pieniadze[4])));
-    paymentTable->setItem(5,0,new QTableWidgetItem(QString::number(pieniadze[5])));
-    paymentTable->setItem(6,0,new QTableWidgetItem(QString::number(pieniadze[6])));
-    paymentTable->setItem(7,0,new QTableWidgetItem(QString::number(pieniadze[7])));
+    paymentTable->setItem(0,0,new QTableWidgetItem(QString::number(money[0])));
+    paymentTable->setItem(1,0,new QTableWidgetItem(QString::number(money[1])));
+    paymentTable->setItem(2,0,new QTableWidgetItem(QString::number(money[2])));
+    paymentTable->setItem(3,0,new QTableWidgetItem(QString::number(money[3])));
+    paymentTable->setItem(4,0,new QTableWidgetItem(QString::number(money[4])));
+    paymentTable->setItem(5,0,new QTableWidgetItem(QString::number(money[5])));
+    paymentTable->setItem(6,0,new QTableWidgetItem(QString::number(money[6])));
+    paymentTable->setItem(7,0,new QTableWidgetItem(QString::number(money[7])));
 }
 
 //----Czyści tablice QTableWidget----//
@@ -492,93 +492,93 @@ void Widget::buttonHPressed()
 }
 
 //--------Przyciski obsługi kliknieć przycisków numerycznych bankomatu--------//
-void Widget::przyciskNumerycznyKliknieto(int wartosc)
+void Widget::buttonNumberPressed(int value)
 {
-    programCore->przyciskKliknieto(wartosc);
+    programCore->przyciskKliknieto(value);
     ustawPoleWartosci();
 }
 
-void Widget::przycisk1Kliknieto()
+void Widget::button1Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(1);
+        buttonNumberPressed(1);
     }
 }
 
-void Widget::przycisk2Kliknieto()
+void Widget::button2Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(2);
+        buttonNumberPressed(2);
     }
 }
 
-void Widget::przycisk3Kliknieto()
+void Widget::button3Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(3);
+        buttonNumberPressed(3);
     }
 }
 
-void Widget::przycisk4Kliknieto()
+void Widget::button4Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(4);
+        buttonNumberPressed(4);
     }
 }
 
-void Widget::przycisk5Kliknieto()
+void Widget::button5Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(5);
+        buttonNumberPressed(5);
     }
 }
 
-void Widget::przycisk6Kliknieto()
+void Widget::button6Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(6);
+        buttonNumberPressed(6);
     }
 }
 
-void Widget::przycisk7Kliknieto()
+void Widget::button7Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(7);
+        buttonNumberPressed(7);
     }
 }
 
-void Widget::przycisk8Kliknieto()
+void Widget::button8Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(8);
+        buttonNumberPressed(8);
     }
 }
 
-void Widget::przycisk9Kliknieto()
+void Widget::button9Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(9);
+        buttonNumberPressed(9);
     }
 }
 
-void Widget::przycisk0Kliknieto()
+void Widget::button0Pressed()
 {
     if(wait == false)
     {
-        przyciskNumerycznyKliknieto(0);
+        buttonNumberPressed(0);
     }
 }
 
-void Widget::przyciskCofnijKliknieto()
+void Widget::buttonUndoPressed()
 {
     if(wait == false)
     {
