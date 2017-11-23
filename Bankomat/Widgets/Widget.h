@@ -121,16 +121,16 @@ public slots:
     void button0Pressed();
     void buttonUndoPressed();
 
-    void przyciskUzytoKarteKliknieto(); //Funkcja obsługi kliknięcia przycisku "Karta"
-    void upuszczonoKarteKliknieto(); //Funkcja obsługi upuszczenia na przycisk
-    void przyciskPieniadzeKliknieto(); //Funkcja obsługi kliknięcia przycisku "Odbierz pieniądze"
-    void ustawPoleWartosci(); //Ustawia wartość w polu na środku ekranu. Wyświetla pin lub kwotę
-    void aktywujPrzyciskiKarty();
-    void deaktywujPrzyciskiKarty();
-    void resetujKliknieto(); //Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy
+    void buttonCardUsedPressed(); //Funkcja obsługi kliknięcia przycisku "Karta"
+    void cardDropped(); //Funkcja obsługi upuszczenia na przycisk
+    void buttonMoneyPressed(); //Funkcja obsługi kliknięcia przycisku "Odbierz pieniądze"
+    void setValueField(); //Ustawia wartość w polu na środku ekranu. Wyświetla pin lub kwotę
+    void activeCardButton();
+    void deactiveCardButton();
+    void reset(); //Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy
 
 private slots:
-    void ustawTekst(QString title, QString opcjaA, QString opcjaB, QString opcjaC, QString opcjaD, QString opcjaE, QString opcjaF, QString opcjaG, QString opcjaH); //Ustawia etykiety tekstowe ekranu
+    void setText(QString title, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH); //Ustawia etykiety tekstowe ekranu
     void closeEvent(QCloseEvent *); //Zamyka program po zamknięciu głównego okna
 
 

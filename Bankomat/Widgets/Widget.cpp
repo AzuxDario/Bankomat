@@ -202,78 +202,21 @@ Widget::Widget(QWidget *parent) :
     connect(buttonReturn,SIGNAL(clicked(bool)),this,SLOT(buttonUndoPressed()));
 
     //--------Akcje--------//
-    connect(actionCardUsed,SIGNAL(triggered(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
-    connect(actionReset,SIGNAL(triggered(bool)),this,SLOT(resetujKliknieto()));
+    connect(actionCardUsed,SIGNAL(triggered(bool)),this,SLOT(buttonCardUsedPressed()));
+    connect(actionReset,SIGNAL(triggered(bool)),this,SLOT(reset()));
     connect(actionCreateAccount,SIGNAL(triggered(bool)),this,SLOT(showWidgetAddAccount()));
     connect(actionAddMoney,SIGNAL(triggered(bool)),this,SLOT(showWidgetAddMoney()));
     connect(actionInformation,SIGNAL(triggered(bool)),this,SLOT(showWidgetAbout()));
 
     //--------Przyciski do obsługi karty oraz odbioru pieniędzy--------//
-    connect(cardUsedButton,SIGNAL(clicked(bool)),this,SLOT(przyciskUzytoKarteKliknieto()));
-    connect(cardUsedButton,SIGNAL(dropped()),this,SLOT(upuszczonoKarteKliknieto()));
-    connect(moneyButton,SIGNAL(clicked(bool)),this,SLOT(przyciskPieniadzeKliknieto()));
+    connect(cardUsedButton,SIGNAL(clicked(bool)),this,SLOT(buttonCardUsedPressed()));
+    connect(cardUsedButton,SIGNAL(dropped()),this,SLOT(cardDropped()));
+    connect(moneyButton,SIGNAL(clicked(bool)),this,SLOT(buttonMoneyPressed()));
 }
 
 Widget::~Widget()
 {
-    delete programCore;
 
-    //----Zmienne od paska menu----//
-    delete actionCardUsed;
-    delete actionReset;
-    delete actionExit;
-    delete actionCreateAccount;
-    delete actionAddMoney;
-    delete actionInformation;
-    delete menuCashMachine;
-    delete menuAccounts;
-    delete menuHelp;
-    delete menuBar;
-
-    //----Okno do wyświetlania----//
-    delete window;
-    delete field;
-    delete title;
-    delete optionA;
-    delete optionB;
-    delete optionC;
-    delete optionD;
-    delete optionE;
-    delete optionF;
-    delete optionG;
-    delete optionH;
-
-    //----Przyciski do obsługi----//
-    delete buttonA;
-    delete buttonB;
-    delete buttonC;
-    delete buttonD;
-    delete buttonE;
-    delete buttonF;
-    delete buttonG;
-    delete buttonH;
-
-    //----Przyciski klawiatury----//
-    delete button1;
-    delete button2;
-    delete button3;
-    delete button4;
-    delete button5;
-    delete button6;
-    delete button7;
-    delete button8;
-    delete button9;
-    delete button0;
-    delete buttonReturn;
-
-    //----Przyciski od karty i pieniędzy----//
-    delete cardUsedButton;
-    delete moneyButton;
-
-    //----Tablica gdzie będzie wyświetlana wypłata----//
-    delete paymentTable;
-
-    delete ui;
 }
 
 //----Pokazuje okienko z informacjami o programie----//
@@ -302,44 +245,44 @@ void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
         switch(state)
         {
         case CRdzen::wlozKarte:
-            aktywujPrzyciskiKarty();
-            ustawTekst("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","","");
+            activeCardButton();
+            setText("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","","");
             break;
         case CRdzen::brakSrodkowWBankomacie:
-            ustawTekst("Przepraszamy bankomat nieczynny","","","","","","","","");
+            setText("Przepraszamy bankomat nieczynny","","","","","","","","");
             break;
         case CRdzen::niepoprawnyPlikKarty:
-            deaktywujPrzyciskiKarty();
+            deactiveCardButton();
             wait = true;
-            ustawTekst("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-            QTimer::singleShot(3000,([&](){ustawTekst("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); wait = false;}));
+            setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
+            QTimer::singleShot(3000,([&](){setText("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::podajPin:
-            deaktywujPrzyciskiKarty();
+            deactiveCardButton();
             if(isCardLoaded == false)
             {
                 isCardLoaded = true;
                 wait = true;
-                ustawTekst("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-                QTimer::singleShot(3000,([&](){ustawTekst("Podaj PIN","","","","","Zatwierdź","","",""); wait = false;}));
+                setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
+                QTimer::singleShot(3000,([&](){setText("Podaj PIN","","","","","Zatwierdź","","",""); wait = false;}));
             }
             else
             {
-                ustawTekst("Podaj PIN","","","","","Zatwierdź","","","");
+                setText("Podaj PIN","","","","","Zatwierdź","","","");
             }
             break;
         case CRdzen::niepoprawnyPin:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
-            ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&](){ustawTekst("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
+            setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
+            QTimer::singleShot(1500,([&](){setText("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::kartaZablokowana:
-            deaktywujPrzyciskiKarty();
+            deactiveCardButton();
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
-            ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&]() {ustawTekst("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
+            setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
+            QTimer::singleShot(1500,([&]() {setText("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
             break;
         case CRdzen::wybierzOperacje:
             if(isAccountLoaded == false)
@@ -347,53 +290,53 @@ void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
                 isAccountLoaded = true;
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
                 wait = true;
-                ustawTekst("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-                QTimer::singleShot(1500,([&]() {ustawTekst("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); wait = false;}));
+                setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
+                QTimer::singleShot(1500,([&]() {setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); wait = false;}));
             }
             else
             {
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
-                ustawTekst("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN","");
+                setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN","");
             }
             break;
         case CRdzen::zmienPin:
-            ustawTekst("Podaj nowy czterocyfrowy PIN.","Cofnij","","","","Zatwierdź","","","");
+            setText("Podaj nowy czterocyfrowy PIN.","Cofnij","","","","Zatwierdź","","","");
             break;
         case CRdzen::zmienionoPin:
             field->setText("");
-            ustawTekst("PIN został zmieniony.","Cofnij","","","","","","","");
+            setText("PIN został zmieniony.","Cofnij","","","","","","","");
             break;
         case CRdzen::pokazNumerKonta:
             field->setText(programCore->zwrocNumerKonta());
-            ustawTekst("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
+            setText("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
             break;
         case CRdzen::wyswietlSaldo:
             field->setText(QString::number(programCore->zwrocStanKonta(),'f',2) + " zł");
-            ustawTekst("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
+            setText("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
             break;
         case CRdzen::wyplacGotowke:
             field->setText("");
-            ustawTekst("Proszę wpisać żądaną ilość gotówki do wypłaty. Maksymalnie 3000 zł.","Cofnij","","","","Wypłać","","","");
+            setText("Proszę wpisać żądaną ilość gotówki do wypłaty. Maksymalnie 3000 zł.","Cofnij","","","","Wypłać","","","");
             break;
         case CRdzen::wybierzGotowke:
         {
             moneyButton->setEnabled(true);
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
-            ustawTekst("Proszę odebrać pieniądze..","","","","","","","","");
+            setText("Proszę odebrać pieniądze..","","","","","","","","");
             QVector<int> wyplata = programCore->odbierzPieniadze();
             showPayment(wyplata);;
             break;
         }
         case CRdzen::brakGotowki:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
-            ustawTekst("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
+            setText("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
             break;
         case CRdzen::wyjmijKarte:
             isCardLoaded = false;
             isAccountLoaded = false;
             field->setText("");
-            aktywujPrzyciskiKarty();
-            ustawTekst("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
+            activeCardButton();
+            setText("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
             break;
         default:
             break;
@@ -495,7 +438,7 @@ void Widget::buttonHPressed()
 void Widget::buttonNumberPressed(int value)
 {
     programCore->przyciskKliknieto(value);
-    ustawPoleWartosci();
+    setValueField();
 }
 
 void Widget::button1Pressed()
@@ -583,12 +526,12 @@ void Widget::buttonUndoPressed()
     if(wait == false)
     {
         programCore->przyciskCofnijKliknieto();
-        ustawPoleWartosci();
+        setValueField();
     }
 }
 
 //----Funkcja obsługi kliknięcia przycisku "Karta"----//
-void Widget::przyciskUzytoKarteKliknieto()
+void Widget::buttonCardUsedPressed()
 {
     if(wait == false)
     {
@@ -601,7 +544,7 @@ void Widget::przyciskUzytoKarteKliknieto()
 }
 
 //----Funkcja obsługi upuszczenia na przycisk----//
-void Widget::upuszczonoKarteKliknieto()
+void Widget::cardDropped()
 {
     if(wait == false)
     {
@@ -614,7 +557,7 @@ void Widget::upuszczonoKarteKliknieto()
 }
 
 //----Funkcja obsługi kliknięcia przycisku "Odbierz pieniądze"----//
-void Widget::przyciskPieniadzeKliknieto()
+void Widget::buttonMoneyPressed()
 {
     if(wait == false)
     {
@@ -629,7 +572,7 @@ void Widget::przyciskPieniadzeKliknieto()
 }
 
 //----Ustawia wartość w polu na środku ekranu. Wyświetla pin lub kwotę----//
-void Widget::ustawPoleWartosci()
+void Widget::setValueField()
 {
     switch(programCore->zwrocStanBankomatu())
     {
@@ -652,37 +595,37 @@ void Widget::ustawPoleWartosci()
     }
 }
 
-void Widget::aktywujPrzyciskiKarty()
+void Widget::activeCardButton()
 {
     cardUsedButton->setEnabled(true);
     actionCardUsed->setEnabled(true);
 }
 
-void Widget::deaktywujPrzyciskiKarty()
+void Widget::deactiveCardButton()
 {
     cardUsedButton->setDisabled(true);
     actionCardUsed->setDisabled(true);
 }
 
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//
-void Widget::resetujKliknieto()
+void Widget::reset()
 {
     programCore->resetujKliknieto();
     showCurrentScreen(programCore->zwrocStanBankomatu());
 }
 
 //----Ustawia etykiety tekstowe ekranu----//
-void Widget::ustawTekst(QString tytul, QString opcjaA, QString opcjaB, QString opcjaC, QString opcjaD, QString opcjaE, QString opcjaF, QString opcjaG, QString opcjaH)
+void Widget::setText(QString tytul, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH)
 {
     this->title->setText(tytul);
-    optionA->setText(opcjaA);
-    optionB->setText(opcjaB);
-    optionC->setText(opcjaC);
-    optionD->setText(opcjaD);
-    optionE->setText(opcjaE);
-    optionF->setText(opcjaF);
-    optionG->setText(opcjaG);
-    optionH->setText(opcjaH);
+    optionA->setText(textA);
+    optionB->setText(textB);
+    optionC->setText(textC);
+    optionD->setText(textD);
+    optionE->setText(textE);
+    optionF->setText(textF);
+    optionG->setText(textG);
+    optionH->setText(textH);
 }
 
 //--------Zamyka program po zamknięciu głównego okna--------//
