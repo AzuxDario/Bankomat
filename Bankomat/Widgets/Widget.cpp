@@ -162,12 +162,12 @@ Widget::Widget(QWidget *parent) :
     paymentTable->setColumnCount(1);
     paymentTable->setRowCount(8);
     paymentTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    QStringList listaWierszy;
-    listaWierszy << "200zł" << "100zł" << "50zł" << "20zł" << "10zł" << "5zł" << "2zł" << "1zł" ;
-    paymentTable->setVerticalHeaderLabels(listaWierszy);
-    QStringList listaKolumn;
-    listaKolumn << "Ilość";
-    paymentTable->setHorizontalHeaderLabels(listaKolumn);
+    QStringList rows;
+    rows << "200zł" << "100zł" << "50zł" << "20zł" << "10zł" << "5zł" << "2zł" << "1zł" ;
+    paymentTable->setVerticalHeaderLabels(rows);
+    QStringList columns;
+    columns << "Ilość";
+    paymentTable->setHorizontalHeaderLabels(columns);
     paymentTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     //----Tworzenie obiektu rdzenia aplikacji----//
@@ -338,8 +338,6 @@ void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
             activeCardButton();
             setText("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
             break;
-        default:
-            break;
         }
     }
 }
@@ -361,12 +359,12 @@ void Widget::showPayment(QVector<int> money)
 void Widget::clearPaymentTable()
 {
     paymentTable->clear();
-    QStringList listaWierszy;
-    listaWierszy << "200zł" << "100zł" << "50zł" << "20zł" << "10zł" << "5zł" << "2zł" << "1zł" ;
-    paymentTable->setVerticalHeaderLabels(listaWierszy);
-    QStringList listaKolumn;
-    listaKolumn << "Ilość";
-    paymentTable->setHorizontalHeaderLabels(listaKolumn);
+    QStringList rows;
+    rows << "200zł" << "100zł" << "50zł" << "20zł" << "10zł" << "5zł" << "2zł" << "1zł" ;
+    paymentTable->setVerticalHeaderLabels(rows);
+    QStringList columns;
+    columns << "Ilość";
+    paymentTable->setHorizontalHeaderLabels(columns);
 }
 
 //--------Funkcje obsługi kliknięć przycisków funkcyjnych bankomatu--------//
