@@ -1,7 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include "crdzen.h"
+#include "WidgetViewProvider.h"
 #include "DropButton.h"
 #include <QWidget>
 #include <QTableWidget>

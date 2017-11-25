@@ -1,6 +1,6 @@
 INCLUDEPATH += WidgetsProviders
 DEPENDPATH += WidgetsProviders
 SOURCES += \
-    $$PWD/crdzen.cpp
+    $$PWD/WidgetViewProvider.cpp
 HEADERS += \
-    $$PWD/crdzen.h
+    $$PWD/WidgetViewProvider.h

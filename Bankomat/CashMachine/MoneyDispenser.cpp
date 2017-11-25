@@ -1,4 +1,4 @@
-#include "MoneyDispenser..h"
+#include "MoneyDispenser.h"
 
 MoneyDispenser::MoneyDispenser(MoneyBox *kaseta)
 {

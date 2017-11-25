@@ -3,7 +3,7 @@
 
 #include "Card.h"
 #include "Account.h"
-#include "MoneyDispenser..h"
+#include "MoneyDispenser.h"
 #include "MoneyBox.h"
 #include "WidgetAbout.h"
 #include "WidgetAddAccount.h"

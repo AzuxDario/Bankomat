@@ -5,4 +5,4 @@ SOURCES += \
     $$PWD/MoneyDispenser.cpp
 HEADERS += \
     $$PWD/MoneyBox.h \
-    $$PWD/MoneyDispenser..h
+    $$PWD/MoneyDispenser.h

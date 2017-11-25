@@ -1,4 +1,4 @@
-#include "crdzen.h"
+#include "WidgetViewProvider.h"
 
 CRdzen::CRdzen(QObject *parent) : QObject(parent)
 {
