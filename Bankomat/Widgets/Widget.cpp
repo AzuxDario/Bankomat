@@ -174,7 +174,7 @@ Widget::Widget(QWidget *parent) :
     programCore = new CRdzen(this);
 
     //----Wyświetlenie obecnego ekranu dopasowanego do stanu bankomatu----//
-    showCurrentScreen(programCore->zwrocStanBankomatu());
+    showCurrentScreen(programCore->getATMState());
 
     //----Przypisanie przycisków do slotów----//
     //--------Menu--------//
@@ -240,7 +240,7 @@ void Widget::showWidgetAddMoney()
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
 void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
 {
-    if(programCore->zwrocCzyZmienionoStanBankomatu() == true)
+    if(programCore->isATMStateChanged() == true)
     {
         switch(state)
         {
@@ -307,11 +307,11 @@ void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
             setText("PIN został zmieniony.","Cofnij","","","","","","","");
             break;
         case CRdzen::pokazNumerKonta:
-            field->setText(programCore->zwrocNumerKonta());
+            field->setText(programCore->getAccountNumber());
             setText("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
             break;
         case CRdzen::wyswietlSaldo:
-            field->setText(QString::number(programCore->zwrocStanKonta(),'f',2) + " zł");
+            field->setText(QString::number(programCore->getBalance(),'f',2) + " zł");
             setText("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
             break;
         case CRdzen::wyplacGotowke:
@@ -533,10 +533,10 @@ void Widget::buttonCardUsedPressed()
 {
     if(wait == false)
     {
-        if((programCore->zwrocStanBankomatu() == CRdzen::wlozKarte) || (programCore->zwrocStanBankomatu() == CRdzen::wyjmijKarte))
+        if((programCore->getATMState() == CRdzen::wlozKarte) || (programCore->getATMState() == CRdzen::wyjmijKarte))
         {
             programCore->uzytoKarte();
-            showCurrentScreen(programCore->zwrocStanBankomatu());
+            showCurrentScreen(programCore->getATMState());
         }
     }
 }
@@ -546,10 +546,10 @@ void Widget::cardDropped()
 {
     if(wait == false)
     {
-        if(programCore->zwrocStanBankomatu() == CRdzen::wlozKarte)
+        if(programCore->getATMState() == CRdzen::wlozKarte)
         {
             programCore->uzytoKarte(cardUsedButton->getDirectory());
-            showCurrentScreen(programCore->zwrocStanBankomatu());
+            showCurrentScreen(programCore->getATMState());
         }
     }
 }
@@ -559,12 +559,12 @@ void Widget::buttonMoneyPressed()
 {
     if(wait == false)
     {
-        if(programCore->zwrocStanBankomatu() == CRdzen::wybierzGotowke)
+        if(programCore->getATMState() == CRdzen::wybierzGotowke)
         {
             programCore->odebranoPieniadze();
             clearPaymentTable();
             moneyButton->setDisabled(true);
-            showCurrentScreen(programCore->zwrocStanBankomatu());
+            showCurrentScreen(programCore->getATMState());
         }
     }
 }
@@ -572,16 +572,16 @@ void Widget::buttonMoneyPressed()
 //----Ustawia wartość w polu na środku ekranu. Wyświetla pin lub kwotę----//
 void Widget::setValueField()
 {
-    switch(programCore->zwrocStanBankomatu())
+    switch(programCore->getATMState())
     {
     case CRdzen::podajPin:
     case CRdzen::zmienPin:
-        field->setText(programCore->zwrocPoleZagwiazdkowane());
+        field->setText(programCore->getHiddenValueField());
         break;
     case CRdzen::wyplacGotowke:
-        if(programCore->zwrocPole() != "")
+        if(programCore->getValueField() != "")
         {
-            field->setText(programCore->zwrocPole() + " zł");
+            field->setText(programCore->getValueField() + " zł");
         }
         else
         {
@@ -609,7 +609,7 @@ void Widget::deactiveCardButton()
 void Widget::reset()
 {
     programCore->resetujKliknieto();
-    showCurrentScreen(programCore->zwrocStanBankomatu());
+    showCurrentScreen(programCore->getATMState());
 }
 
 //----Ustawia etykiety tekstowe ekranu----//
