@@ -4,37 +4,37 @@ CRdzen::CRdzen(QObject *parent) : QObject(parent)
 {
 
     valueField = "";
-    oknoOProgramie = nullptr;
-    oknoDodajKonto = nullptr;
-    oknoDodajPieniadze = nullptr;
+    widgetAbout = nullptr;
+    widgetAddAccount = nullptr;
+    widgetAddMoney = nullptr;
     card = nullptr;
     account = nullptr;
     moneyBox = new MoneyBox();
     moneyDispenser = new MoneyDispenser(moneyBox);
     if(moneyDispenser->isEnoughCash() == true)
     {
-        stanBankomatu = wlozKarte;
+        atmState = wlozKarte;
     }
     else
     {
-        stanBankomatu = brakSrodkowWBankomacie;
+        atmState = brakSrodkowWBankomacie;
     }
     czyZmienionoStanBankomatu = true;
 }
 
 CRdzen::~CRdzen()
 {  
-    if(oknoOProgramie != nullptr)
+    if(widgetAbout != nullptr)
     {
-        delete oknoOProgramie;
+        delete widgetAbout;
     }
-    if(oknoDodajPieniadze != nullptr)
+    if(widgetAddMoney != nullptr)
     {
-        delete oknoDodajPieniadze;
+        delete widgetAddMoney;
     }
-    if(oknoDodajKonto != nullptr)
+    if(widgetAddAccount != nullptr)
     {
-        delete oknoDodajKonto;
+        delete widgetAddAccount;
     }
     delete moneyDispenser;
     delete moneyBox;
@@ -85,9 +85,9 @@ double CRdzen::getBalance()
 }
 
 //----Zwraca stan bankomatu----//
-CRdzen::StanBankomatu CRdzen::getATMState()
+CRdzen::ATMState CRdzen::getATMState()
 {
-    return stanBankomatu;
+    return atmState;
 }
 
 //----Zwraca czy zmieniono stan bankomatu----//
@@ -98,153 +98,153 @@ bool CRdzen::isATMStateChanged()
 
 //--------Settery--------//
 //----Zmienia stan bankomatu----//
-void CRdzen::setATMState(CRdzen::StanBankomatu stanBankomatu)
+void CRdzen::setATMState(CRdzen::ATMState stanBankomatu)
 {
-    this->stanBankomatu = stanBankomatu;
+    this->atmState = stanBankomatu;
 }
 
 //--------Funkcje wyświetlające okna--------//
-void CRdzen::wyswietlOProgramie()
+void CRdzen::showWidgetAbout()
 {
-    if(oknoOProgramie == nullptr) //Jeżli okna nie ma stwórz je
+    if(widgetAbout == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoOProgramie = new WidgetAbout();
+        widgetAbout = new WidgetAbout();
     }
     else
     {
-        oknoOProgramie->showWindow();
+        widgetAbout->showWindow();
     }
 }
 
 //----Wyświetla okienko gdzie można utworzyć konto do testów----//
-void CRdzen::wyswietlDodajKonto()
+void CRdzen::showWidgetAddAccount()
 {
-    if(oknoDodajKonto == nullptr) //Jeżli okna nie ma stwórz je
+    if(widgetAddAccount == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoDodajKonto = new WidgetAddAccount();
+        widgetAddAccount = new WidgetAddAccount();
     }
     else
     {
-        oknoDodajKonto->showWindow();
+        widgetAddAccount->showWindow();
     }
 }
 
 //----Pokazuje okno gdzie można dołożyć pieniądze do bankomatu----//
-void CRdzen::wyswietlDodajPieniadze()
+void CRdzen::showWidgetAddMoney()
 {
-    if(oknoDodajPieniadze == nullptr) //Jeżli okna nie ma stwórz je
+    if(widgetAddMoney == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoDodajPieniadze = new WidgetAddMoney(moneyBox);
+        widgetAddMoney = new WidgetAddMoney(moneyBox);
     }
     else
     {
-        oknoDodajPieniadze->showWindow();
+        widgetAddMoney->showWindow();
     }
 }
 
 //--------Funkcję obsługi przycisków bankomatu--------//
-CRdzen::StanBankomatu CRdzen::przyciskAKliknieto()
+CRdzen::ATMState CRdzen::buttonAPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     //Cofnięcie okna gdy plik karty jest zły lub uszkodzony
     case niepoprawnyPlikKarty:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wlozKarte;
+        return atmState = wlozKarte;
         break;
     //Cofnięcie okna w przypadku zablokowania karty
     case kartaZablokowana:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wlozKarte;
+        return atmState = wlozKarte;
         break;
     //Cofnięcie okna w przypadku gdy podano zły PIN
     case niepoprawnyPin:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = podajPin;
+        return atmState = podajPin;
         break;
     //Wyjęcie karty w przypadku wybrania takiej operacji
     case wybierzOperacje:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyjmijKarte;
+        return atmState = wyjmijKarte;
         break;
     //Cofnięcie podczas zmiany Pinu
     case zmienPin:
         czyZmienionoStanBankomatu = true;
         valueField = "";
-        return stanBankomatu = wybierzOperacje;
+        return atmState = wybierzOperacje;
         break;
     //Cofnięcie po zmianie pinu
     case zmienionoPin:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wybierzOperacje;
+        return atmState = wybierzOperacje;
         break;
     //Wyjęcie karty podczas przeglądania salda
     case wyswietlSaldo:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyjmijKarte;
+        return atmState = wyjmijKarte;
         break;
     //Cofnięcie do poprzedniego okna podczas wypłaty
     case wyplacGotowke:
         valueField = "";
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wybierzOperacje;
+        return atmState = wybierzOperacje;
         break;
     //Cofnięcie do poprzednego okna gdy brak środków na koncie
     case brakGotowki:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wybierzOperacje;
+        return atmState = wybierzOperacje;
         break;
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskBKliknieto()
+CRdzen::ATMState CRdzen::buttonBPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     case wybierzOperacje:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = pokazNumerKonta;
+        return atmState = pokazNumerKonta;
         break;
     case pokazNumerKonta:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wybierzOperacje;
+        return atmState = wybierzOperacje;
         break;
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskCKliknieto()
+CRdzen::ATMState CRdzen::buttonCPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskDKliknieto()
+CRdzen::ATMState CRdzen::buttonDPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
+CRdzen::ATMState CRdzen::buttonEPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     //Zatwierdzenie podczas wpisywania PINu
     case podajPin:
@@ -254,7 +254,7 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
             //Poprawnie wprowadzono PIN i uzyskano dostęp do konta
             valueField = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
             account = new Account(card->getAccountNumber());
-            return stanBankomatu = wybierzOperacje;
+            return atmState = wybierzOperacje;
         }
         else
         {
@@ -264,18 +264,18 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
                 card->saveCardFile();
                 delete card;
                 card = nullptr;
-                return stanBankomatu = kartaZablokowana;
+                return atmState = kartaZablokowana;
             }
             else
             {
-                return stanBankomatu = niepoprawnyPin;
+                return atmState = niepoprawnyPin;
             }
         }
         break;
     //Wybranie operacji wyświetlenie salda
     case wybierzOperacje:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyswietlSaldo;
+        return atmState = wyswietlSaldo;
         break;
     //Zatwierdzenie nowego pinu
     case zmienPin:
@@ -285,18 +285,18 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
             card->setPin(valueField.toInt());
             card->saveCardFile();
             valueField = "";
-            return stanBankomatu = zmienionoPin;
+            return atmState = zmienionoPin;
         }
         else
         {
             czyZmienionoStanBankomatu = false;
-            return stanBankomatu;
+            return atmState;
         }
         break;
     //Powrót do wyboru operacji z okna wyświetlania salda
     case wyswietlSaldo:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wybierzOperacje;
+        return atmState = wybierzOperacje;
         break;
     //Wybrano wypłacenie podanej ilości gotówki
     case wyplacGotowke:
@@ -307,67 +307,67 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
         valueField = "";
         if(moneyDispenser->payment(account, kwota) == MoneyDispenser::PaidMoney)
         {         
-            return stanBankomatu = wybierzGotowke;
+            return atmState = wybierzGotowke;
         }
         else
         {
-            return stanBankomatu = brakGotowki;
+            return atmState = brakGotowki;
         }
         break;
     }
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskFKliknieto()
+CRdzen::ATMState CRdzen::buttonFPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     //Wybranie operacji wypłaty gotówki
     case wybierzOperacje:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyplacGotowke;
+        return atmState = wyplacGotowke;
         break;
     case wyswietlSaldo:
         valueField = "";
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyplacGotowke;
+        return atmState = wyplacGotowke;
         break;
     case pokazNumerKonta:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyjmijKarte;
+        return atmState = wyjmijKarte;
         break;
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskGKliknieto()
+CRdzen::ATMState CRdzen::buttonGPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     case wybierzOperacje:
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = zmienPin;
+        return atmState = zmienPin;
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
 
-CRdzen::StanBankomatu CRdzen::przyciskHKliknieto()
+CRdzen::ATMState CRdzen::buttonHPressed()
 {
-    switch(stanBankomatu)
+    switch(atmState)
     {
     default:
         czyZmienionoStanBankomatu = false;
-        return stanBankomatu;
+        return atmState;
         break;
     }
 }
@@ -375,7 +375,7 @@ CRdzen::StanBankomatu CRdzen::przyciskHKliknieto()
 void CRdzen::przyciskKliknieto(int wartosc)
 {
     czyZmienionoStanBankomatu = false;
-    switch(stanBankomatu)
+    switch(atmState)
     {
     case podajPin:
     case zmienPin:
@@ -428,9 +428,9 @@ void CRdzen::przyciskCofnijKliknieto()
 }
 
 //----Funkcja informująca o użyciu karty----//
-CRdzen::StanBankomatu CRdzen::uzytoKarte(QString lokalizacja)
+CRdzen::ATMState CRdzen::uzytoKarte(QString lokalizacja)
 {
-    if(stanBankomatu == wlozKarte)
+    if(atmState == wlozKarte)
     {
         czyZmienionoStanBankomatu = true;
         card = new Card();
@@ -440,43 +440,43 @@ CRdzen::StanBankomatu CRdzen::uzytoKarte(QString lokalizacja)
         case Card::readCard:
             if(card->getIsCardBlocked() == true)
             {
-                return stanBankomatu = kartaZablokowana;
+                return atmState = kartaZablokowana;
             }
-            return stanBankomatu = podajPin;
+            return atmState = podajPin;
             break;
         case Card::brokenCard:
             delete card;
             card = nullptr;
-            return stanBankomatu = niepoprawnyPlikKarty;
+            return atmState = niepoprawnyPlikKarty;
             break;
         case Card::noCard:
             czyZmienionoStanBankomatu = false;
-            return stanBankomatu = wlozKarte;
+            return atmState = wlozKarte;
             break;
         }
     }
-    else if(stanBankomatu == wyjmijKarte)
+    else if(atmState == wyjmijKarte)
     {
         czyZmienionoStanBankomatu = true;
         delete card;
         card = nullptr;
         delete account;
         account = nullptr;
-        return stanBankomatu = wlozKarte;
+        return atmState = wlozKarte;
     }
-    return stanBankomatu;
+    return atmState;
 }
 
 //----Funkcja informująca o odebraniu pieniędzy----//
-CRdzen::StanBankomatu CRdzen::odebranoPieniadze()
+CRdzen::ATMState CRdzen::odebranoPieniadze()
 {
-    if(stanBankomatu == wybierzGotowke)
+    if(atmState == wybierzGotowke)
     {
         czyZmienionoStanBankomatu = true;
-        return stanBankomatu = wyjmijKarte;
+        return atmState = wyjmijKarte;
     }
     czyZmienionoStanBankomatu = false;
-    return stanBankomatu;
+    return atmState;
 }
 
 //----Zwraca wektor z ilością wypłaconych pieniędzy gdzie na indeksie 0 jest 200zł----//
@@ -488,12 +488,12 @@ QVector<int> CRdzen::odbierzPieniadze()
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//
 void CRdzen::resetujKliknieto()
 {
-    if(stanBankomatu == brakSrodkowWBankomacie)
+    if(atmState == brakSrodkowWBankomacie)
     {
         if(moneyDispenser->isEnoughCash() == true)
         {
             czyZmienionoStanBankomatu = true;
-            stanBankomatu = wlozKarte;
+            atmState = wlozKarte;
         }
         else
         {

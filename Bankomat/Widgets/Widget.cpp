@@ -222,23 +222,23 @@ Widget::~Widget()
 //----Pokazuje okienko z informacjami o programie----//
 void Widget::showWidgetAbout()
 {
-    programCore->wyswietlOProgramie();
+    programCore->showWidgetAbout();
 }
 
 //----Wyświetla okienko gdzie można utworzyć konto do testów----//
 void Widget::showWidgetAddAccount()
 {
-    programCore->wyswietlDodajKonto();
+    programCore->showWidgetAddAccount();
 }
 
 //----Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu----//
 void Widget::showWidgetAddMoney()
 {
-    programCore->wyswietlDodajPieniadze();
+    programCore->showWidgetAddMoney();
 }
 
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
-void Widget::showCurrentScreen(CRdzen::StanBankomatu state)
+void Widget::showCurrentScreen(CRdzen::ATMState state)
 {
     if(programCore->isATMStateChanged() == true)
     {
@@ -372,7 +372,7 @@ void Widget::buttonAPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskAKliknieto());
+        showCurrentScreen(programCore->buttonAPressed());
     }
 }
 
@@ -380,7 +380,7 @@ void Widget::buttonBPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskBKliknieto());
+        showCurrentScreen(programCore->buttonBPressed());
     }
 }
 
@@ -388,7 +388,7 @@ void Widget::buttonCPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskCKliknieto());
+        showCurrentScreen(programCore->buttonCPressed());
     }
 }
 
@@ -396,7 +396,7 @@ void Widget::buttonDPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskDKliknieto());
+        showCurrentScreen(programCore->buttonDPressed());
     }
 }
 
@@ -404,7 +404,7 @@ void Widget::buttonEPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskEKliknieto());
+        showCurrentScreen(programCore->buttonEPressed());
     }
 }
 
@@ -412,7 +412,7 @@ void Widget::buttonFPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskFKliknieto());
+        showCurrentScreen(programCore->buttonFPressed());
     }
 }
 
@@ -420,7 +420,7 @@ void Widget::buttonGPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskGKliknieto());
+        showCurrentScreen(programCore->buttonGPressed());
     }
 }
 
@@ -428,7 +428,7 @@ void Widget::buttonHPressed()
 {
     if(wait == false)
     {
-        showCurrentScreen(programCore->przyciskHKliknieto());
+        showCurrentScreen(programCore->buttonHPressed());
     }
 }
 
