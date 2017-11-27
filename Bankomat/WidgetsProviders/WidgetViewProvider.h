@@ -19,7 +19,7 @@ class CRdzen : public QObject
 public:
     explicit CRdzen(QObject *parent = 0);
     ~CRdzen();
-    enum ATMState {wlozKarte, brakSrodkowWBankomacie, niepoprawnyPlikKarty, kartaZablokowana, podajPin, niepoprawnyPin, wybierzOperacje, zmienPin, zmienionoPin, pokazNumerKonta, wyswietlSaldo, wybierzGotowke, wyplacGotowke, brakGotowki, wyjmijKarte};
+    enum ATMState {insertCard, noMoneyInATM, wrongCardFile, blockedCard, insertPin, wrongPin, chooseOperation, changePin, pinChanged, showAccountNumber, showBalance, insertAmountOfMoney, withdrawMoney, noEnoughMoney, removeCard};
 private:
     ATMState atmState; //Przechowuje obecny stan bankomatu
     QString valueField; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
@@ -27,7 +27,7 @@ private:
     Account *account;
     MoneyDispenser *moneyDispenser; //Obiekt zajmujący się wypłacaniem pieniędzy
     MoneyBox *moneyBox;
-    bool czyZmienionoStanBankomatu; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
+    bool isATMStateChenged; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 
     //----Zmienne wskazujące na okna----//
     WidgetAbout *widgetAbout;
@@ -43,7 +43,7 @@ public slots:
     QString getAccountNumber(); //Zwraca numer aktualnie załadowanego konta
     double getBalance(); //Zwraca stan obecnie załadowanego konta
     ATMState getATMState(); //Zwraca stan bankomatu
-    bool isATMStateChanged(); //Zwraca czy zmieniono stan bankomatu
+    bool getIsATMStateChanged(); //Zwraca czy zmieniono stan bankomatu
 
     //----Settery----//
     void setATMState(ATMState atmState); //Zmienia stan bankomatu
@@ -62,13 +62,13 @@ public slots:
     ATMState buttonFPressed();
     ATMState buttonGPressed();
     ATMState buttonHPressed();
-    void przyciskKliknieto(int wartosc);
-    void przyciskCofnijKliknieto();
-    ATMState uzytoKarte(QString lokalizacja = ""); //Funkcja informująca o użyciu karty
-    ATMState odebranoPieniadze(); //Funkcja informująca o odebraniu pieniędzy
+    void buttonNumberPressed(int value);
+    void buttonUndoPressed();
+    ATMState cardUsed(QString dir = ""); //Funkcja informująca o użyciu karty
+    ATMState moneyReceived(); //Funkcja informująca o odebraniu pieniędzy
 
-    QVector<int> odbierzPieniadze(); //Zwraca wektor z ilością wypłaconych pieniędzy gdzie na indeksie 0 jest 200zł
-    void resetujKliknieto(); //Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy
+    QVector<int> getMoney(); //Zwraca wektor z ilością wypłaconych pieniędzy gdzie na indeksie 0 jest 200zł
+    void buttonResetPressed(); //Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy
 
 };
 
