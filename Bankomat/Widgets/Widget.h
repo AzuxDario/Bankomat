@@ -93,7 +93,7 @@ public slots:
     void showWidgetAbout(); //Pokazuje okienko z informacjami o programie
     void showWidgetAddAccount(); //Wyświetla okienko gdzie można utworzyć konto do testów
     void showWidgetAddMoney(); //Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu
-    void showCurrentScreen(CRdzen::StanBankomatu state); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
+    void showCurrentScreen(CRdzen::ATMState state); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
     void showPayment(QVector<int> money); //Wyświetla wypłacone pieniądze w elemencie QTableWidget
     void clearPaymentTable(); //Czyści tablice QTableWidget
 
