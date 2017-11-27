@@ -6,20 +6,20 @@
 #include <QMimeData>
 #include <QDropEvent>
 
-class CPrzycisk : public QPushButton
+class DropButton : public QPushButton
 {
     Q_OBJECT
 signals:
-    void upuszczono();
+    void dropped();
 
 public:
-    CPrzycisk(const QString &text, QWidget *parent = Q_NULLPTR);
+    DropButton(const QString &text, QWidget *parent = Q_NULLPTR);
 private:
-    QString lokalizacja;
+    QString directory;
 
 public:
     //----Getter-----//
-    QString zwrocLokalizacje();
+    QString getDirectory();
 
 public slots:
     void dragEnterEvent(QDragEnterEvent *event);

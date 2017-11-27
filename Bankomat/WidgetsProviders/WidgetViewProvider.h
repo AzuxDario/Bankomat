@@ -1,13 +1,13 @@
 #ifndef CRDZEN_H
 #define CRDZEN_H
 
-#include "ckarta.h"
-#include "ckonto.h"
-#include "cwyplacacz.h"
-#include "ckasetapieniedzy.h"
-#include "widgetoprogramie.h"
-#include "widgetdodajkonto.h"
-#include "widgetdodajpieniadze.h"
+#include "Card.h"
+#include "Account.h"
+#include "MoneyDispenser.h"
+#include "MoneyBox.h"
+#include "WidgetAbout.h"
+#include "WidgetAddAccount.h"
+#include "WidgetAddMoney.h"
 #include <QObject>
 #include <QTimer>
 #include <QString>
@@ -22,31 +22,31 @@ public:
     enum StanBankomatu {wlozKarte, brakSrodkowWBankomacie, niepoprawnyPlikKarty, kartaZablokowana, podajPin, niepoprawnyPin, wybierzOperacje, zmienPin, zmienionoPin, pokazNumerKonta, wyswietlSaldo, wybierzGotowke, wyplacGotowke, brakGotowki, wyjmijKarte};
 private:
     StanBankomatu stanBankomatu; //Przechowuje obecny stan bankomatu
-    QString pole; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
-    CKarta *karta;
-    CKonto *konto;
-    CWyplacacz *wyplacacz; //Obiekt zajmujący się wypłacaniem pieniędzy
-    CKasetaPieniedzy *kaseta;
+    QString valueField; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
+    Card *card;
+    Account *account;
+    MoneyDispenser *moneyDispenser; //Obiekt zajmujący się wypłacaniem pieniędzy
+    MoneyBox *moneyBox;
     bool czyZmienionoStanBankomatu; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 
     //----Zmienne wskazujące na okna----//
-    WidgetOProgramie *oknoOProgramie;
-    WidgetDodajKonto *oknoDodajKonto;
-    WidgetDodajPieniadze *oknoDodajPieniadze;
+    WidgetAbout *oknoOProgramie;
+    WidgetAddAccount *oknoDodajKonto;
+    WidgetAddMoney *oknoDodajPieniadze;
 
 signals:
 
 public slots:
     //----Gettery----//
-    QString zwrocPole(); //Zwraca zawartość pola
-    QString zwrocPoleZagwiazdkowane(); //Zwraca zawartość pola w postaci gwiazdek
-    QString zwrocNumerKonta(); //Zwraca numer aktualnie załadowanego konta
-    double zwrocStanKonta(); //Zwraca stan obecnie załadowanego konta
-    StanBankomatu zwrocStanBankomatu(); //Zwraca stan bankomatu
-    bool zwrocCzyZmienionoStanBankomatu(); //Zwraca czy zmieniono stan bankomatu
+    QString getValueField(); //Zwraca zawartość pola
+    QString getHiddenValueField(); //Zwraca zawartość pola w postaci gwiazdek
+    QString getAccountNumber(); //Zwraca numer aktualnie załadowanego konta
+    double getBalance(); //Zwraca stan obecnie załadowanego konta
+    StanBankomatu getATMState(); //Zwraca stan bankomatu
+    bool isATMStateChanged(); //Zwraca czy zmieniono stan bankomatu
 
     //----Settery----//
-    void zmienStanBankomatu(StanBankomatu stanBankomatu); //Zmienia stan bankomatu
+    void setATMState(StanBankomatu stanBankomatu); //Zmienia stan bankomatu
 
     //----Funkcje wyświetlające okna----//
     void wyswietlOProgramie(); //Pokazuje okienko z informacjami o programie

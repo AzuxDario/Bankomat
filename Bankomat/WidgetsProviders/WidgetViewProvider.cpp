@@ -1,17 +1,17 @@
-#include "crdzen.h"
+#include "WidgetViewProvider.h"
 
 CRdzen::CRdzen(QObject *parent) : QObject(parent)
 {
 
-    pole = "";
+    valueField = "";
     oknoOProgramie = nullptr;
     oknoDodajKonto = nullptr;
     oknoDodajPieniadze = nullptr;
-    karta = nullptr;
-    konto = nullptr;
-    kaseta = new CKasetaPieniedzy();
-    wyplacacz = new CWyplacacz(kaseta);
-    if(wyplacacz->czyWystarczyGotowki() == true)
+    card = nullptr;
+    account = nullptr;
+    moneyBox = new MoneyBox();
+    moneyDispenser = new MoneyDispenser(moneyBox);
+    if(moneyDispenser->isEnoughCash() == true)
     {
         stanBankomatu = wlozKarte;
     }
@@ -36,22 +36,22 @@ CRdzen::~CRdzen()
     {
         delete oknoDodajKonto;
     }
-    delete wyplacacz;
-    delete kaseta;
+    delete moneyDispenser;
+    delete moneyBox;
 }
 
 //--------Gettery--------//
 //----Zwraca zawartość pola----//
-QString CRdzen::zwrocPole()
+QString CRdzen::getValueField()
 {
-    return pole;
+    return valueField;
 }
 
 //----Zwraca zawartość pola w postaci gwiazdek----//
-QString CRdzen::zwrocPoleZagwiazdkowane()
+QString CRdzen::getHiddenValueField()
 {
     QString gwiazdki = "";
-    for(int i = 0; i < pole.length(); i++)
+    for(int i = 0; i < valueField.length(); i++)
     {
         gwiazdki += "*";
     }
@@ -59,24 +59,24 @@ QString CRdzen::zwrocPoleZagwiazdkowane()
 }
 
 //----Zwraca numer aktualnie załadowanego konta----//
-QString CRdzen::zwrocNumerKonta()
+QString CRdzen::getAccountNumber()
 {
-    if(karta == nullptr)
+    if(card == nullptr)
     {
         return "";
     }
     else
     {
-        return karta->zwrocNumerKonta();
+        return card->getAccountNumber();
     }
 }
 
 //----Zwraca stan obecnie załadowanego konta----//
-double CRdzen::zwrocStanKonta()
+double CRdzen::getBalance()
 {
-    if(konto != nullptr)
+    if(account != nullptr)
     {
-        return konto->zwrocStanKonta();
+        return account->getBalance();
     }
     else
     {
@@ -85,20 +85,20 @@ double CRdzen::zwrocStanKonta()
 }
 
 //----Zwraca stan bankomatu----//
-CRdzen::StanBankomatu CRdzen::zwrocStanBankomatu()
+CRdzen::StanBankomatu CRdzen::getATMState()
 {
     return stanBankomatu;
 }
 
 //----Zwraca czy zmieniono stan bankomatu----//
-bool CRdzen::zwrocCzyZmienionoStanBankomatu()
+bool CRdzen::isATMStateChanged()
 {
     return czyZmienionoStanBankomatu;
 }
 
 //--------Settery--------//
 //----Zmienia stan bankomatu----//
-void CRdzen::zmienStanBankomatu(CRdzen::StanBankomatu stanBankomatu)
+void CRdzen::setATMState(CRdzen::StanBankomatu stanBankomatu)
 {
     this->stanBankomatu = stanBankomatu;
 }
@@ -108,11 +108,11 @@ void CRdzen::wyswietlOProgramie()
 {
     if(oknoOProgramie == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoOProgramie = new WidgetOProgramie();
+        oknoOProgramie = new WidgetAbout();
     }
     else
     {
-        oknoOProgramie->pokazSie();
+        oknoOProgramie->showWindow();
     }
 }
 
@@ -121,11 +121,11 @@ void CRdzen::wyswietlDodajKonto()
 {
     if(oknoDodajKonto == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoDodajKonto = new WidgetDodajKonto();
+        oknoDodajKonto = new WidgetAddAccount();
     }
     else
     {
-        oknoDodajKonto->pokazSie();
+        oknoDodajKonto->showWindow();
     }
 }
 
@@ -134,11 +134,11 @@ void CRdzen::wyswietlDodajPieniadze()
 {
     if(oknoDodajPieniadze == nullptr) //Jeżli okna nie ma stwórz je
     {
-        oknoDodajPieniadze = new WidgetDodajPieniadze(kaseta);
+        oknoDodajPieniadze = new WidgetAddMoney(moneyBox);
     }
     else
     {
-        oknoDodajPieniadze->pokazSie();
+        oknoDodajPieniadze->showWindow();
     }
 }
 
@@ -170,7 +170,7 @@ CRdzen::StanBankomatu CRdzen::przyciskAKliknieto()
     //Cofnięcie podczas zmiany Pinu
     case zmienPin:
         czyZmienionoStanBankomatu = true;
-        pole = "";
+        valueField = "";
         return stanBankomatu = wybierzOperacje;
         break;
     //Cofnięcie po zmianie pinu
@@ -185,7 +185,7 @@ CRdzen::StanBankomatu CRdzen::przyciskAKliknieto()
         break;
     //Cofnięcie do poprzedniego okna podczas wypłaty
     case wyplacGotowke:
-        pole = "";
+        valueField = "";
         czyZmienionoStanBankomatu = true;
         return stanBankomatu = wybierzOperacje;
         break;
@@ -249,21 +249,21 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
     //Zatwierdzenie podczas wpisywania PINu
     case podajPin:
         czyZmienionoStanBankomatu = true;
-        if(karta->sprawdzPin(pole.toInt()))//Pin prawidłowy
+        if(card->checkPin(valueField.toInt()))//Pin prawidłowy
         {
             //Poprawnie wprowadzono PIN i uzyskano dostęp do konta
-            pole = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
-            konto = new CKonto(karta->zwrocNumerKonta());
+            valueField = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
+            account = new Account(card->getAccountNumber());
             return stanBankomatu = wybierzOperacje;
         }
         else
         {
-            pole = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
-            if(karta->zwrocCzyKartaZablokowana())//Czy konto zablokowane
+            valueField = ""; //Usunięcie wprowadzonego PINu po sprawdzeniu
+            if(card->getIsCardBlocked())//Czy konto zablokowane
             {
-                karta->zapiszKarte();
-                delete karta;
-                karta = nullptr;
+                card->saveCardFile();
+                delete card;
+                card = nullptr;
                 return stanBankomatu = kartaZablokowana;
             }
             else
@@ -279,12 +279,12 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
         break;
     //Zatwierdzenie nowego pinu
     case zmienPin:
-        if(pole.length() == 4)
+        if(valueField.length() == 4)
         {
             czyZmienionoStanBankomatu = true;
-            karta->ustawPin(pole.toInt());
-            karta->zapiszKarte();
-            pole = "";
+            card->setPin(valueField.toInt());
+            card->saveCardFile();
+            valueField = "";
             return stanBankomatu = zmienionoPin;
         }
         else
@@ -303,9 +303,9 @@ CRdzen::StanBankomatu CRdzen::przyciskEKliknieto()
     {
         czyZmienionoStanBankomatu = true;
         //Sprawdź czy można wypłacić
-        int kwota = pole.toInt();
-        pole = "";
-        if(wyplacacz->dokonajWyplaty(konto, kwota) == CWyplacacz::wyplaconoPieniadze)
+        int kwota = valueField.toInt();
+        valueField = "";
+        if(moneyDispenser->payment(account, kwota) == MoneyDispenser::PaidMoney)
         {         
             return stanBankomatu = wybierzGotowke;
         }
@@ -332,7 +332,7 @@ CRdzen::StanBankomatu CRdzen::przyciskFKliknieto()
         return stanBankomatu = wyplacGotowke;
         break;
     case wyswietlSaldo:
-        pole = "";
+        valueField = "";
         czyZmienionoStanBankomatu = true;
         return stanBankomatu = wyplacGotowke;
         break;
@@ -379,38 +379,38 @@ void CRdzen::przyciskKliknieto(int wartosc)
     {
     case podajPin:
     case zmienPin:
-        if(pole.length() < 4)
+        if(valueField.length() < 4)
         {
-            pole = pole + QString::number(wartosc);
+            valueField = valueField + QString::number(wartosc);
         }
         break;
     case wyplacGotowke:
-        if(pole.isEmpty() == true)
+        if(valueField.isEmpty() == true)
         {
           if(wartosc != 0)
             {
-                pole = pole + QString::number(wartosc);
+                valueField = valueField + QString::number(wartosc);
             }
         }
-        else if((pole.at(0) == '1') || (pole.at(0) == '2'))
+        else if((valueField.at(0) == '1') || (valueField.at(0) == '2'))
         {
-            if(pole.length() < 4)
+            if(valueField.length() < 4)
             {
-                pole = pole + QString::number(wartosc);
+                valueField = valueField + QString::number(wartosc);
             }
         }
-        else if((pole.length() == 3) && (pole.at(0) == '3'))
+        else if((valueField.length() == 3) && (valueField.at(0) == '3'))
         {
-            if((pole.at(1) == '0') && (pole.at(2) == '0') && (wartosc == 0))
+            if((valueField.at(1) == '0') && (valueField.at(2) == '0') && (wartosc == 0))
             {
-                pole = pole + QString::number(wartosc);
+                valueField = valueField + QString::number(wartosc);
             }
         }
         else
         {
-            if(pole.length() < 3)
+            if(valueField.length() < 3)
             {
-                pole = pole + QString::number(wartosc);
+                valueField = valueField + QString::number(wartosc);
             }
         }
         break;
@@ -421,9 +421,9 @@ void CRdzen::przyciskKliknieto(int wartosc)
 
 void CRdzen::przyciskCofnijKliknieto()
 {
-    if(pole.isEmpty() == false)
+    if(valueField.isEmpty() == false)
     {
-        pole.remove(pole.length()-1,1);
+        valueField.remove(valueField.length()-1,1);
     }
 }
 
@@ -433,23 +433,23 @@ CRdzen::StanBankomatu CRdzen::uzytoKarte(QString lokalizacja)
     if(stanBankomatu == wlozKarte)
     {
         czyZmienionoStanBankomatu = true;
-        karta = new CKarta();
-        CKarta::StanKarty stanKarty = karta->odczytajKarte(lokalizacja);
+        card = new Card();
+        Card::CardState stanKarty = card->readCardFile(lokalizacja);
         switch(stanKarty)
         {
-        case CKarta::kartaOdczytana:
-            if(karta->zwrocCzyKartaZablokowana() == true)
+        case Card::readCard:
+            if(card->getIsCardBlocked() == true)
             {
                 return stanBankomatu = kartaZablokowana;
             }
             return stanBankomatu = podajPin;
             break;
-        case CKarta::kartaUszkodzona:
-            delete karta;
-            karta = nullptr;
+        case Card::brokenCard:
+            delete card;
+            card = nullptr;
             return stanBankomatu = niepoprawnyPlikKarty;
             break;
-        case CKarta::brakKarty:
+        case Card::noCard:
             czyZmienionoStanBankomatu = false;
             return stanBankomatu = wlozKarte;
             break;
@@ -458,10 +458,10 @@ CRdzen::StanBankomatu CRdzen::uzytoKarte(QString lokalizacja)
     else if(stanBankomatu == wyjmijKarte)
     {
         czyZmienionoStanBankomatu = true;
-        delete karta;
-        karta = nullptr;
-        delete konto;
-        konto = nullptr;
+        delete card;
+        card = nullptr;
+        delete account;
+        account = nullptr;
         return stanBankomatu = wlozKarte;
     }
     return stanBankomatu;
@@ -482,7 +482,7 @@ CRdzen::StanBankomatu CRdzen::odebranoPieniadze()
 //----Zwraca wektor z ilością wypłaconych pieniędzy gdzie na indeksie 0 jest 200zł----//
 QVector<int> CRdzen::odbierzPieniadze()
 {
-    return wyplacacz->zwrocOstatniaWyplate();
+    return moneyDispenser->getLastPayment();
 }
 
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//
@@ -490,7 +490,7 @@ void CRdzen::resetujKliknieto()
 {
     if(stanBankomatu == brakSrodkowWBankomacie)
     {
-        if(wyplacacz->czyWystarczyGotowki() == true)
+        if(moneyDispenser->isEnoughCash() == true)
         {
             czyZmienionoStanBankomatu = true;
             stanBankomatu = wlozKarte;
