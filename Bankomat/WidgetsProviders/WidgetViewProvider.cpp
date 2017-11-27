@@ -50,12 +50,12 @@ QString CRdzen::getValueField()
 //----Zwraca zawartość pola w postaci gwiazdek----//
 QString CRdzen::getHiddenValueField()
 {
-    QString gwiazdki = "";
+    QString asterisks = "";
     for(int i = 0; i < valueField.length(); i++)
     {
-        gwiazdki += "*";
+        asterisks += "*";
     }
-    return gwiazdki;
+    return asterisks;
 }
 
 //----Zwraca numer aktualnie załadowanego konta----//
@@ -98,9 +98,9 @@ bool CRdzen::getIsATMStateChanged()
 
 //--------Settery--------//
 //----Zmienia stan bankomatu----//
-void CRdzen::setATMState(CRdzen::ATMState stanBankomatu)
+void CRdzen::setATMState(CRdzen::ATMState atmState)
 {
-    this->atmState = stanBankomatu;
+    this->atmState = atmState;
 }
 
 //--------Funkcje wyświetlające okna--------//
@@ -303,9 +303,9 @@ CRdzen::ATMState CRdzen::buttonEPressed()
     {
         isATMStateChenged = true;
         //Sprawdź czy można wypłacić
-        int kwota = valueField.toInt();
+        int amount = valueField.toInt();
         valueField = "";
-        if(moneyDispenser->payment(account, kwota) == MoneyDispenser::PaidMoney)
+        if(moneyDispenser->payment(account, amount) == MoneyDispenser::PaidMoney)
         {         
             return atmState = insertAmountOfMoney;
         }
@@ -434,8 +434,8 @@ CRdzen::ATMState CRdzen::cardUsed(QString dir)
     {
         isATMStateChenged = true;
         card = new Card();
-        Card::CardState stanKarty = card->readCardFile(dir);
-        switch(stanKarty)
+        Card::CardState cardState = card->readCardFile(dir);
+        switch(cardState)
         {
         case Card::readCard:
             if(card->getIsCardBlocked() == true)
