@@ -5,58 +5,6 @@ Card::Card()
     incorrectPinEnterCounter = 0;
 }
 
-//--------Gettery--------//
-QString Card::getCardNumber()
-{
-    return cardNumber;
-}
-
-bool Card::getIsCardBlocked()
-{
-    return isCardBlocked;
-}
-
-int Card::getPin()
-{
-    return pin;
-}
-
-QString Card::getAccountNumber()
-{
-    return accountNumber;
-}
-
-QString Card::getCardFilePath()
-{
-    return cardFilePath;
-}
-
-//--------Settery--------//
-void Card::setCardNumber(QString value)
-{
-    cardNumber = value;
-}
-
-void Card::setIsCardBlocked(bool value)
-{
-    isCardBlocked = value;
-}
-
-void Card::setPin(int value)
-{
-    pin = value;
-}
-
-void Card::setAccountNumber(QString value)
-{
-    accountNumber = value;
-}
-
-void Card::setCardFilePath(QString value)
-{
-    cardFilePath = value;
-}
-
 //----Czyta karte z dysku----//
 Card::CardState Card::readCardFile(QString sourceFile)
 {
@@ -165,10 +113,4 @@ bool Card::checkPin(int value)
         }
         return false;
     }
-}
-
-//----Funkcja blokująca kartę po trzech nieudanych próbach sprawdzenia pinu----//
-void Card::blockCard(bool value)
-{
-    isCardBlocked = value;
 }
