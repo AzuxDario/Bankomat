@@ -1,8 +1,8 @@
 #include "MoneyDispenser.h"
 
-MoneyDispenser::MoneyDispenser(MoneyBox *kaseta)
+MoneyDispenser::MoneyDispenser(MoneyBox *moneyBox)
 {
-    this->moneyBox = kaseta;
+    this->moneyBox = moneyBox;
     valueOfDenominations[0] = 800;
     valueOfDenominations[1] = 600;
     valueOfDenominations[2] = 400;
