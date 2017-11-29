@@ -18,11 +18,6 @@ QVector<int> MoneyBox::getNumberOfDenominations()
     return numberOfDenominations;
 }
 
-QVector<int> MoneyBox::getValueOfDenominations()
-{
-    return valueOfDenominations;
-}
-
 //--------Settery--------//
 void MoneyBox::setNumberOfDenominations(QVector<int> value)
 {

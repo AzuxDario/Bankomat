@@ -17,7 +17,7 @@ public:
 
     //----Gettery----//
     QVector<int> getNumberOfDenominations();
-    QVector<int> getValueOfDenominations();
+    QVector<int> getValueOfDenominations() {return valueOfDenominations;}
 
     //----Settery----//
     void setNumberOfDenominations(QVector<int> value);

@@ -16,7 +16,7 @@ public:
     MoneyDispenser(MoneyBox *moneyBox);
 
     //----Gettery----//
-    QVector<int> getLastPayment();
+    QVector<int> getLastPayment() {return lastPayment;}
 
     bool isEnoughCash(); //Sprawdza czy w bankomacie jest wystarczająca ilośc gotówki
     PaymentResult payment(Account *account, int amount); //Inicjuje wypłątę z konta sprawdzając czy stan konta jest wystarczający

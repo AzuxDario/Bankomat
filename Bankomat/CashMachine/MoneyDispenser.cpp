@@ -14,11 +14,6 @@ MoneyDispenser::MoneyDispenser(MoneyBox *kaseta)
     valueOfDenominations[9] = 0;
 }
 
-//--------Gettery--------//
-QVector<int> MoneyDispenser::getLastPayment()
-{
-    return lastPayment;
-}
 
 //----Sprawdza czy w bankomacie jest wystarczająca ilośc gotówki----//
 bool MoneyDispenser::isEnoughCash()
