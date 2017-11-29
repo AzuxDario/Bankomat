@@ -11,20 +11,6 @@ MoneyBox::~MoneyBox()
     writeMoneyBox();
 }
 
-//--------Gettery--------//
-QVector<int> MoneyBox::getNumberOfDenominations()
-{
-    readMoneyBox();
-    return numberOfDenominations;
-}
-
-//--------Settery--------//
-void MoneyBox::setNumberOfDenominations(QVector<int> value)
-{
-    numberOfDenominations = value;
-    writeMoneyBox();
-}
-
 void MoneyBox::addMoney(QVector<int> value)
 {
     for(int i = 0; i < numberOfDenominations.count(); i++)

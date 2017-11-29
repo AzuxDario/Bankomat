@@ -16,11 +16,11 @@ public:
     ~MoneyBox();
 
     //----Gettery----//
-    QVector<int> getNumberOfDenominations();
+    QVector<int> getNumberOfDenominations() {readMoneyBox(); return numberOfDenominations;}
     QVector<int> getValueOfDenominations() {return valueOfDenominations;}
 
     //----Settery----//
-    void setNumberOfDenominations(QVector<int> value);
+    void setNumberOfDenominations(QVector<int> value) {writeMoneyBox(); numberOfDenominations = value;}
     void addMoney(QVector<int> value);
 
     void readMoneyBox(); //Odczytuje informacje o ilości pieniędzy z dysku
