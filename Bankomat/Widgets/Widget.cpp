@@ -219,24 +219,6 @@ Widget::~Widget()
 
 }
 
-//----Pokazuje okienko z informacjami o programie----//
-void Widget::showWidgetAbout()
-{
-    programCore->showWidgetAbout();
-}
-
-//----Wyświetla okienko gdzie można utworzyć konto do testów----//
-void Widget::showWidgetAddAccount()
-{
-    programCore->showWidgetAddAccount();
-}
-
-//----Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu----//
-void Widget::showWidgetAddMoney()
-{
-    programCore->showWidgetAddMoney();
-}
-
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
 void Widget::showCurrentScreen(CRdzen::ATMState state)
 {
