@@ -131,7 +131,7 @@ public slots:
 
 private slots:
     void setText(QString title, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH); //Ustawia etykiety tekstowe ekranu
-    void closeEvent(QCloseEvent *); //Zamyka program po zamknięciu głównego okna
+    void closeEvent(QCloseEvent *) {qApp->quit();} //Zamyka program po zamknięciu głównego okna
 
 
 

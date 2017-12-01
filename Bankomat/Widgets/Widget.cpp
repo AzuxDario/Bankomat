@@ -608,8 +608,3 @@ void Widget::setText(QString tytul, QString textA, QString textB, QString textC,
     optionH->setText(textH);
 }
 
-//--------Zamyka program po zamknięciu głównego okna--------//
-void Widget::closeEvent(QCloseEvent *)
-{
-    qApp->quit();
-}
