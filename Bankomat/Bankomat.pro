@@ -18,6 +18,7 @@ include(WidgetsProviders/WidgetsProviders.pri)
 include(Account/Account.pri)
 include(Controls/Controls.pri)
 include(CashMachine/CashMachine.pri)
+include(Layout/Layout.pri)
 
 SOURCES += main.cpp
 	
