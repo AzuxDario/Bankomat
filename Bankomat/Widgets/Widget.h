@@ -86,7 +86,6 @@ public:
     //----Tablica gdzie będzie wyświetlana wypłata----//
     QTableWidget *paymentTable;
 
-    //----Rdzen----//
     CRdzen *programCore;
 
 public slots:
