@@ -6,6 +6,7 @@
 class Screen
 {
 private:
+    QString mainText;
     QString textA;
     QString textB;
     QString textC;
@@ -17,7 +18,9 @@ private:
 
 public:
     Screen();
+    Screen(QString mainText, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH);
 
+    void setMainText(QString value) {mainText = value;}
     void setTextA(QString value) {textA = value;}
     void setTextB(QString value) {textB = value;}
     void setTextC(QString value) {textC = value;}
@@ -26,6 +29,7 @@ public:
     void setTextF(QString value) {textF = value;}
     void setTextG(QString value) {textG = value;}
     void setTextH(QString value) {textH = value;}
+    QString getMainText() {return mainText;}
     QString getTextA() {return textA;}
     QString getTextB() {return textA;}
     QString getTextC() {return textA;}
