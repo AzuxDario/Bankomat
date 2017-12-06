@@ -19,7 +19,7 @@ CRdzen::CRdzen(QObject *parent) : QObject(parent)
     {
         atmState = noMoneyInATM;
     }
-    isATMStateChenged = true;
+    isATMStateChanged = true;
 }
 
 CRdzen::~CRdzen()
@@ -93,7 +93,7 @@ CRdzen::ATMState CRdzen::getATMState()
 //----Zwraca czy zmieniono stan bankomatu----//
 bool CRdzen::getIsATMStateChanged()
 {
-    return isATMStateChenged;
+    return isATMStateChanged;
 }
 
 //--------Settery--------//
@@ -149,53 +149,53 @@ CRdzen::ATMState CRdzen::buttonAPressed()
     {
     //Cofnięcie okna gdy plik karty jest zły lub uszkodzony
     case wrongCardFile:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = insertCard;
         break;
     //Cofnięcie okna w przypadku zablokowania karty
     case blockedCard:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = insertCard;
         break;
     //Cofnięcie okna w przypadku gdy podano zły PIN
     case wrongPin:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = insertPin;
         break;
     //Wyjęcie karty w przypadku wybrania takiej operacji
     case chooseOperation:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = removeCard;
         break;
     //Cofnięcie podczas zmiany Pinu
     case changePin:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         valueField = "";
         return atmState = chooseOperation;
         break;
     //Cofnięcie po zmianie pinu
     case pinChanged:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = chooseOperation;
         break;
     //Wyjęcie karty podczas przeglądania salda
     case showBalance:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = removeCard;
         break;
     //Cofnięcie do poprzedniego okna podczas wypłaty
     case withdrawMoney:
         valueField = "";
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = chooseOperation;
         break;
     //Cofnięcie do poprzednego okna gdy brak środków na koncie
     case noEnoughMoney:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = chooseOperation;
         break;
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -206,15 +206,15 @@ CRdzen::ATMState CRdzen::buttonBPressed()
     switch(atmState)
     {
     case chooseOperation:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = showAccountNumber;
         break;
     case showAccountNumber:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = chooseOperation;
         break;
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -225,7 +225,7 @@ CRdzen::ATMState CRdzen::buttonCPressed()
     switch(atmState)
     {
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -236,7 +236,7 @@ CRdzen::ATMState CRdzen::buttonDPressed()
     switch(atmState)
     {
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -248,7 +248,7 @@ CRdzen::ATMState CRdzen::buttonEPressed()
     {
     //Zatwierdzenie podczas wpisywania PINu
     case insertPin:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         if(card->checkPin(valueField.toInt()))//Pin prawidłowy
         {
             //Poprawnie wprowadzono PIN i uzyskano dostęp do konta
@@ -274,14 +274,14 @@ CRdzen::ATMState CRdzen::buttonEPressed()
         break;
     //Wybranie operacji wyświetlenie salda
     case chooseOperation:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = showBalance;
         break;
     //Zatwierdzenie nowego pinu
     case changePin:
         if(valueField.length() == 4)
         {
-            isATMStateChenged = true;
+            isATMStateChanged = true;
             card->setPin(valueField.toInt());
             card->saveCardFile();
             valueField = "";
@@ -289,19 +289,19 @@ CRdzen::ATMState CRdzen::buttonEPressed()
         }
         else
         {
-            isATMStateChenged = false;
+            isATMStateChanged = false;
             return atmState;
         }
         break;
     //Powrót do wyboru operacji z okna wyświetlania salda
     case showBalance:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = chooseOperation;
         break;
     //Wybrano wypłacenie podanej ilości gotówki
     case withdrawMoney:
     {
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         //Sprawdź czy można wypłacić
         int amount = valueField.toInt();
         valueField = "";
@@ -316,7 +316,7 @@ CRdzen::ATMState CRdzen::buttonEPressed()
         break;
     }
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -328,20 +328,20 @@ CRdzen::ATMState CRdzen::buttonFPressed()
     {
     //Wybranie operacji wypłaty gotówki
     case chooseOperation:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = withdrawMoney;
         break;
     case showBalance:
         valueField = "";
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = withdrawMoney;
         break;
     case showAccountNumber:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = removeCard;
         break;
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -352,10 +352,10 @@ CRdzen::ATMState CRdzen::buttonGPressed()
     switch(atmState)
     {
     case chooseOperation:
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = changePin;
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -366,7 +366,7 @@ CRdzen::ATMState CRdzen::buttonHPressed()
     switch(atmState)
     {
     default:
-        isATMStateChenged = false;
+        isATMStateChanged = false;
         return atmState;
         break;
     }
@@ -374,7 +374,7 @@ CRdzen::ATMState CRdzen::buttonHPressed()
 
 void CRdzen::buttonNumberPressed(int value)
 {
-    isATMStateChenged = false;
+    isATMStateChanged = false;
     switch(atmState)
     {
     case insertPin:
@@ -432,7 +432,7 @@ CRdzen::ATMState CRdzen::cardUsed(QString dir)
 {
     if(atmState == insertCard)
     {
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         card = new Card();
         Card::CardState cardState = card->readCardFile(dir);
         switch(cardState)
@@ -450,14 +450,14 @@ CRdzen::ATMState CRdzen::cardUsed(QString dir)
             return atmState = wrongCardFile;
             break;
         case Card::noCard:
-            isATMStateChenged = false;
+            isATMStateChanged = false;
             return atmState = insertCard;
             break;
         }
     }
     else if(atmState == removeCard)
     {
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         delete card;
         card = nullptr;
         delete account;
@@ -472,10 +472,10 @@ CRdzen::ATMState CRdzen::moneyReceived()
 {
     if(atmState == insertAmountOfMoney)
     {
-        isATMStateChenged = true;
+        isATMStateChanged = true;
         return atmState = removeCard;
     }
-    isATMStateChenged = false;
+    isATMStateChanged = false;
     return atmState;
 }
 
@@ -492,12 +492,12 @@ void CRdzen::buttonResetPressed()
     {
         if(moneyDispenser->isEnoughCash() == true)
         {
-            isATMStateChenged = true;
+            isATMStateChanged = true;
             atmState = insertCard;
         }
         else
         {
-           isATMStateChenged = false;
+           isATMStateChanged = false;
         }
     }
 }

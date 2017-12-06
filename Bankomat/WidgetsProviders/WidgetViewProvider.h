@@ -27,7 +27,7 @@ private:
     Account *account;
     MoneyDispenser *moneyDispenser; //Obiekt zajmujący się wypłacaniem pieniędzy
     MoneyBox *moneyBox;
-    bool isATMStateChenged; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
+    bool isATMStateChanged; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 
     //----Zmienne wskazujące na okna----//
     WidgetAbout *widgetAbout;
