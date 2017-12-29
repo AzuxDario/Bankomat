@@ -13,12 +13,12 @@
 #include <QString>
 #include <QTimer>
 
-class CRdzen : public QObject
+class WidgetViewProvider : public QObject
 {
     Q_OBJECT
 public:
-    explicit CRdzen(QObject *parent = 0);
-    ~CRdzen();
+    explicit WidgetViewProvider(QObject *parent = 0);
+    ~WidgetViewProvider();
     enum ATMState {insertCard, noMoneyInATM, wrongCardFile, blockedCard, insertPin, wrongPin, chooseOperation, changePin, pinChanged, showAccountNumber, showBalance, insertAmountOfMoney, withdrawMoney, noEnoughMoney, removeCard};
 private:
     ATMState atmState; //Przechowuje obecny stan bankomatu

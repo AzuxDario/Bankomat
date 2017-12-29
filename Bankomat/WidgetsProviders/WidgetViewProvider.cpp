@@ -1,6 +1,6 @@
 #include "WidgetViewProvider.h"
 
-CRdzen::CRdzen(QObject *parent) : QObject(parent)
+WidgetViewProvider::WidgetViewProvider(QObject *parent) : QObject(parent)
 {
 
     valueField = "";
@@ -22,7 +22,7 @@ CRdzen::CRdzen(QObject *parent) : QObject(parent)
     isATMStateChanged = true;
 }
 
-CRdzen::~CRdzen()
+WidgetViewProvider::~WidgetViewProvider()
 {  
     if(widgetAbout != nullptr)
     {
@@ -42,13 +42,13 @@ CRdzen::~CRdzen()
 
 //--------Gettery--------//
 //----Zwraca zawartość pola----//
-QString CRdzen::getValueField()
+QString WidgetViewProvider::getValueField()
 {
     return valueField;
 }
 
 //----Zwraca zawartość pola w postaci gwiazdek----//
-QString CRdzen::getHiddenValueField()
+QString WidgetViewProvider::getHiddenValueField()
 {
     QString asterisks = "";
     for(int i = 0; i < valueField.length(); i++)
@@ -59,7 +59,7 @@ QString CRdzen::getHiddenValueField()
 }
 
 //----Zwraca numer aktualnie załadowanego konta----//
-QString CRdzen::getAccountNumber()
+QString WidgetViewProvider::getAccountNumber()
 {
     if(card == nullptr)
     {
@@ -72,7 +72,7 @@ QString CRdzen::getAccountNumber()
 }
 
 //----Zwraca stan obecnie załadowanego konta----//
-double CRdzen::getBalance()
+double WidgetViewProvider::getBalance()
 {
     if(account != nullptr)
     {
@@ -85,26 +85,26 @@ double CRdzen::getBalance()
 }
 
 //----Zwraca stan bankomatu----//
-CRdzen::ATMState CRdzen::getATMState()
+WidgetViewProvider::ATMState WidgetViewProvider::getATMState()
 {
     return atmState;
 }
 
 //----Zwraca czy zmieniono stan bankomatu----//
-bool CRdzen::getIsATMStateChanged()
+bool WidgetViewProvider::getIsATMStateChanged()
 {
     return isATMStateChanged;
 }
 
 //--------Settery--------//
 //----Zmienia stan bankomatu----//
-void CRdzen::setATMState(CRdzen::ATMState atmState)
+void WidgetViewProvider::setATMState(WidgetViewProvider::ATMState atmState)
 {
     this->atmState = atmState;
 }
 
 //--------Funkcje wyświetlające okna--------//
-void CRdzen::showWidgetAbout()
+void WidgetViewProvider::showWidgetAbout()
 {
     if(widgetAbout == nullptr) //Jeżli okna nie ma stwórz je
     {
@@ -117,7 +117,7 @@ void CRdzen::showWidgetAbout()
 }
 
 //----Wyświetla okienko gdzie można utworzyć konto do testów----//
-void CRdzen::showWidgetAddAccount()
+void WidgetViewProvider::showWidgetAddAccount()
 {
     if(widgetAddAccount == nullptr) //Jeżli okna nie ma stwórz je
     {
@@ -130,7 +130,7 @@ void CRdzen::showWidgetAddAccount()
 }
 
 //----Pokazuje okno gdzie można dołożyć pieniądze do bankomatu----//
-void CRdzen::showWidgetAddMoney()
+void WidgetViewProvider::showWidgetAddMoney()
 {
     if(widgetAddMoney == nullptr) //Jeżli okna nie ma stwórz je
     {
@@ -143,7 +143,7 @@ void CRdzen::showWidgetAddMoney()
 }
 
 //--------Funkcję obsługi przycisków bankomatu--------//
-CRdzen::ATMState CRdzen::buttonAPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonAPressed()
 {
     switch(atmState)
     {
@@ -201,7 +201,7 @@ CRdzen::ATMState CRdzen::buttonAPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonBPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonBPressed()
 {
     switch(atmState)
     {
@@ -220,7 +220,7 @@ CRdzen::ATMState CRdzen::buttonBPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonCPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonCPressed()
 {
     switch(atmState)
     {
@@ -231,7 +231,7 @@ CRdzen::ATMState CRdzen::buttonCPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonDPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonDPressed()
 {
     switch(atmState)
     {
@@ -242,7 +242,7 @@ CRdzen::ATMState CRdzen::buttonDPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonEPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonEPressed()
 {
     switch(atmState)
     {
@@ -322,7 +322,7 @@ CRdzen::ATMState CRdzen::buttonEPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonFPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonFPressed()
 {
     switch(atmState)
     {
@@ -347,7 +347,7 @@ CRdzen::ATMState CRdzen::buttonFPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonGPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonGPressed()
 {
     switch(atmState)
     {
@@ -361,7 +361,7 @@ CRdzen::ATMState CRdzen::buttonGPressed()
     }
 }
 
-CRdzen::ATMState CRdzen::buttonHPressed()
+WidgetViewProvider::ATMState WidgetViewProvider::buttonHPressed()
 {
     switch(atmState)
     {
@@ -372,7 +372,7 @@ CRdzen::ATMState CRdzen::buttonHPressed()
     }
 }
 
-void CRdzen::buttonNumberPressed(int value)
+void WidgetViewProvider::buttonNumberPressed(int value)
 {
     isATMStateChanged = false;
     switch(atmState)
@@ -419,7 +419,7 @@ void CRdzen::buttonNumberPressed(int value)
     }
 }
 
-void CRdzen::buttonUndoPressed()
+void WidgetViewProvider::buttonUndoPressed()
 {
     if(valueField.isEmpty() == false)
     {
@@ -428,7 +428,7 @@ void CRdzen::buttonUndoPressed()
 }
 
 //----Funkcja informująca o użyciu karty----//
-CRdzen::ATMState CRdzen::cardUsed(QString dir)
+WidgetViewProvider::ATMState WidgetViewProvider::cardUsed(QString dir)
 {
     if(atmState == insertCard)
     {
@@ -468,7 +468,7 @@ CRdzen::ATMState CRdzen::cardUsed(QString dir)
 }
 
 //----Funkcja informująca o odebraniu pieniędzy----//
-CRdzen::ATMState CRdzen::moneyReceived()
+WidgetViewProvider::ATMState WidgetViewProvider::moneyReceived()
 {
     if(atmState == insertAmountOfMoney)
     {
@@ -480,13 +480,13 @@ CRdzen::ATMState CRdzen::moneyReceived()
 }
 
 //----Zwraca wektor z ilością wypłaconych pieniędzy gdzie na indeksie 0 jest 200zł----//
-QVector<int> CRdzen::getMoney()
+QVector<int> WidgetViewProvider::getMoney()
 {
     return moneyDispenser->getLastPayment();
 }
 
 //----Resetuje stan bankomatu po tym gdy brakowało w nim pieniędzy----//
-void CRdzen::buttonResetPressed()
+void WidgetViewProvider::buttonResetPressed()
 {
     if(atmState == noMoneyInATM)
     {
