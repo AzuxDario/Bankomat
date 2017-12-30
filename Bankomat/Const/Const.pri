@@ -1,0 +1,2 @@
+INCLUDEPATH += Const
+DEPENDPATH += Const
