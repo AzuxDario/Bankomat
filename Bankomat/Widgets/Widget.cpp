@@ -220,26 +220,26 @@ Widget::~Widget()
 }
 
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
-void Widget::showCurrentScreen(WidgetViewProvider::ATMState state)
+void Widget::showCurrentScreen(ATMState state)
 {
     if(programCore->getIsATMStateChanged() == true)
     {
         switch(state)
         {
-        case WidgetViewProvider::insertCard:
+        case ATMState::insertCard:
             activeCardButton();
             setText("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","","");
             break;
-        case WidgetViewProvider::noMoneyInATM:
+        case ATMState::noMoneyInATM:
             setText("Przepraszamy bankomat nieczynny","","","","","","","","");
             break;
-        case WidgetViewProvider::wrongCardFile:
+        case ATMState::wrongCardFile:
             deactiveCardButton();
             wait = true;
             setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
             QTimer::singleShot(3000,([&](){setText("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); wait = false;}));
             break;
-        case WidgetViewProvider::insertPin:
+        case ATMState::insertPin:
             deactiveCardButton();
             if(isCardLoaded == false)
             {
@@ -253,20 +253,20 @@ void Widget::showCurrentScreen(WidgetViewProvider::ATMState state)
                 setText("Podaj PIN","","","","","Zatwierdź","","","");
             }
             break;
-        case WidgetViewProvider::wrongPin:
+        case ATMState::wrongPin:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
             setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
             QTimer::singleShot(1500,([&](){setText("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
             break;
-        case WidgetViewProvider::blockedCard:
+        case ATMState::blockedCard:
             deactiveCardButton();
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
             setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
             QTimer::singleShot(1500,([&]() {setText("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
             break;
-        case WidgetViewProvider::chooseOperation:
+        case ATMState::chooseOperation:
             if(isAccountLoaded == false)
             {
                 isAccountLoaded = true;
@@ -281,26 +281,26 @@ void Widget::showCurrentScreen(WidgetViewProvider::ATMState state)
                 setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN","");
             }
             break;
-        case WidgetViewProvider::changePin:
+        case ATMState::changePin:
             setText("Podaj nowy czterocyfrowy PIN.","Cofnij","","","","Zatwierdź","","","");
             break;
-        case WidgetViewProvider::pinChanged:
+        case ATMState::pinChanged:
             field->setText("");
             setText("PIN został zmieniony.","Cofnij","","","","","","","");
             break;
-        case WidgetViewProvider::showAccountNumber:
+        case ATMState::showAccountNumber:
             field->setText(programCore->getAccountNumber());
             setText("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
             break;
-        case WidgetViewProvider::showBalance:
+        case ATMState::showBalance:
             field->setText(QString::number(programCore->getBalance(),'f',2) + " zł");
             setText("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
             break;
-        case WidgetViewProvider::withdrawMoney:
+        case ATMState::withdrawMoney:
             field->setText("");
             setText("Proszę wpisać żądaną ilość gotówki do wypłaty. Maksymalnie 3000 zł.","Cofnij","","","","Wypłać","","","");
             break;
-        case WidgetViewProvider::insertAmountOfMoney:
+        case ATMState::insertAmountOfMoney:
         {
             moneyButton->setEnabled(true);
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
@@ -309,11 +309,11 @@ void Widget::showCurrentScreen(WidgetViewProvider::ATMState state)
             showPayment(wyplata);;
             break;
         }
-        case WidgetViewProvider::noEnoughMoney:
+        case ATMState::noEnoughMoney:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
             setText("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
             break;
-        case WidgetViewProvider::removeCard:
+        case ATMState::removeCard:
             isCardLoaded = false;
             isAccountLoaded = false;
             field->setText("");
@@ -515,7 +515,7 @@ void Widget::buttonCardUsedPressed()
 {
     if(wait == false)
     {
-        if((programCore->getATMState() == WidgetViewProvider::insertCard) || (programCore->getATMState() == WidgetViewProvider::removeCard))
+        if((programCore->getATMState() == ATMState::insertCard) || (programCore->getATMState() == ATMState::removeCard))
         {
             programCore->cardUsed();
             showCurrentScreen(programCore->getATMState());
@@ -528,7 +528,7 @@ void Widget::cardDropped()
 {
     if(wait == false)
     {
-        if(programCore->getATMState() == WidgetViewProvider::insertCard)
+        if(programCore->getATMState() == ATMState::insertCard)
         {
             programCore->cardUsed(cardUsedButton->getDirectory());
             showCurrentScreen(programCore->getATMState());
@@ -541,7 +541,7 @@ void Widget::buttonMoneyPressed()
 {
     if(wait == false)
     {
-        if(programCore->getATMState() == WidgetViewProvider::insertAmountOfMoney)
+        if(programCore->getATMState() == ATMState::insertAmountOfMoney)
         {
             programCore->moneyReceived();
             clearPaymentTable();
@@ -556,11 +556,11 @@ void Widget::setValueField()
 {
     switch(programCore->getATMState())
     {
-    case WidgetViewProvider::insertPin:
-    case WidgetViewProvider::changePin:
+    case ATMState::insertPin:
+    case ATMState::changePin:
         field->setText(programCore->getHiddenValueField());
         break;
-    case WidgetViewProvider::withdrawMoney:
+    case ATMState::withdrawMoney:
         if(programCore->getValueField() != "")
         {
             field->setText(programCore->getValueField() + " zł");

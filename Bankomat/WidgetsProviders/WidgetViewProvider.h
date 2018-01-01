@@ -8,6 +8,7 @@
 #include "WidgetAbout.h"
 #include "WidgetAddAccount.h"
 #include "WidgetAddMoney.h"
+#include "ATMState.h"
 #include <QObject>
 #include <QTimer>
 #include <QString>
@@ -19,7 +20,6 @@ class WidgetViewProvider : public QObject
 public:
     explicit WidgetViewProvider(QObject *parent = 0);
     ~WidgetViewProvider();
-    enum ATMState {insertCard, noMoneyInATM, wrongCardFile, blockedCard, insertPin, wrongPin, chooseOperation, changePin, pinChanged, showAccountNumber, showBalance, insertAmountOfMoney, withdrawMoney, noEnoughMoney, removeCard};
 private:
     ATMState atmState; //Przechowuje obecny stan bankomatu
     QString valueField; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
