@@ -87,6 +87,7 @@ public:
     //----Tablica gdzie będzie wyświetlana wypłata----//
     QTableWidget *paymentTable;
 
+    //----Rdzeń programu----//
     WidgetViewProvider *programCore;
 
 public slots:
