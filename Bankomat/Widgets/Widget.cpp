@@ -595,9 +595,9 @@ void Widget::reset()
 }
 
 //----Ustawia etykiety tekstowe ekranu----//
-void Widget::setText(QString tytul, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH)
+void Widget::setText(QString title, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH)
 {
-    this->title->setText(tytul);
+    this->title->setText(title);
     optionA->setText(textA);
     optionB->setText(textB);
     optionC->setText(textC);
@@ -608,3 +608,15 @@ void Widget::setText(QString tytul, QString textA, QString textB, QString textC,
     optionH->setText(textH);
 }
 
+void Widget::setText(Screen *screen)
+{
+    this->title->setText(screen->getMainText());
+    optionA->setText(screen->getTextA());
+    optionB->setText(screen->getTextB());
+    optionC->setText(screen->getTextC());
+    optionD->setText(screen->getTextD());
+    optionE->setText(screen->getTextE());
+    optionF->setText(screen->getTextF());
+    optionG->setText(screen->getTextG());
+    optionH->setText(screen->getTextH());
+}

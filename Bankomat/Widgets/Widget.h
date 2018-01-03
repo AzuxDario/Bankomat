@@ -4,6 +4,7 @@
 #include "WidgetViewProvider.h"
 #include "DropButton.h"
 #include "ATMState.h"
+#include "Screen.h"
 #include <QWidget>
 #include <QTableWidget>
 #include <QPushButton>
@@ -132,6 +133,7 @@ public slots:
 
 private slots:
     void setText(QString title, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH); //Ustawia etykiety tekstowe ekranu
+    void setText(Screen *screen); //Ustawia etykiety tekstowe ekranu
     void closeEvent(QCloseEvent *) {qApp->quit();} //Zamyka program po zamknięciu głównego okna
 
 
