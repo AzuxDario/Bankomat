@@ -11,6 +11,7 @@ private:
     QMap<ATMState,Screen*> *map;
 public:
     ScreenHolder();
+    Screen* getScreen(ATMState state);
 };
 
 #endif // SCREENHOLDER_H
