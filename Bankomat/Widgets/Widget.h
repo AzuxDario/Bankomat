@@ -5,6 +5,7 @@
 #include "DropButton.h"
 #include "ATMState.h"
 #include "Screen.h"
+#include "ScreenHolder.h"
 #include <QWidget>
 #include <QTableWidget>
 #include <QPushButton>
@@ -90,6 +91,8 @@ public:
 
     //----Rdzeń programu----//
     WidgetViewProvider *programCore;
+
+    ScreenHolder screenHolder;
 
 public slots:
     void showWidgetAbout() {programCore->showWidgetAbout();} //Pokazuje okienko z informacjami o programie

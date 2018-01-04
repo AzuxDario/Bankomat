@@ -231,7 +231,7 @@ void Widget::showCurrentScreen(ATMState state)
             setText("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","","");
             break;
         case ATMState::noMoneyInATM:
-            setText("Przepraszamy bankomat nieczynny","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::noMoneyInATM));
             break;
         case ATMState::wrongCardFile:
             deactiveCardButton();
@@ -246,7 +246,7 @@ void Widget::showCurrentScreen(ATMState state)
                 isCardLoaded = true;
                 wait = true;
                 setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-                QTimer::singleShot(3000,([&](){setText("Podaj PIN","","","","","Zatwierdź","","",""); wait = false;}));
+                QTimer::singleShot(3000,([&](){setText(screenHolder.getScreen(ATMState::insertPin)); wait = false;}));
             }
             else
             {
