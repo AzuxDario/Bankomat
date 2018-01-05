@@ -228,7 +228,7 @@ void Widget::showCurrentScreen(ATMState state)
         {
         case ATMState::insertCard:
             activeCardButton();
-            setText("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::insertCard));
             break;
         case ATMState::noMoneyInATM:
             setText(screenHolder.getScreen(ATMState::noMoneyInATM));
@@ -237,7 +237,7 @@ void Widget::showCurrentScreen(ATMState state)
             deactiveCardButton();
             wait = true;
             setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-            QTimer::singleShot(3000,([&](){setText("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); wait = false;}));
+            QTimer::singleShot(3000,([&](){setText(screenHolder.getScreen(ATMState::wrongCardFile)); wait = false;}));
             break;
         case ATMState::insertPin:
             deactiveCardButton();
@@ -257,7 +257,7 @@ void Widget::showCurrentScreen(ATMState state)
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
             setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&](){setText("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
+            QTimer::singleShot(1500,([&](){setText(screenHolder.getScreen(ATMState::wrongPin)); wait = false;}));
             break;
         case ATMState::blockedCard:
             deactiveCardButton();
