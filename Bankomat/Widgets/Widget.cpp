@@ -250,7 +250,7 @@ void Widget::showCurrentScreen(ATMState state)
             }
             else
             {
-                setText("Podaj PIN","","","","","Zatwierdź","","","");
+                setText(screenHolder.getScreen(ATMState::insertPin));
             }
             break;
         case ATMState::wrongPin:
