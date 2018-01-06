@@ -8,6 +8,7 @@ ScreenHolder::ScreenHolder()
     map->insert(ATMState::wrongCardFile,new Screen("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""));
     map->insert(ATMState::insertPin,new Screen("Podaj PIN","","","","","Zatwierdź","","",""));
     map->insert(ATMState::wrongPin,new Screen("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""));
+    map->insert(ATMState::blockedCard,new Screen("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""));
 }
 
 Screen* ScreenHolder::getScreen(ATMState state)

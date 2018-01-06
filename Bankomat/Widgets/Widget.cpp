@@ -264,7 +264,7 @@ void Widget::showCurrentScreen(ATMState state)
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
             setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&]() {setText("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
+            QTimer::singleShot(1500,([&]() {setText(screenHolder.getScreen(ATMState::blockedCard)); wait = false;}));
             break;
         case ATMState::chooseOperation:
             if(isAccountLoaded == false)
