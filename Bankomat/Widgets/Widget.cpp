@@ -273,20 +273,20 @@ void Widget::showCurrentScreen(ATMState state)
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
                 wait = true;
                 setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-                QTimer::singleShot(1500,([&]() {setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); wait = false;}));
+                QTimer::singleShot(1500,([&]() {setText(screenHolder.getScreen(ATMState::chooseOperation)); wait = false;}));
             }
             else
             {
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
-                setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN","");
+                setText(screenHolder.getScreen(ATMState::chooseOperation));
             }
             break;
         case ATMState::changePin:
-            setText("Podaj nowy czterocyfrowy PIN.","Cofnij","","","","Zatwierdź","","","");
+            setText(screenHolder.getScreen(ATMState::changePin));
             break;
         case ATMState::pinChanged:
             field->setText("");
-            setText("PIN został zmieniony.","Cofnij","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::pinChanged));
             break;
         case ATMState::showAccountNumber:
             field->setText(programCore->getAccountNumber());
