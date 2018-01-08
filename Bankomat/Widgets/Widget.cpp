@@ -171,7 +171,7 @@ Widget::Widget(QWidget *parent) :
     paymentTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     //----Tworzenie obiektu rdzenia aplikacji----//
-    programCore = new CRdzen(this);
+    programCore = new WidgetViewProvider(this);
 
     //----Wyświetlenie obecnego ekranu dopasowanego do stanu bankomatu----//
     showCurrentScreen(programCore->getATMState());
@@ -219,124 +219,108 @@ Widget::~Widget()
 
 }
 
-//----Pokazuje okienko z informacjami o programie----//
-void Widget::showWidgetAbout()
-{
-    programCore->showWidgetAbout();
-}
-
-//----Wyświetla okienko gdzie można utworzyć konto do testów----//
-void Widget::showWidgetAddAccount()
-{
-    programCore->showWidgetAddAccount();
-}
-
-//----Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu----//
-void Widget::showWidgetAddMoney()
-{
-    programCore->showWidgetAddMoney();
-}
-
 //----Wyświetla odpowiedni ekran zależnie od stanu bankomatu----//
-void Widget::showCurrentScreen(CRdzen::ATMState state)
+void Widget::showCurrentScreen(ATMState state)
 {
     if(programCore->getIsATMStateChanged() == true)
     {
         switch(state)
         {
-        case CRdzen::insertCard:
+        case ATMState::insertCard:
             activeCardButton();
-            setText("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::insertCard));
             break;
-        case CRdzen::noMoneyInATM:
-            setText("Przepraszamy bankomat nieczynny","","","","","","","","");
+        case ATMState::noMoneyInATM:
+            setText(screenHolder.getScreen(ATMState::noMoneyInATM));
             break;
-        case CRdzen::wrongCardFile:
+        case ATMState::wrongCardFile:
             deactiveCardButton();
             wait = true;
-            setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-            QTimer::singleShot(3000,([&](){setText("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""); wait = false;}));
+            setText(screenHolder.getScreen(ATMState::readingCard));
+            QTimer::singleShot(3000,([&](){setText(screenHolder.getScreen(ATMState::wrongCardFile)); wait = false;}));
             break;
-        case CRdzen::insertPin:
+        case ATMState::insertPin:
             deactiveCardButton();
             if(isCardLoaded == false)
             {
                 isCardLoaded = true;
                 wait = true;
-                setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
-                QTimer::singleShot(3000,([&](){setText("Podaj PIN","","","","","Zatwierdź","","",""); wait = false;}));
+                setText(screenHolder.getScreen(ATMState::readingCard));
+                QTimer::singleShot(3000,([&](){setText(screenHolder.getScreen(ATMState::insertPin)); wait = false;}));
             }
             else
             {
-                setText("Podaj PIN","","","","","Zatwierdź","","","");
+                setText(screenHolder.getScreen(ATMState::insertPin));
             }
             break;
-        case CRdzen::wrongPin:
+        case ATMState::wrongPin:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
-            setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&](){setText("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""); wait = false;}));
+            setText(screenHolder.getScreen(ATMState::checkingPin));
+            QTimer::singleShot(1500,([&](){setText(screenHolder.getScreen(ATMState::wrongPin)); wait = false;}));
             break;
-        case CRdzen::blockedCard:
+        case ATMState::blockedCard:
             deactiveCardButton();
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
-            setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-            QTimer::singleShot(1500,([&]() {setText("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""); wait = false;}));
+            setText(screenHolder.getScreen(ATMState::checkingPin));
+            QTimer::singleShot(1500,([&]() {setText(screenHolder.getScreen(ATMState::blockedCard)); wait = false;}));
             break;
-        case CRdzen::chooseOperation:
+        case ATMState::chooseOperation:
             if(isAccountLoaded == false)
             {
                 isAccountLoaded = true;
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
                 wait = true;
-                setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
-                QTimer::singleShot(1500,([&]() {setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""); wait = false;}));
+                setText(screenHolder.getScreen(ATMState::checkingPin));
+                QTimer::singleShot(1500,([&]() {setText(screenHolder.getScreen(ATMState::chooseOperation)); wait = false;}));
             }
             else
             {
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
-                setText("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN","");
+                setText(screenHolder.getScreen(ATMState::chooseOperation));
             }
             break;
-        case CRdzen::changePin:
-            setText("Podaj nowy czterocyfrowy PIN.","Cofnij","","","","Zatwierdź","","","");
+        case ATMState::changePin:
+            setText(screenHolder.getScreen(ATMState::changePin));
             break;
-        case CRdzen::pinChanged:
+        case ATMState::pinChanged:
             field->setText("");
-            setText("PIN został zmieniony.","Cofnij","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::pinChanged));
             break;
-        case CRdzen::showAccountNumber:
+        case ATMState::showAccountNumber:
             field->setText(programCore->getAccountNumber());
-            setText("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
+            setText(screenHolder.getScreen(ATMState::showAccountNumber));
             break;
-        case CRdzen::showBalance:
+        case ATMState::showBalance:
             field->setText(QString::number(programCore->getBalance(),'f',2) + " zł");
-            setText("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
+            setText(screenHolder.getScreen(ATMState::showBalance));
             break;
-        case CRdzen::withdrawMoney:
+        case ATMState::withdrawMoney:
             field->setText("");
-            setText("Proszę wpisać żądaną ilość gotówki do wypłaty. Maksymalnie 3000 zł.","Cofnij","","","","Wypłać","","","");
+            setText(screenHolder.getScreen(ATMState::withdrawMoney));
             break;
-        case CRdzen::insertAmountOfMoney:
+        case ATMState::insertAmountOfMoney:
         {
             moneyButton->setEnabled(true);
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
-            setText("Proszę odebrać pieniądze..","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::insertAmountOfMoney));
             QVector<int> wyplata = programCore->getMoney();
             showPayment(wyplata);;
             break;
         }
-        case CRdzen::noEnoughMoney:
+        case ATMState::noEnoughMoney:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
-            setText("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::noEnoughMoney));
             break;
-        case CRdzen::removeCard:
+        case ATMState::removeCard:
             isCardLoaded = false;
             isAccountLoaded = false;
             field->setText("");
             activeCardButton();
-            setText("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::removeCard));
+            break;
+        default:
             break;
         }
     }
@@ -533,7 +517,7 @@ void Widget::buttonCardUsedPressed()
 {
     if(wait == false)
     {
-        if((programCore->getATMState() == CRdzen::insertCard) || (programCore->getATMState() == CRdzen::removeCard))
+        if((programCore->getATMState() == ATMState::insertCard) || (programCore->getATMState() == ATMState::removeCard))
         {
             programCore->cardUsed();
             showCurrentScreen(programCore->getATMState());
@@ -546,7 +530,7 @@ void Widget::cardDropped()
 {
     if(wait == false)
     {
-        if(programCore->getATMState() == CRdzen::insertCard)
+        if(programCore->getATMState() == ATMState::insertCard)
         {
             programCore->cardUsed(cardUsedButton->getDirectory());
             showCurrentScreen(programCore->getATMState());
@@ -559,7 +543,7 @@ void Widget::buttonMoneyPressed()
 {
     if(wait == false)
     {
-        if(programCore->getATMState() == CRdzen::insertAmountOfMoney)
+        if(programCore->getATMState() == ATMState::insertAmountOfMoney)
         {
             programCore->moneyReceived();
             clearPaymentTable();
@@ -574,11 +558,11 @@ void Widget::setValueField()
 {
     switch(programCore->getATMState())
     {
-    case CRdzen::insertPin:
-    case CRdzen::changePin:
+    case ATMState::insertPin:
+    case ATMState::changePin:
         field->setText(programCore->getHiddenValueField());
         break;
-    case CRdzen::withdrawMoney:
+    case ATMState::withdrawMoney:
         if(programCore->getValueField() != "")
         {
             field->setText(programCore->getValueField() + " zł");
@@ -613,9 +597,9 @@ void Widget::reset()
 }
 
 //----Ustawia etykiety tekstowe ekranu----//
-void Widget::setText(QString tytul, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH)
+void Widget::setText(QString title, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH)
 {
-    this->title->setText(tytul);
+    this->title->setText(title);
     optionA->setText(textA);
     optionB->setText(textB);
     optionC->setText(textC);
@@ -626,8 +610,15 @@ void Widget::setText(QString tytul, QString textA, QString textB, QString textC,
     optionH->setText(textH);
 }
 
-//--------Zamyka program po zamknięciu głównego okna--------//
-void Widget::closeEvent(QCloseEvent *)
+void Widget::setText(Screen *screen)
 {
-    qApp->quit();
+    this->title->setText(screen->getMainText());
+    optionA->setText(screen->getTextA());
+    optionB->setText(screen->getTextB());
+    optionC->setText(screen->getTextC());
+    optionD->setText(screen->getTextD());
+    optionE->setText(screen->getTextE());
+    optionF->setText(screen->getTextF());
+    optionG->setText(screen->getTextG());
+    optionH->setText(screen->getTextH());
 }

@@ -8,18 +8,18 @@
 #include "WidgetAbout.h"
 #include "WidgetAddAccount.h"
 #include "WidgetAddMoney.h"
+#include "ATMState.h"
 #include <QObject>
 #include <QTimer>
 #include <QString>
 #include <QTimer>
 
-class CRdzen : public QObject
+class WidgetViewProvider : public QObject
 {
     Q_OBJECT
 public:
-    explicit CRdzen(QObject *parent = 0);
-    ~CRdzen();
-    enum ATMState {insertCard, noMoneyInATM, wrongCardFile, blockedCard, insertPin, wrongPin, chooseOperation, changePin, pinChanged, showAccountNumber, showBalance, insertAmountOfMoney, withdrawMoney, noEnoughMoney, removeCard};
+    explicit WidgetViewProvider(QObject *parent = 0);
+    ~WidgetViewProvider();
 private:
     ATMState atmState; //Przechowuje obecny stan bankomatu
     QString valueField; //Pole zawierające obecnie wpisany pin lub kwotę do wypłaty
@@ -27,7 +27,7 @@ private:
     Account *account;
     MoneyDispenser *moneyDispenser; //Obiekt zajmujący się wypłacaniem pieniędzy
     MoneyBox *moneyBox;
-    bool isATMStateChenged; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
+    bool isATMStateChanged; //Zmienna przyjmująca wartość true, jeżeli klilnięcie przycisku spowodowało zmianę stanu bankomatu
 
     //----Zmienne wskazujące na okna----//
     WidgetAbout *widgetAbout;

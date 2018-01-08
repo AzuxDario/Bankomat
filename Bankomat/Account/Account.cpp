@@ -11,55 +11,6 @@ Account::Account(QString numerKonta)
     readAccount();
 }
 
-//--------Gettery--------//
-QString Account::getName()
-{
-    return name;
-}
-
-QString Account::getSurname()
-{
-    return surname;
-}
-
-QString Account::getAccountNumber()
-{
-    return accountNumber;
-}
-
-double Account::getBalance()
-{
-    return balance;
-}
-
-//--------Settery--------//
-void Account::setName(QString value)
-{
-    name = value;
-}
-
-void Account::setSurname(QString value)
-{
-    surname = value;
-}
-
-void Account::setAccountNumber(QString value)
-{
-    accountNumber = value;
-}
-
-void Account::setBalance(double value)
-{
-    balance = value;
-}
-
-//----Pobiera kwotę z konta----//
-void Account::withdraw(double amount)
-{
-    balance -= amount;
-    writeAccount();
-}
-
 //----Odczytuje plik konta z dysku----//
 bool Account::readAccount()
 {

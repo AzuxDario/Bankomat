@@ -3,6 +3,9 @@
 
 #include "WidgetViewProvider.h"
 #include "DropButton.h"
+#include "ATMState.h"
+#include "Screen.h"
+#include "ScreenHolder.h"
 #include <QWidget>
 #include <QTableWidget>
 #include <QPushButton>
@@ -86,14 +89,16 @@ public:
     //----Tablica gdzie będzie wyświetlana wypłata----//
     QTableWidget *paymentTable;
 
-    //----Rdzen----//
-    CRdzen *programCore;
+    //----Rdzeń programu----//
+    WidgetViewProvider *programCore;
+
+    ScreenHolder screenHolder;
 
 public slots:
-    void showWidgetAbout(); //Pokazuje okienko z informacjami o programie
-    void showWidgetAddAccount(); //Wyświetla okienko gdzie można utworzyć konto do testów
-    void showWidgetAddMoney(); //Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu
-    void showCurrentScreen(CRdzen::ATMState state); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
+    void showWidgetAbout() {programCore->showWidgetAbout();} //Pokazuje okienko z informacjami o programie
+    void showWidgetAddAccount() {programCore->showWidgetAddAccount();} //Wyświetla okienko gdzie można utworzyć konto do testów
+    void showWidgetAddMoney() {programCore->showWidgetAddMoney();} //Pokazuje okienko gdzie można dołożyć pieniądze do bankomatu
+    void showCurrentScreen(ATMState state); //Wyświetla odpowiedni ekran zależnie od stanu bankomatu
     void showPayment(QVector<int> money); //Wyświetla wypłacone pieniądze w elemencie QTableWidget
     void clearPaymentTable(); //Czyści tablice QTableWidget
 
@@ -131,7 +136,8 @@ public slots:
 
 private slots:
     void setText(QString title, QString textA, QString textB, QString textC, QString textD, QString textE, QString textF, QString textG, QString textH); //Ustawia etykiety tekstowe ekranu
-    void closeEvent(QCloseEvent *); //Zamyka program po zamknięciu głównego okna
+    void setText(Screen *screen); //Ustawia etykiety tekstowe ekranu
+    void closeEvent(QCloseEvent *) {qApp->quit();} //Zamyka program po zamknięciu głównego okna
 
 
 

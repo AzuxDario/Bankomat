@@ -18,18 +18,18 @@ public:
     Account(QString accountNumber);
 
     //----Gettery----//
-    QString getName();
-    QString getSurname();
-    QString getAccountNumber();
-    double getBalance();
+    QString getName() {return name;}
+    QString getSurname() {return surname;}
+    QString getAccountNumber() {return accountNumber;}
+    double getBalance() {return balance;}
 
     //----Settery----//
-    void setName(QString value);
-    void setSurname(QString value);
-    void setAccountNumber(QString value);
-    void setBalance(double value);
+    void setName(QString value) {name = value;}
+    void setSurname(QString value) {surname = value;}
+    void setAccountNumber(QString value) {accountNumber = value;}
+    void setBalance(double value) {balance = value;}
 
-    void withdraw(double amount); //Pobiera kwotę z konta
+    void withdraw(double amount) {balance -= amount; writeAccount();}//Pobiera kwotę z konta
 
     bool readAccount(); //Odczytuje plik konta z dysku
     bool writeAccount(); //Zapisuje plik konta na dysku

@@ -19,11 +19,11 @@ private:
 
 public:
     //----Getter-----//
-    QString getDirectory();
+    QString getDirectory() {return directory;}
 
 public slots:
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event) {event->acceptProposedAction();}
+    void dragMoveEvent(QDragMoveEvent *event) {event->acceptProposedAction();}
     void dropEvent(QDropEvent *event);
 };
 

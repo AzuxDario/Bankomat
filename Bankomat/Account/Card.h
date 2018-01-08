@@ -22,25 +22,25 @@ public:
     enum CardState {readCard, brokenCard, noCard};
 
     //----Gettery----//
-    QString getCardNumber();
-    bool getIsCardBlocked();
-    int getPin();
-    QString getAccountNumber();
-    QString getCardFilePath();
+    QString getCardNumber() {return cardNumber;}
+    bool getIsCardBlocked() {return isCardBlocked;}
+    int getPin() {return pin;}
+    QString getAccountNumber() {return accountNumber;}
+    QString getCardFilePath() {return cardFilePath;}
 
     //----Settery----//
-    void setCardNumber(QString value);
-    void setIsCardBlocked(bool value);
-    void setPin(int value);
-    void setAccountNumber(QString value);
-    void setCardFilePath(QString value);
+    void setCardNumber(QString value) {cardNumber = value;}
+    void setIsCardBlocked(bool value) {isCardBlocked = value;}
+    void setPin(int value) {pin = value;}
+    void setAccountNumber(QString value) {accountNumber = value;}
+    void setCardFilePath(QString value) {cardFilePath = value;}
 
     CardState readCardFile(QString sourceFile = ""); //Czyta karte z dysku
     bool saveCardFile(); //Zapisuje kartę na dysk
     bool checkPin(int value); //Sprawdza pin
 
 private:
-    void blockCard(bool value); //Funkcja blokująca kartę po trzech nieudanych próbach sprawdzenia pinu
+    void blockCard(bool value) {isCardBlocked = value;} //Funkcja blokująca kartę po trzech nieudanych próbach sprawdzenia pinu
 
 };
 

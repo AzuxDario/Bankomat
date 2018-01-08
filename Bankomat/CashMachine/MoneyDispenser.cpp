@@ -1,8 +1,8 @@
 #include "MoneyDispenser.h"
 
-MoneyDispenser::MoneyDispenser(MoneyBox *kaseta)
+MoneyDispenser::MoneyDispenser(MoneyBox *moneyBox)
 {
-    this->moneyBox = kaseta;
+    this->moneyBox = moneyBox;
     valueOfDenominations[0] = 800;
     valueOfDenominations[1] = 600;
     valueOfDenominations[2] = 400;
@@ -14,11 +14,6 @@ MoneyDispenser::MoneyDispenser(MoneyBox *kaseta)
     valueOfDenominations[9] = 0;
 }
 
-//--------Gettery--------//
-QVector<int> MoneyDispenser::getLastPayment()
-{
-    return lastPayment;
-}
 
 //----Sprawdza czy w bankomacie jest wystarczająca ilośc gotówki----//
 bool MoneyDispenser::isEnoughCash()
