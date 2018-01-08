@@ -4,9 +4,11 @@ ScreenHolder::ScreenHolder()
 {
     map = new QMap<ATMState,Screen*>();
     map->insert(ATMState::insertCard,new Screen("Witaj w bankomacie. Proszę włożyć kartę.","","","","","","","",""));
+    map->insert(ATMState::readingCard,new Screen("Trwa odczyt danych z karty proszę czekać...","","","","","","","",""));
     map->insert(ATMState::noMoneyInATM,new Screen("Przepraszamy bankomat nieczynny","","","","","","","",""));
     map->insert(ATMState::wrongCardFile,new Screen("Nie można odczytać danych z karty upewnij się, że karta nie jest nieuszkodzona.","Cofnij","","","","","","",""));
     map->insert(ATMState::insertPin,new Screen("Podaj PIN","","","","","Zatwierdź","","",""));
+    map->insert(ATMState::checkingPin,new Screen("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","",""));
     map->insert(ATMState::wrongPin,new Screen("Pin niepoprawny spróbuj jeszcze raz.","Cofnij","","","","","","",""));
     map->insert(ATMState::blockedCard,new Screen("Z uwagi na trzykrotnie złe wpisanie PINu karta została zablokowana.","Cofnij","","","","","","",""));
     map->insert(ATMState::chooseOperation,new Screen("Proszę wybrać operację","Wyjmij kartę","Pok. nr. konta","","","Saldo","Wypłata","Zmień PIN",""));

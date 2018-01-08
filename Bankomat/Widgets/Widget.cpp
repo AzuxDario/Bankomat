@@ -236,7 +236,7 @@ void Widget::showCurrentScreen(ATMState state)
         case ATMState::wrongCardFile:
             deactiveCardButton();
             wait = true;
-            setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::readingCard));
             QTimer::singleShot(3000,([&](){setText(screenHolder.getScreen(ATMState::wrongCardFile)); wait = false;}));
             break;
         case ATMState::insertPin:
@@ -245,7 +245,7 @@ void Widget::showCurrentScreen(ATMState state)
             {
                 isCardLoaded = true;
                 wait = true;
-                setText("Trwa odczyt danych z karty proszę czekać...","","","","","","","","");
+                setText(screenHolder.getScreen(ATMState::readingCard));
                 QTimer::singleShot(3000,([&](){setText(screenHolder.getScreen(ATMState::insertPin)); wait = false;}));
             }
             else
@@ -256,14 +256,14 @@ void Widget::showCurrentScreen(ATMState state)
         case ATMState::wrongPin:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
-            setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::checkingPin));
             QTimer::singleShot(1500,([&](){setText(screenHolder.getScreen(ATMState::wrongPin)); wait = false;}));
             break;
         case ATMState::blockedCard:
             deactiveCardButton();
             field->setText(""); //Usunięcie wprowadzonego PINu z pola po niepoprawnym wprowadzdeniu
             wait = true;
-            setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::checkingPin));
             QTimer::singleShot(1500,([&]() {setText(screenHolder.getScreen(ATMState::blockedCard)); wait = false;}));
             break;
         case ATMState::chooseOperation:
@@ -272,7 +272,7 @@ void Widget::showCurrentScreen(ATMState state)
                 isAccountLoaded = true;
                 field->setText(""); //Usunięcie wprowadzonego PINu z pola
                 wait = true;
-                setText("Trwa sprawdzanie poprawności PINu, proszę czekać...","","","","","","","","");
+                setText(screenHolder.getScreen(ATMState::checkingPin));
                 QTimer::singleShot(1500,([&]() {setText(screenHolder.getScreen(ATMState::chooseOperation)); wait = false;}));
             }
             else
@@ -319,6 +319,8 @@ void Widget::showCurrentScreen(ATMState state)
             field->setText("");
             activeCardButton();
             setText(screenHolder.getScreen(ATMState::removeCard));
+            break;
+        default:
             break;
         }
     }
