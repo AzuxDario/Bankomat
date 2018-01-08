@@ -290,35 +290,35 @@ void Widget::showCurrentScreen(ATMState state)
             break;
         case ATMState::showAccountNumber:
             field->setText(programCore->getAccountNumber());
-            setText("Oto numer twojego konta","","Cofnij","","","","Wyjmij kartę","","");
+            setText(screenHolder.getScreen(ATMState::showAccountNumber));
             break;
         case ATMState::showBalance:
             field->setText(QString::number(programCore->getBalance(),'f',2) + " zł");
-            setText("Stan twojego konta wynosi:","Wyjmij kartę","","","","Cofnij","Wypłata","","");
+            setText(screenHolder.getScreen(ATMState::showBalance));
             break;
         case ATMState::withdrawMoney:
             field->setText("");
-            setText("Proszę wpisać żądaną ilość gotówki do wypłaty. Maksymalnie 3000 zł.","Cofnij","","","","Wypłać","","","");
+            setText(screenHolder.getScreen(ATMState::withdrawMoney));
             break;
         case ATMState::insertAmountOfMoney:
         {
             moneyButton->setEnabled(true);
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
-            setText("Proszę odebrać pieniądze..","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::insertAmountOfMoney));
             QVector<int> wyplata = programCore->getMoney();
             showPayment(wyplata);;
             break;
         }
         case ATMState::noEnoughMoney:
             field->setText(""); //Usunięcie wprowadzonego PINu z pola
-            setText("Nie masz wystarczającej ilości środków na koncie","Cofnij","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::noEnoughMoney));
             break;
         case ATMState::removeCard:
             isCardLoaded = false;
             isAccountLoaded = false;
             field->setText("");
             activeCardButton();
-            setText("Dziękujemy za skorzystanie z naszego bankomatu. Proszę odebreć kartę.","","","","","","","","");
+            setText(screenHolder.getScreen(ATMState::removeCard));
             break;
         }
     }
