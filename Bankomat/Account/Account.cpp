@@ -38,6 +38,7 @@ bool Account::readAccount()
 bool Account::writeAccount()
 {
     QString path = "";
+    //TODO jeżeli folder accounts nie istnieje plik nie jest zapisywany
     QFile accountFile(path + "accounts" + QDir::separator() + accountNumber + ".acc");
     if(accountNumber.isNull() == false)
     {
