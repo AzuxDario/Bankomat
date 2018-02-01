@@ -3,15 +3,15 @@
 MoneyDispenser::MoneyDispenser(MoneyBox *moneyBox)
 {
     this->moneyBox = moneyBox;
-    valueOfDenominations[0] = 800;
-    valueOfDenominations[1] = 600;
-    valueOfDenominations[2] = 400;
-    valueOfDenominations[4] = 300;
-    valueOfDenominations[5] = 200;
-    valueOfDenominations[6] = 150;
-    valueOfDenominations[7] = 100;
-    valueOfDenominations[8] = 50;
-    valueOfDenominations[9] = 0;
+    levelOfDenominations[0] = 800;
+    levelOfDenominations[1] = 600;
+    levelOfDenominations[2] = 400;
+    levelOfDenominations[4] = 300;
+    levelOfDenominations[5] = 200;
+    levelOfDenominations[6] = 150;
+    levelOfDenominations[7] = 100;
+    levelOfDenominations[8] = 50;
+    levelOfDenominations[9] = 0;
 }
 
 
@@ -55,7 +55,7 @@ void MoneyDispenser::withdrawMoney(int amount)
     {
         for(int i = 0; i < numberOfDenominations.count(); i++) //Petla przechodzaca po wszystkich nominalach
         {
-            while(numberOfDenominations[i] > valueOfDenominations[j]) //Wypłać najpierw nominałami, których poziom jest wysoki
+            while(numberOfDenominations[i] > levelOfDenominations[j]) //Wypłać najpierw nominałami, których poziom jest wysoki
             {
                 if(remainAmount == 0) //Jeżeli pozostała do wypłacenia kwota jest równa zero to zakończ pętle
                 {

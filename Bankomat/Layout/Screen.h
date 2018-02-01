@@ -31,13 +31,13 @@ public:
     void setTextH(QString value) {textH = value;}
     QString getMainText() {return mainText;}
     QString getTextA() {return textA;}
-    QString getTextB() {return textA;}
-    QString getTextC() {return textA;}
-    QString getTextD() {return textA;}
-    QString getTextE() {return textA;}
-    QString getTextF() {return textA;}
-    QString getTextG() {return textA;}
-    QString getTextH() {return textA;}
+    QString getTextB() {return textB;}
+    QString getTextC() {return textC;}
+    QString getTextD() {return textD;}
+    QString getTextE() {return textE;}
+    QString getTextF() {return textF;}
+    QString getTextG() {return textG;}
+    QString getTextH() {return textH;}
 };
 
 #endif // SCREEN_H
