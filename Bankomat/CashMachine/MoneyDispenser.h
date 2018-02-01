@@ -9,7 +9,7 @@ class MoneyDispenser
 private:
     MoneyBox *moneyBox;
     QVector<int> lastPayment;
-    int valueOfDenominations[10];
+    int levelOfDenominations[10];
 public:
     enum PaymentResult {NoFunds, PaidMoney};
 public:
