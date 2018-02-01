@@ -198,7 +198,7 @@ Widget::Widget(QWidget *parent) :
     connect(button7,SIGNAL(clicked(bool)),this,SLOT(button7Pressed()));
     connect(button8,SIGNAL(clicked(bool)),this,SLOT(button8Pressed()));
     connect(button9,SIGNAL(clicked(bool)),this,SLOT(button9Pressed()));
-    connect(button0,SIGNAL(clicked(bool)),this,SLOT(button9Pressed()));
+    connect(button0,SIGNAL(clicked(bool)),this,SLOT(button0Pressed()));
     connect(buttonReturn,SIGNAL(clicked(bool)),this,SLOT(buttonUndoPressed()));
 
     //--------Akcje--------//
